@@ -32,11 +32,13 @@ PREREQ_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
+    'django_countries',
 ]
 
 PROJECT_APPS = [
     'core',
     'media',
+    'events',
     'login',
 ]
 
@@ -136,3 +138,11 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+COUNTRIES_ONLY = [
+    'AD', 'AL', 'AM', 'AT', 'AU', 'AZ', 'BA', 'BE', 'BG', 'BY', 'CH', 'CY',
+    'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GB', 'GE', 'GR', 'HR', 'HU',
+    'IE', 'IL', 'IS', 'IT', 'LT', 'LU', 'LV', 'MA', 'MC', 'MD', 'ME', 'MK',
+    'MT', 'NL', 'NO', 'PL', 'PT', 'RO', 'RS', 'RU', 'SE', 'SI', 'SK', 'SM',
+    'TR', 'UA'
+]
