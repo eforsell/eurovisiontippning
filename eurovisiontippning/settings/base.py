@@ -36,6 +36,7 @@ PREREQ_APPS = [
 
 PROJECT_APPS = [
     'core',
+    'media',
     'login',
 ]
 
