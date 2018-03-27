@@ -3,18 +3,6 @@ from django_countries.fields import CountryField
 
 from media.models import Song
 
-COMPETITION_TYPE_DICT = {
-    'SEMI1': 1,
-    'SEMI2': 2,
-    'FINAL': 3,
-}
-
-COMPETITION_TYPES = [
-    (COMPETITION_TYPE_DICT['SEMI1'], 'Semifinal 1'),
-    (COMPETITION_TYPE_DICT['SEMI1'], 'Semifinal 2'),
-    (COMPETITION_TYPE_DICT['FINAL'], 'Grand final'),
-]
-
 
 class Event(models.Model):
     description = models.TextField(blank=True, default='')
@@ -28,26 +16,34 @@ class Event(models.Model):
 
     def __str__(self):
         return '%s %s' % (self.city_name,
-                               self.start_date.year)
+                          self.start_date.year)
 
 
-class Competition(models.Model):
-    competition_type = models.IntegerField(choices=COMPETITION_TYPES,
-                                           default=1)
+class Contest(models.Model):
     event = models.ForeignKey(Event,
                               on_delete=models.CASCADE)
     start_time = models.DateTimeField()
 
     published = models.BooleanField(default=False)
 
-    def __str__(self):
-        return self.get_competition_type_display()
-
     def complete_start_order(self):
-        incomplete_count = (self.competitionentry_set
+        incomplete_count = (self.entryscore_set
                                 .filter(start_order__isnull=True)
                                 .count())
         return incomplete_count == 0
+
+
+class Final(Contest):
+    def __str__(self):
+        return "Final - %s" % (str(self.event))
+
+
+class SemiFinal(Contest):
+    order = models.PositiveIntegerField()
+    progression_count = models.PositiveIntegerField()
+
+    def __str__(self):
+        return "Semifinal %s - %s" % (self.order, str(self.event))
 
 
 class Entry(models.Model):
@@ -67,9 +63,12 @@ class Entry(models.Model):
 class EntryScore(models.Model):
     entry = models.ForeignKey(Entry,
                               on_delete=models.CASCADE)
-    competition = models.ForeignKey(Competition,
-                                    on_delete=models.CASCADE)
+    contest = models.ForeignKey(Contest,
+                                on_delete=models.CASCADE)
 
     start_order = models.PositiveIntegerField(blank=True, null=True)
     points = models.PositiveIntegerField(blank=True, null=True)
     rank = models.PositiveIntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return "Score for %s" % (str(self.entry))
