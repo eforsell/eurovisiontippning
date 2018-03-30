@@ -46,29 +46,46 @@ class SemiFinal(Contest):
         return "Semifinal %s - %s" % (self.order, str(self.event))
 
 
-class Entry(models.Model):
+class Participant(models.Model):
     event = models.ForeignKey(Event,
                               on_delete=models.CASCADE)
     country = CountryField()
     song = models.ForeignKey(Song,
                              on_delete=models.CASCADE)
 
-    class Meta:
-        verbose_name_plural = "entries"
-
     def __str__(self):
         return '%s - %s' % (self.country, self.event)
 
 
-class EntryScore(models.Model):
-    entry = models.ForeignKey(Entry,
-                              on_delete=models.CASCADE)
-    contest = models.ForeignKey(Contest,
-                                on_delete=models.CASCADE)
+class Entry(models.Model):
+    participant = models.ForeignKey(Participant,
+                                    on_delete=models.CASCADE)
 
     start_order = models.PositiveIntegerField(blank=True, null=True)
     points = models.PositiveIntegerField(blank=True, null=True)
     rank = models.PositiveIntegerField(blank=True, null=True)
 
     def __str__(self):
-        return "Score for %s" % (str(self.entry))
+        return "Score for %s" % (str(self.participant))
+
+
+class FinalEntry(Entry):
+    contest = models.ForeignKey(Final,
+                                on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = "final entries"
+
+    def __str__(self):
+        return "%s - %s" % (self.participant, self.contest)
+
+
+class SemiEntry(Entry):
+    contest = models.ForeignKey(SemiFinal,
+                                on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = "semi entries"
+
+    def __str__(self):
+        return "%s - %s" % (self.participant, self.contest)

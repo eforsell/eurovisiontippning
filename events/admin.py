@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Event, Final, SemiFinal, Entry, EntryScore
+from .models import Event, Final, SemiFinal, Participant, FinalEntry, SemiEntry
 
 
 @admin.register(Event)
@@ -32,8 +32,8 @@ class SemiFinalAdmin(admin.ModelAdmin):
         return obj.start_time.year
 
 
-@admin.register(Entry)
-class EntryAdmin(admin.ModelAdmin):
+@admin.register(Participant)
+class ParticipantAdmin(admin.ModelAdmin):
     list_display = ['song', 'artist', 'country', 'event']
     list_filter = ['country']
 
@@ -41,9 +41,17 @@ class EntryAdmin(admin.ModelAdmin):
         return obj.song.artist
 
 
-@admin.register(EntryScore)
-class EntryScoreAdmin(admin.ModelAdmin):
-    list_display = ['entry', 'contest', 'start_order', 'points', 'rank']
+@admin.register(FinalEntry)
+class FinalEntryAdmin(admin.ModelAdmin):
+    list_display = ['participant', 'contest', 'start_order', 'points', 'rank']
+
+    def artist(self, obj):
+        return obj.song.artist
+
+
+@admin.register(SemiEntry)
+class FinalEntryAdmin(admin.ModelAdmin):
+    list_display = ['participant', 'contest', 'start_order', 'points', 'rank']
 
     def artist(self, obj):
         return obj.song.artist
