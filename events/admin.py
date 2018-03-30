@@ -35,7 +35,7 @@ class SemiFinalAdmin(admin.ModelAdmin):
 @admin.register(Participant)
 class ParticipantAdmin(admin.ModelAdmin):
     list_display = ['song', 'artist', 'country', 'event']
-    list_filter = ['country']
+    list_filter = ['country', 'event']
 
     def artist(self, obj):
         return obj.song.artist
@@ -44,14 +44,16 @@ class ParticipantAdmin(admin.ModelAdmin):
 @admin.register(FinalEntry)
 class FinalEntryAdmin(admin.ModelAdmin):
     list_display = ['participant', 'contest', 'start_order', 'points', 'rank']
+    list_filter = ['contest']
 
     def artist(self, obj):
         return obj.song.artist
 
 
 @admin.register(SemiEntry)
-class FinalEntryAdmin(admin.ModelAdmin):
+class SemiEntryAdmin(admin.ModelAdmin):
     list_display = ['participant', 'contest', 'start_order', 'points', 'rank']
+    list_filter = ['contest']
 
     def artist(self, obj):
         return obj.song.artist

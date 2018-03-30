@@ -65,9 +65,6 @@ class Entry(models.Model):
     points = models.PositiveIntegerField(blank=True, null=True)
     rank = models.PositiveIntegerField(blank=True, null=True)
 
-    def __str__(self):
-        return "Score for %s" % (str(self.participant))
-
 
 class FinalEntry(Entry):
     contest = models.ForeignKey(Final,

@@ -39,6 +39,7 @@ PROJECT_APPS = [
     'core',
     'media',
     'events',
+    'tippning',
     'login',
 ]
 
