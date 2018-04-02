@@ -71,6 +71,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
+                'django.template.context_processors.static',
             ],
         },
     },
@@ -146,4 +147,9 @@ COUNTRIES_ONLY = [
     'IE', 'IL', 'IS', 'IT', 'LT', 'LU', 'LV', 'MA', 'MC', 'MD', 'ME', 'MK',
     'MT', 'NL', 'NO', 'PL', 'PT', 'RO', 'RS', 'RU', 'SE', 'SI', 'SK', 'SM',
     'TR', 'UA'
+]
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    '/static/',
 ]

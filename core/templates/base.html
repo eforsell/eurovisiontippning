@@ -1,3 +1,5 @@
+{% load static %}
+
 {# HTML5 declaration #}
 <!DOCTYPE html>
 <html>
@@ -6,7 +8,7 @@
         <title>{% block title %}Home{% endblock title %} - Eurovisiontippning</title>
         {% block head_favicon %}
             <link rel="icon" type="image/png"
-                  href="{{ STATIC_URL }}images/favicon.ico">
+                  href="{% static 'images/favicon.ico' %}">
         {% endblock head_favicon %}
         {% block head_meta %}
             {% block head_meta_charset %}
@@ -23,61 +25,40 @@
         {% endblock head_meta %}
         {% block head_css %}
             {% block head_css_site %}
-                <link href="{{ STATIC_URL }}css/bootstrap.min.css"
-                      rel="stylesheet" media="screen">
-                <link href="{{ STATIC_URL }}css/app.css"
+                <link href="{% static 'bootstrap-4.0.0-dist/css/bootstrap.min.css' %}"
                       rel="stylesheet" media="screen">
             {% endblock head_css_site %}
             {% block head_css_section %}{% endblock head_css_section %}
             {% block head_css_page %}{% endblock head_css_page %}
         {% endblock head_css %}
+        {% block head_js %}
+            <script defer src="{% static 'fontawesome-free-5.0.9/svg-with-js/js/fontawesome-all.js' %}"></script>
+        {% endblock head_js %}
     </head>
     <body>
         {# Navigation Menu #}
-        <header>
-            <div class="navbar navbar-default navbar-static-top
-            {% block nav-style %}{% endblock %}">
-                <div class="container p-none">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle"
-                                data-toggle="collapse"
-                                data-target=".navbar-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="/">CRM Easy</a>
-                    </div>
-                    <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav navbar-right">
-                            {% if user.is_authenticated %}
-                                <li><a href="{% url 'logout' %}">Logout</a></li>
-                            {% else %}
-                                <li><a href="{% url 'login' %}">Login</a></li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </header>
+        {% include "includes/navbar.html" %}
+
         {# The Document Body #}
         <div id="site-wrapper">
             {% block content %}
                 if you see this, something is wrong!
             {% endblock content %}
         </div>
+
         {# The Footer #}
-        <div class="footer">
-            <div class="container">
-                <p>Copyright CRM Easy</p>
-            </div>
-        </div>
+        <nav class="navbar fixed-bottom navbar-light bg-light">
+          <span class="navbar-text">
+              Navbar text with an inline element
+            </span>
+        </nav>
+
     </body>
     {# Set of blocks that can be used to display JavaScript files #}
     {% block footer_javascript %}
         {% block footer_javascript_site %}
-            <script src="{{ STATIC_URL }}js/jquery.min.js"></script>
-            <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+            <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+            <script src="{% static 'bootstrap-4.0.0-dist/js/bootstrap.min.js' %}"></script>
         {% endblock footer_javascript_site %}
         {% block footer_javascript_section %}{% endblock footer_javascript_section %}
         {% block footer_javascript_page %}{% endblock footer_javascript_page %}
