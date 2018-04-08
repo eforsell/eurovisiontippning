@@ -1,0 +1,639 @@
+{
+    "event": {
+        "description": "",
+        "country": "PT",
+        "city_name": "Lissabon",
+        "start_date": "2018-05-08"
+    },
+    "contests": [
+        {
+            "type": "final",
+            "start_time": "2018-05-12 21:00:00",
+            "youtube": {"id": "",
+                        "list": "PLmWYEDTNOGUIODqVxJEwAnivuBd8x099b"},
+            "spotify": "spotify:user:spotify:playlist:37i9dQZF1DWVCKO3xAlT1Q"
+        },
+        {
+            "type": "semi",
+            "order": 1,
+            "progression_count": 10,
+            "start_time": "2018-05-08 21:00:00",
+            "youtube": {"id": "",
+                        "list": "PLmWYEDTNOGUKD6Mi_oLf3m3sLUwUvPBe7"},
+            "spotify": "spotify:user:spotify:playlist:37i9dQZF1DWVCKO3xAlT1Q"
+        },
+        {
+            "type": "semi",
+            "order": 2,
+            "progression_count": 10,
+            "start_time": "2018-05-10 21:00:00",
+            "youtube": {"id": "",
+                        "list": "PLmWYEDTNOGUJqHV8KDUs5WzbF2_iSkrtL"},
+            "spotify": "spotify:user:spotify:playlist:37i9dQZF1DWVCKO3xAlT1Q"
+        }
+    ],
+    "entries": [
+        {
+            "contest": "semi1",
+            "start_order": 1,
+            "participant": {
+                "country": "AZ",
+                "song": {
+                    "name": "X My Heart",
+                    "artist": {"name": "Aisel"},
+                    "youtube": {"id": "kWomOdDGwMM",
+                                "list": "PLmWYEDTNOGUKD6Mi_oLf3m3sLUwUvPBe7"},
+                    "spotify": "spotify:track:4B7unF2W1BdLI8j1UvQfaS"
+                }
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 2,
+            "participant": {
+                "country": "IS",
+                "song": {
+                    "name": "Our Choice",
+                    "artist": {"name": "Ari Ólafsson"},
+                    "youtube": {"id": "nloweviD_90",
+                                "list": "PLmWYEDTNOGUKD6Mi_oLf3m3sLUwUvPBe7"},
+                    "spotify": "spotify:track:2he61MJyMIOj8enfDmLxRI"
+                }
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 3,
+            "participant": {
+                "country": "AL",
+                "song": {
+                    "name": "Mall",
+                    "artist": {"name": "Eugent Bushpepa"},
+                    "youtube": {"id": "o-i2Rjbq8nw",
+                                "list": "PLmWYEDTNOGUKD6Mi_oLf3m3sLUwUvPBe7"},
+                    "spotify": "spotify:track:6vGLWavGUuAs9vpZyprUl0"
+                }
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 4,
+            "participant": {
+                "country": "BE",
+                "song": {
+                    "name": "A Matter Of Time",
+                    "artist": {"name": "Sennek"},
+                    "youtube": {"id": "6DGf9TMehi0",
+                                "list": "PLmWYEDTNOGUKD6Mi_oLf3m3sLUwUvPBe7"},
+                    "spotify": "spotify:track:2776nsJOmk3psqGSocg6lK"
+                }
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 5,
+            "participant": {
+                "country": "CZ",
+                "song": {
+                    "name": "Lie To Me",
+                    "artist": {"name": "Mikolas Josef"},
+                    "youtube": {"id": "9zZPB3y70oU",
+                                "list": "PLmWYEDTNOGUKD6Mi_oLf3m3sLUwUvPBe7"},
+                    "spotify": "spotify:track:4Ot9gTaARnRqJT1TYwM4pQ"
+                }
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 6,
+            "participant": {
+                "country": "LT",
+                "song": {
+                    "name": "When We're Old",
+                    "artist": {"name": "Ieva Zasimauskaitė"},
+                    "youtube": {"id": "CvG3sdGdGUA",
+                                "list": "PLmWYEDTNOGUKD6Mi_oLf3m3sLUwUvPBe7"},
+                    "spotify": "spotify:track:3M1LYpZ8JzzIopbjLETqgP"
+                }
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 7,
+            "participant": {
+                "country": "IL",
+                "song": {
+                    "name": "TOY",
+                    "artist": {"name": "Netta"},
+                    "youtube": {"id": "CziHrYYSyPc",
+                                "list": "PLmWYEDTNOGUKD6Mi_oLf3m3sLUwUvPBe7"},
+                    "spotify": "spotify:track:7vuTcvFnvlqWlWb4u60nvY"
+                }
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 8,
+            "participant": {
+                "country": "BY",
+                "song": {
+                    "name": "Forever",
+                    "artist": {"name": "ALEKSEEV"},
+                    "youtube": {"id": "YU2My4BPX34",
+                                "list": "PLmWYEDTNOGUKD6Mi_oLf3m3sLUwUvPBe7"},
+                    "spotify": "spotify:track:685UJZnU0CAi4ECP9AOFzn"
+                }
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 9,
+            "participant": {
+                "country": "EE",
+                "song": {
+                    "name": "La Forza",
+                    "artist": {"name": "Elina Nechayeva"},
+                    "youtube": {"id": "76KOUIfDry8",
+                                "list": "PLmWYEDTNOGUKD6Mi_oLf3m3sLUwUvPBe7"},
+                    "spotify": "spotify:track:32GxSibwrYAGW4ZZ45CGHA"
+                }
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 10,
+            "participant": {
+                "country": "BG",
+                "song": {
+                    "name": "Bones",
+                    "artist": {"name": "EQUINOX"},
+                    "youtube": {"id": "Uvy_R3fTHQ4",
+                                "list": "PLmWYEDTNOGUKD6Mi_oLf3m3sLUwUvPBe7"},
+                    "spotify": "spotify:track:4Xry1LRtOLdzFPFBfTISMU"
+                }
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 11,
+            "participant": {
+                "country": "MK",
+                "song": {
+                    "name": "Lost And Found",
+                    "artist": {"name": "Eye Cue"},
+                    "youtube": {"id": "hJ8vStigz7k",
+                                "list": "PLmWYEDTNOGUKD6Mi_oLf3m3sLUwUvPBe7"},
+                    "spotify": "spotify:track:5pr2apsKCrMhoAwQ5ESJym"
+                }
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 12,
+            "participant": {
+                "country": "HR",
+                "song": {
+                    "name": "Crazy",
+                    "artist": {"name": "Franka"},
+                    "youtube": {"id": "19Yo86KCd0w",
+                                "list": "PLmWYEDTNOGUKD6Mi_oLf3m3sLUwUvPBe7"},
+                    "spotify": "spotify:track:3C0Jl08p5aXD0MckMqBFmx"
+                }
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 13,
+            "participant": {
+                "country": "AT",
+                "song": {
+                    "name": "Nobody But You",
+                    "artist": {"name": "Cesár Sampson"},
+                    "youtube": {"id": "I8MyztgOTv8",
+                                "list": "PLmWYEDTNOGUKD6Mi_oLf3m3sLUwUvPBe7"},
+                    "spotify": "spotify:track:1sG8waSoZFHrTBO04639w0"
+                }
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 14,
+            "participant": {
+                "country": "GR",
+                "song": {
+                    "name": "Oniro Mou",
+                    "artist": {"name": "Yianna Terzi"},
+                    "youtube": {"id": "z6hvV9-Gi_w",
+                                "list": "PLmWYEDTNOGUKD6Mi_oLf3m3sLUwUvPBe7"},
+                    "spotify": "spotify:track:6fbY4PL1W2ew1M3SwCHL2j"
+                }
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 15,
+            "participant": {
+                "country": "FI",
+                "song": {
+                    "name": "Monsters",
+                    "artist": {"name": "Saara Aalto"},
+                    "youtube": {"id": "y4xlvh6qW6M",
+                                "list": "PLmWYEDTNOGUKD6Mi_oLf3m3sLUwUvPBe7"},
+                    "spotify": "spotify:track:0JGbU6NlewrskD138Wq04b"
+                }
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 16,
+            "participant": {
+                "country": "AM",
+                "song": {
+                    "name": "Qami",
+                    "artist": {"name": "Sevak Khanagyan"},
+                    "youtube": {"id": "olpi6UGmm_Y",
+                                "list": "PLmWYEDTNOGUKD6Mi_oLf3m3sLUwUvPBe7"},
+                    "spotify": "spotify:track:2zO4FXoBn1hseWJmjzGpcM"
+                }
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 17,
+            "participant": {
+                "country": "CH",
+                "song": {
+                    "name": "Stones",
+                    "artist": {"name": "ZiBBZ"},
+                    "youtube": {"id": "YLWDqy1DnP0",
+                                "list": "PLmWYEDTNOGUKD6Mi_oLf3m3sLUwUvPBe7"},
+                    "spotify": "spotify:track:4fYKSTyUG6Yy6Kmem8LbLI"
+                }
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 18,
+            "participant": {
+                "country": "IE",
+                "song": {
+                    "name": "Together",
+                    "artist": {"name": "Ryan O'Shaughnessy"},
+                    "youtube": {"id": "XAEjQXzW4Uc",
+                                "list": "PLmWYEDTNOGUKD6Mi_oLf3m3sLUwUvPBe7"},
+                    "spotify": "spotify:track:7jYLCd1CafwKxbuXgRc2rs"
+                }
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 19,
+            "participant": {
+                "country": "CY",
+                "song": {
+                    "name": "Fuego",
+                    "artist": {"name": "Eleni Foureira"},
+                    "youtube": {"id": "eDSgs6syrgg",
+                                "list": "PLmWYEDTNOGUKD6Mi_oLf3m3sLUwUvPBe7"},
+                    "spotify": "spotify:track:22ppznuzVF9LKamaaqMMqu"
+                }
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 1,
+            "participant": {
+                "country": "NO",
+                "song": {
+                    "name": "That's How You Write A Song",
+                    "artist": {"name": "Alexander Rybak"},
+                    "youtube": {"id": "Mvxni-WcD9A",
+                                "list": "PLmWYEDTNOGUJqHV8KDUs5WzbF2_iSkrtL"},
+                    "spotify": "spotify:track:4RgfBil6aN3o26M8t3KjGH"
+                }
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 2,
+            "participant": {
+                "country": "RO",
+                "song": {
+                    "name": "Goodbye",
+                    "artist": {"name": "The Humans"},
+                    "youtube": {"id": "nK7ggCjA98g",
+                                "list": "PLmWYEDTNOGUJqHV8KDUs5WzbF2_iSkrtL"},
+                    "spotify": "spotify:track:6uUkAk16Tf2AV681mvzTjR"
+                }
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 3,
+            "participant": {
+                "country": "RS",
+                "song": {
+                    "name": "Nova Deca",
+                    "artist": {"name": "Sanja Ilić & Balkanika"},
+                    "youtube": {"id": "WkOFnIjGrkw",
+                                "list": "PLmWYEDTNOGUJqHV8KDUs5WzbF2_iSkrtL"},
+                    "spotify": ""
+                }
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 4,
+            "participant": {
+                "country": "SM",
+                "song": {
+                    "name": "Who We Are",
+                    "artist": {"name": "Jessika featuring Jenifer Brening"},
+                    "youtube": {"id": "ZNflc1Zcw2A",
+                                "list": "PLmWYEDTNOGUJqHV8KDUs5WzbF2_iSkrtL"},
+                    "spotify": "spotify:track:0dew6JXEmJOo8nRbPp9M6Y"
+                }
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 5,
+            "participant": {
+                "country": "DK",
+                "song": {
+                    "name": "Higher Ground",
+                    "artist": {"name": "Rasmussen"},
+                    "youtube": {"id": "XeraDSzu0nw",
+                                "list": "PLmWYEDTNOGUJqHV8KDUs5WzbF2_iSkrtL"},
+                    "spotify": "spotify:track:6SCl3S0IAbPX7cLE6LjEOt"
+                }
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 6,
+            "participant": {
+                "country": "RU",
+                "song": {
+                    "name": "I Won't Break",
+                    "artist": {"name": "Julia Samoylova"},
+                    "youtube": {"id": "bgBwbr_fUxA",
+                                "list": "PLmWYEDTNOGUJqHV8KDUs5WzbF2_iSkrtL"},
+                    "spotify": "spotify:track:7K2nHcg1TvgLGW6NTupf3U"
+                }
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 7,
+            "participant": {
+                "country": "MD",
+                "song": {
+                    "name": "My Lucky Day",
+                    "artist": {"name": "DoReDos"},
+                    "youtube": {"id": "pKLKeVC-9Y4",
+                                "list": "PLmWYEDTNOGUJqHV8KDUs5WzbF2_iSkrtL"},
+                    "spotify": "spotify:track:0ThWw4Mty8Sb0mzaXyFvt8"
+                }
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 8,
+            "participant": {
+                "country": "NL",
+                "song": {
+                    "name": "Outlaw In 'Em",
+                    "artist": {"name": "Waylon"},
+                    "youtube": {"id": "kLL9IlQ_7OA",
+                                "list": "PLmWYEDTNOGUJqHV8KDUs5WzbF2_iSkrtL"},
+                    "spotify": "spotify:track:1Ryw2NPudgM1SRGZx91RbL"
+                }
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 9,
+            "participant": {
+                "country": "AU",
+                "song": {
+                    "name": "We Got Love",
+                    "artist": {"name": "Jessica Mauboy"},
+                    "youtube": {"id": "J4XZxbrvepw",
+                                "list": "PLmWYEDTNOGUJqHV8KDUs5WzbF2_iSkrtL"},
+                    "spotify": "spotify:track:7kqujRWNEBhrpYt0eV0uw5"
+                }
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 10,
+            "participant": {
+                "country": "GE",
+                "song": {
+                    "name": "For You",
+                    "artist": {"name": "Ethno-Jazz Band Iriao"},
+                    "youtube": {"id": "TuCZMdfBqm4",
+                                "list": "PLmWYEDTNOGUJqHV8KDUs5WzbF2_iSkrtL"},
+                    "spotify": "spotify:track:6qE0K1nD4YlXup3KCcP9Qw"
+                }
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 11,
+            "participant": {
+                "country": "PL",
+                "song": {
+                    "name": "Light Me Up",
+                    "artist": {"name": "Gromee feat. Lukas Meijer"},
+                    "youtube": {"id": "OxhC7onQkPI",
+                                "list": "PLmWYEDTNOGUJqHV8KDUs5WzbF2_iSkrtL"},
+                    "spotify": "spotify:track:5GXNpvgo6UtLhe2wYBYWy1"
+                }
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 12,
+            "participant": {
+                "country": "MT",
+                "song": {
+                    "name": "Taboo",
+                    "artist": {"name": "Christabelle"},
+                    "youtube": {"id": "E_0ugf0eP1Q",
+                                "list": "PLmWYEDTNOGUJqHV8KDUs5WzbF2_iSkrtL"},
+                    "spotify": "spotify:track:3mlWbiS1EuTMnZJfuHNVvB"
+                }
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 13,
+            "participant": {
+                "country": "HU",
+                "song": {
+                    "name": "Viszlát Nyár",
+                    "artist": {"name": "AWS"},
+                    "youtube": {"id": "6unRU5ZHbqY",
+                                "list": "PLmWYEDTNOGUJqHV8KDUs5WzbF2_iSkrtL"},
+                    "spotify": "spotify:track:5hC0zQNulh7R4R8pM6gCJ9"
+                }
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 14,
+            "participant": {
+                "country": "LV",
+                "song": {
+                    "name": "Funny Girl",
+                    "artist": {"name": "Laura Rizzotto"},
+                    "youtube": {"id": "uBlZsGxeXk4",
+                                "list": "PLmWYEDTNOGUJqHV8KDUs5WzbF2_iSkrtL"},
+                    "spotify": "spotify:track:04H79umZ9AxBj5MeTw6gAK"
+                }
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 15,
+            "participant": {
+                "country": "SE",
+                "song": {
+                    "name": "Dance You Off",
+                    "artist": {"name": "Benjamin Ingrosso"},
+                    "youtube": {"id": "U2UmYBkszOA",
+                                "list": "PLmWYEDTNOGUJqHV8KDUs5WzbF2_iSkrtL"},
+                    "spotify": "spotify:track:0s3P5PImfDZYWIseR3b39D"
+                }
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 16,
+            "participant": {
+                "country": "ME",
+                "song": {
+                    "name": "Inje",
+                    "artist": {"name": "Vanja Radovanović"},
+                    "youtube": {"id": "qxJoxbo9lCQ",
+                                "list": "PLmWYEDTNOGUJqHV8KDUs5WzbF2_iSkrtL"},
+                    "spotify": "spotify:track:4AQX7Nbg0ZuiA763Y6N8Uk"
+                }
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 17,
+            "participant": {
+                "country": "SI",
+                "song": {
+                    "name": "Hvala, ne!",
+                    "artist": {"name": "Lea Sirk"},
+                    "youtube": {"id": "Y-Q4Fh54wUk",
+                                "list": "PLmWYEDTNOGUJqHV8KDUs5WzbF2_iSkrtL"},
+                    "spotify": "spotify:track:28J9JZ6boWgzviW7Ut3TMN"
+                }
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 18,
+            "participant": {
+                "country": "UA",
+                "song": {
+                    "name": "Under The Ladder",
+                    "artist": {"name": "MELOVIN"},
+                    "youtube": {"id": "E1yoAtjhkzQ",
+                                "list": "PLmWYEDTNOGUJqHV8KDUs5WzbF2_iSkrtL"},
+                    "spotify": "spotify:track:0a4eEfoZEYCXte9Zk1r7YG"
+                }
+            }
+        },
+        {
+            "contest": "final",
+            "start_order": null,
+            "participant": {
+                "country": "DE",
+                "song": {
+                    "name": "You Let Me Walk Alone",
+                    "artist": {"name": "Michael Schulte"},
+                    "youtube": {"id": "o_xTETHwIQg",
+                                "list": "PLmWYEDTNOGUIODqVxJEwAnivuBd8x099b"},
+                    "spotify": "spotify:track:1i31AKvYOI4b5FCU1cEHqU"
+                }
+            }
+        },
+        {
+            "contest": "final",
+            "start_order": null,
+            "participant": {
+                "country": "FR",
+                "song": {
+                    "name": "Mercy",
+                    "artist": {"name": "Madame Monsieur"},
+                    "youtube": {"id": "dHb-gWC-WTc",
+                                "list": "PLmWYEDTNOGUIODqVxJEwAnivuBd8x099b"},
+                    "spotify": "spotify:track:29eZ3b1mfZIwOMQMdRFNZ0"
+                }
+            }
+        },
+        {
+            "contest": "final",
+            "start_order": null,
+            "participant": {
+                "country": "IT",
+                "song": {
+                    "name": "Non Mi Avete Fatto Niente",
+                    "artist": {"name": "Ermal Meta e Fabrizio Moro"},
+                    "youtube": {"id": "zguJGdoPPnw",
+                                "list": "PLmWYEDTNOGUIODqVxJEwAnivuBd8x099b"},
+                    "spotify": "spotify:track:5H27hkEAflNeyGquXsSz0y"
+                }
+            }
+        },
+        {
+            "contest": "final",
+            "start_order": null,
+            "participant": {
+                "country": "ES",
+                "song": {
+                    "name": "Tu Canción",
+                    "artist": {"name": "Amaia y Alfred"},
+                    "youtube": {"id": "nO4mDiJRH6Q",
+                                "list": "PLmWYEDTNOGUIODqVxJEwAnivuBd8x099b"},
+                    "spotify": "spotify:track:5tNSU1bJKn1S42NyGSzShg"
+                }
+            }
+        },
+        {
+            "contest": "final",
+            "start_order": null,
+            "participant": {
+                "country": "GB",
+                "song": {
+                    "name": "Storm",
+                    "artist": {"name": "SuRie"},
+                    "youtube": {"id": "K--kIdOpbJM",
+                                "list": "PLmWYEDTNOGUIODqVxJEwAnivuBd8x099b"},
+                    "spotify": "spotify:track:5MpHIqC75MbPp1PFkljSFz"
+                }
+            }
+        },
+        {
+            "contest": "final",
+            "start_order": null,
+            "participant": {
+                "country": "PT",
+                "song": {
+                    "name": "O Jardim",
+                    "artist": {"name": "Cláudia Pascoal"},
+                    "youtube": {"id": "kaVp4El9p3s",
+                                "list": "PLmWYEDTNOGUIODqVxJEwAnivuBd8x099b"},
+                    "spotify": "spotify:track:6PV9CN9a7wHYPQvlXqkWwM"
+                }
+            }
+        }
+    ]
+}
