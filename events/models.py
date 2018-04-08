@@ -1,7 +1,7 @@
 from django.db import models
 from django_countries.fields import CountryField
 
-from media.models import Song, YoutubeMedia
+from media.models import Song, YoutubeMedia, SpotifyMedia
 
 
 class Event(models.Model):
@@ -27,7 +27,12 @@ class Contest(models.Model):
     published = models.BooleanField(default=False)
 
     youtube = models.ForeignKey(YoutubeMedia,
-                                on_delete=models.CASCADE,
+                                on_delete=models.SET_NULL,
+                                blank=True,
+                                null=True)
+
+    spotify = models.ForeignKey(SpotifyMedia,
+                                on_delete=models.SET_NULL,
                                 blank=True,
                                 null=True)
 
