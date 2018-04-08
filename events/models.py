@@ -1,7 +1,7 @@
 from django.db import models
 from django_countries.fields import CountryField
 
-from media.models import Song
+from media.models import Song, YoutubeMedia
 
 
 class Event(models.Model):
@@ -25,6 +25,11 @@ class Contest(models.Model):
     start_time = models.DateTimeField()
 
     published = models.BooleanField(default=False)
+
+    youtube = models.ForeignKey(YoutubeMedia,
+                                on_delete=models.CASCADE,
+                                blank=True,
+                                null=True)
 
     def complete_start_order(self):
         incomplete_count = (self.entryscore_set
