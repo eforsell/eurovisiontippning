@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Semifinal {{ semi.order }}{% endblock title %}
+
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <div id="masthead">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h1 style="white-space:nowrap;">{{ semi }}</h1>
+                        <p class="lead">
+                            {{ semi.event.city_name }}, {{ semi.start_time }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 nopadding">
+
+                    {% if semi.published %}
+                        <div class="jumbotron">
+                            <div class="text-center" id="country-list-semi">
+                                <p>
+                                    {% if result %}Antal rätt{% else %}Valda länder{% endif %}:
+                                    <span class="badge" id="select-c"><span id="select-n">0</span>/{{ semi.progression_count }}</span></p>
+                                <div class="btn-toolbar" role="toolbar" style="margin-right:-46.5px;">
+                                    <div class="btn-group-vertical country-list country-list-semi" id="" role="group">
+                                        {% for entry in entries %}
+                                            <button
+                                                {% if not semi.has_started %}
+                                                    onclick="updateSemi(this)"
+                                                {% else %}
+                                                    disabled
+                                                {% endif %}
+                                                type="button"
+                                                class="btn btn-default btn-info{# btnClass #}"
+                                                id="{{ entry.id }}"
+                                                >
+                                                <span class="badge startNum">{{ entry.start_order }}</span>
+                                                <span class="countryName {# strike #}">
+                                                    {{ entry.participant.country.name }}
+                                                </span>
+                                            </button>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="btn-group-vertical" role="group">
+                                        {% for entry in entries %}
+                                            <button type="button" disabled class="btn btn-default music-control" id="video-id-{{ entry.participant.song.youtube.video_id }}" data-video-id="{{ entry.participant.song.youtube.video_id }}"><i class="fa fa-play fa-fw"></i><i class="fa fa-pause fa-fw"></i></button>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="btn-group-vertical" id="music-expand" role="group">
+                                        {% for entry in entries %}
+                                            <button type="button" class="btn btn-default btn-youtube" data-toggle="modal" data-target=".bs-example-modal-lg" id="expand-video-id-{{ entry.participant.song.youtube.video_id }}"><i class="fa fa-youtube-play fa-lg"></i></button>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info" role="alert"><i class="fa fa-circle-o-notch fa-spin"></i> Väntar på årets lineup.</div>
+                    {% endif %}
+                </div>
+                <div class="col-sm-6">
+                    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="YTplayer" data-race-playing="<?php echo $race;?>">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <div id="player"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="race-details">
+                    {% if semi.published %}
+                        {% if not semi.has_started %}
+                            <div class="col-sm-5">
+                                <h5>Tippningen stänger om:</h5> <h4><span id="countdown-label" class="label label-primary"><span id="countdown">Nedräkningen startar...</span></span></h4>
+                                <p>Tippa genom att markera de {{ semi.progression_count }} länder du tror kommer gå vidare till finalen.</p>
+                            </div>
+                        {% elif result %}
+                            <div class="col-sm-5">
+                                <h3>Resultatet är klart</h3>
+                                <h4>Ditt resultat</h4>
+                                <p>Bidragen som inte är över&shy;strukna har gått vidare till finalen.</p>
+                                <p>
+                                    {% if bet %}
+                                        Din tippning gav dig {{ bet.points }}
+                                    {% else %}
+                                        Du tippade inte i denna semi&shy;final och fick därför 0 poäng. Totalt har du {{ total_points }} poäng.</p>
+                                    {% endif %}
+                            </div>
+                        {% elif bets and not result %}
+                            <div class="col-sm-5">
+                                <h3>Tippningen är stängd.</h3>
+                                <p>Väntar på resultatet från denna semi&shy;final.</p>
+                            </div>
+                        {% elif not bets and not result %}
+                            <div class="col-sm-5">
+                                <h3>Tippningen är stängd.</h3>
+                                <p>Du har inte tippat i denna semifinal.</p>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        {# include not logged in screen #}
+    {% endif %}
+{% endblock content %}
+
+{% block footer_javascript_page %}
+    {% include "scripts/betting.html" %}
+    <!-- <script src="{% static 'tippning/js/youtube.js' %}"></script> -->
+{% endblock footer_javascript_page %}

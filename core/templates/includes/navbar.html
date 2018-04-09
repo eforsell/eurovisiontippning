@@ -1,3 +1,5 @@
+{% load social_user_tags %}
+
 <header class="navbar navbar-default navbar-fixed-top" role="banner">
     <div class="container">
         <div class="navbar-header">
@@ -15,13 +17,13 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-check-square-o fa-fw"></i>  Tippning  <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li>
-                            <a href="/semi1/">Semi 1</a>
+                            <a href="{% url 'tippning:semifinal' 1 %}">Semi 1</a>
                         </li>
                         <li>
-                            <a href="/semi2/">Semi 2</a>
+                            <a href="{% url 'tippning:semifinal' 2 %}">Semi 2</a>
                         </li>
                         <li>
-                            <a href="/final/">Final</a>
+                            <a href="{% url 'tippning:final' %}">Final</a>
                         </li>
                     </ul>
                 </li>
@@ -67,9 +69,9 @@
                     {% else %}
                         <div class="visible-xs"><hr></div>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <div class="profile-img" style="background-image:url({{ social_user_data.photo }})">
+                            <div class="profile-img" style="background-image:url({% get_social_data user 'photo' %})">
                             </div>
-                            {{ user }} <span class="caret"></span></a>
+                            {{ user.first_name }} <span class="caret"></span></a>
                         <ul class="dropdown-menu" style="padding: 20px 0 20px 0;min-width:250px;">
                             <form class="form-inline">
                                 <div class="col-sm-12">

@@ -1,4 +1,7 @@
+from datetime import datetime
+
 from django.db import models
+from django.utils.timezone import utc
 from django_countries.fields import CountryField
 
 from media.models import Song, YoutubeMedia, SpotifyMedia
@@ -42,6 +45,10 @@ class Contest(models.Model):
                                 .count())
         return incomplete_count == 0
 
+    def has_started(self):
+        now = datetime.utcnow().replace(tzinfo=utc)
+        return now > self.start_time
+
 
 class Final(Contest):
     def __str__(self):
@@ -53,7 +60,7 @@ class SemiFinal(Contest):
     progression_count = models.PositiveIntegerField()
 
     def __str__(self):
-        return "Semifinal %s - %s" % (self.order, str(self.event))
+        return "Semifinal %s" % (self.order)
 
 
 class Participant(models.Model):

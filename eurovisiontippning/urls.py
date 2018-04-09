@@ -19,12 +19,11 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
 import core.views
-import login.views
 
 urlpatterns = [
     url(r'^$', core.views.home, name='home'),
-    url(r'^login/$', login.views.login, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
     path('admin/', admin.site.urls),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
+    url(r'^tippning/', include('tippning.urls')),
 ]

@@ -1,0 +1,118 @@
+<script type="text/javascript">
+
+    var semi ='temp';
+    var selectedClass = 'btn-info';
+
+    $(document).ready(function () {
+        countSelected();
+
+        {% if final and final.published and not final.has_started and not result %}
+            if($("#country-list-final").length > 0) {
+                $( "#country-list-final" ).disableSelection();
+                $(function() {
+                    $("#country-list-final").sortable({
+                        handle: 'button>span',
+                        cancel: '',
+                        opacity: 0.6,
+                        cursor: 'move',
+                        update: function() {
+                            sendFinal();
+                        },
+                        start: function( event, ui ){
+                            $(ui.item).parent().find('.ui-sortable-placeholder').css({
+                                "display": "block",
+                                "height": "20px"
+                            });
+                        }
+                    });
+                });
+            }
+        {% endif %}
+    });
+
+    $('*').on({ 'touchstart' : function(){
+        if($("#country-list-semi").length > 0 && !$("#country-list-semi").hasClass('touch')) {
+            $("#country-list-semi").addClass('touch');
+            console.log('touch');
+        }
+    } });
+
+    {% if final %}
+
+        function sendFinal(){
+            var activeCountries = [];
+            $( "#country-list-final > li > button" ).each(function( i ) {
+                activeCountries.push($(this).attr('id'));
+            });
+            $.post("/update/updateFinal.php", {'activeCountries': activeCountries, 'semi': semi}, function( data ){
+                if(data == 'fail'){
+                    location.reload();
+                }
+            });
+        };
+
+        function sortResult(){
+            $("#country-list-final li").sort(sort_li).appendTo('#country-list-final');
+            function sort_li(a, b){
+                return (parseInt($(b).attr('data-position'),10)) < (parseInt($(a).attr('data-position'),10)) ? 1 : -1;
+            }
+        }
+
+        function sortBet(){
+            $("#country-list-final li").sort(sort_li).appendTo('#country-list-final');
+            function sort_li(a, b){
+                return (parseInt($(b).attr('data-selection'),10)) < (parseInt($(a).attr('data-selection'),10)) ? 1 : -1;
+            }
+        }
+
+    {% elif semi %}
+
+
+        function updateSemi(item){
+            if($(item).hasClass(selectedClass)){
+                $(item).removeClass(selectedClass);
+                sendSemi();
+            } else {
+                var maxNum = {{ semi.progression_count }};
+                if($("."+selectedClass).length<maxNum){
+                    $(item).addClass(selectedClass);
+                    sendSemi();
+                } else {
+                    $( "#select-c" ).fadeOut(200).fadeIn(200);
+                    $(item).fadeOut(200).fadeIn(200);
+                }
+            }
+            $(item).blur();
+            countSelected();
+        };
+
+        function sendSemi(){
+            var activeCountries = [];
+            $( ".country-list-semi > button" ).each(function( i ) {
+                if ($(this).hasClass(selectedClass)) {
+                    activeCountries.push(1);
+                } else {
+                    activeCountries.push(0);
+                }
+            });
+            $.post("/update/updateSemi.php", {'activeCountries': activeCountries, 'semi': semi}, function( data ){
+                if(data == 'fail'){
+                    location.reload();
+                }
+            });
+        };
+
+        function countSelected(){
+            {% if result %}
+                var countClass = 'correct';
+            {% else %}
+            var countClass = selectedClass;
+            {% endif %}
+            var n = $("."+countClass).length;
+            var result = $( "#select-n" ).empty();
+            result.append(n);
+        }
+
+    {% endif %}
+
+</script>
