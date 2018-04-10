@@ -5,19 +5,19 @@
 
 
 {% block content %}
-    {% if user.is_authenticated %}
-        <div id="masthead">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h1 style="white-space:nowrap;">{{ semi }}</h1>
-                        <p class="lead">
-                            {{ semi.event.city_name }}, {{ semi.start_time }}
-                        </p>
-                    </div>
+    <div id="masthead">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h1 style="white-space:nowrap;">{{ semi }}</h1>
+                    <p class="lead">
+                        {{ semi.event.city_name }}, {{ semi.start_time }}
+                    </p>
                 </div>
             </div>
         </div>
+    </div>
+    {% if user.is_authenticated %}
         <div class="container">
             <div class="row">
                 <div id="race-details">
@@ -106,7 +106,7 @@
             </div>
         </div>
     {% else %}
-        {# include not logged in screen #}
+        {% include 'login.html' %}
     {% endif %}
 {% endblock content %}
 
