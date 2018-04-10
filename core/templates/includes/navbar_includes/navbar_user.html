@@ -1,0 +1,138 @@
+{% load social_user_tags %}
+
+<ul class="nav navbar-right navbar-nav" id="dropdown-user">
+
+    <li class="dropdown">
+
+        {% if not user.is_authenticated %}
+
+            <a href="#"
+               class="dropdown-toggle"
+               data-toggle="dropdown">
+                Logga in <i class="fa fa-sign-in"></i>
+            </a>
+            <ul class="dropdown-menu" style="padding: 20px 0 20px 0;min-width:250px;">
+                <form class="form-inline">
+
+                    <div class="col-xs-12">
+
+                        <a class="btn btn-sm btn-social btn-google"
+                           href="{% url 'social:begin' 'google-oauth2' %}"
+                           style="width:48%; max-width:130px;">
+                            <i class="fa fa-google-plus"></i> Google+
+                        </a>
+
+                        <div class="visible-xs-block" style="height:6px;"></div>
+
+                        <a class="btn btn-sm btn-social btn-facebook"
+                           href="#"
+                           style="width:48%; max-width:130px;">
+                            <i class="fa fa-facebook"></i> Facebook
+                        </a>
+
+                    </div>
+                </form>
+            </ul>
+
+        {% else %}
+
+            <div class="visible-xs"><hr></div>
+
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <div class="profile-img"
+                     style="background-image:url({% get_social_data user 'photo' %})">
+                </div>
+                {{ user.first_name }} <span class="caret"></span>
+            </a>
+
+            <ul class="dropdown-menu" style="padding: 20px 0 20px 0;min-width:250px;">
+                <form class="form-inline">
+                    <div class="col-xs-12">
+
+                        <div role="tabpanel" class="nav-control">
+
+                            <ul class="nav nav-tabs nav-justified" role="tablist">
+
+                                <li role="presentation" class="active">
+                                    <a href="#nav-delning" role="tab" data-toggle="tab">
+                                        <i class="fa fa-share-square-o fa-fw"></i> Delning
+                                    </a>
+                                </li>
+
+                                <li role="presentation">
+                                    <a href="#nav-poäng" role="tab" data-toggle="tab">
+                                        <i class="fa fa-star fa-fw"></i> Poäng
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane" id="nav-poäng">
+                                    <p>
+                                    {# if results from any contest #}
+                                    <table class="table nav-points">
+                                        <thead>
+                                            <tr>
+                                                <td colspan="2"><h4>Poäng från ESC {# current year #}</h4></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {# if semi1 results #}
+                                            <tr>
+                                                <td><strong>Semi 1:</strong></td>
+                                                <td>{# points from semi 1 #}</td>
+                                            </tr>
+
+                                            {# if semi2 results #}
+                                            <tr>
+                                                <td><strong>Semi 2:</strong></td>
+                                                <td>{# points from semi 2 #}</td>
+                                            </tr>
+                                            {# if final results #}
+                                            <tr>
+                                                <td><strong>Final:</strong></td>
+                                                <td>{# points from final #}</td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td><strong>Totalt:</strong></td>
+                                                <td><strong>{# total points #}</strong></td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+
+                                    {# if no results #}
+                                    Inga poäng har räknats än.
+
+                                    </p>
+                                </div>
+
+                                <div role="tabpanel" class="tab-pane active" id="nav-delning">
+                                    <p>Dela mina tippningar: <input type="checkbox" id="shareToggle" {# check if share is true #} name="point-check"></p>
+                                    <div id="shareid-box" style="display:none">
+                                        <p class="share-list">Min delningskod:</p>
+                                        <div class="input-group input-group-sm">
+                                            <input id="shareid" class="form-control" readonly="readonly" onClick="this.setSelectionRange(0, this.value.length)" value="{# share id #}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <a type="button"
+                           class="btn btn-default btn-sm"
+                           style="float:right"
+                           href="{% url 'logout' %}">
+                           Logga ut <i class="fa fa-sign-out"></i>
+                       </a>
+                       <br>
+                    </div>
+                </form>
+            </ul>
+        {% endif %}
+    </li>
+</ul>
