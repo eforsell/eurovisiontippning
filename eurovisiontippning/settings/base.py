@@ -33,6 +33,7 @@ PREREQ_APPS = [
     'django.contrib.staticfiles',
     'social_django',
     'django_countries',
+    'debug_toolbar',
 ]
 
 PROJECT_APPS = [
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'eurovisiontippning.urls'

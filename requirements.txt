@@ -4,6 +4,7 @@ defusedxml==0.5.0
 Django==2.0.3
 django-autoslug==1.9.3
 django-countries==5.2
+django-debug-toolbar==1.9.1
 django-model-utils==3.1.1
 idna==2.6
 oauthlib==2.0.7
@@ -20,6 +21,7 @@ requests-oauthlib==0.8.0
 six==1.11.0
 social-auth-app-django==2.1.0
 social-auth-core==1.7.0
+sqlparse==0.2.4
 swapper==1.1.0
 tqdm==4.19.8
 Unidecode==1.0.22

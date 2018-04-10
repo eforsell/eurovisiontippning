@@ -10,19 +10,19 @@ class EntryBet(models.Model):
                               on_delete=models.CASCADE)
 
     def __str__(self):
-        return "%s - %s" % (self.owner, self.entry)
+        return "%s" % (self.owner)
 
 
 class FinalBet(EntryBet):
     entry = models.ForeignKey(FinalEntry,
                               on_delete=models.CASCADE)
-    rank_bet = models.PositiveIntegerField(blank=True, null=True)
+    rank = models.PositiveIntegerField(blank=True, null=True)
 
 
 class SemiBet(EntryBet):
     entry = models.ForeignKey(SemiEntry,
                               on_delete=models.CASCADE)
-    advance_bet = models.BooleanField(default=False)
+    progression = models.BooleanField(default=False)
 
 
 class ParticipantReview(models.Model):

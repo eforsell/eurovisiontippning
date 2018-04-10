@@ -49,10 +49,18 @@ class Contest(models.Model):
         now = datetime.utcnow().replace(tzinfo=utc)
         return now > self.start_time
 
+    def has_result(self, entries):
+        return sum([1 for e in entries
+                    if e.points is not None]) == len(entries)
+
 
 class Final(Contest):
     def __str__(self):
         return "Final - %s" % (str(self.event))
+
+    def has_result(self):
+        entries = self.finalentry_set.all()
+        return super(Final, self).has_result(entries)
 
 
 class SemiFinal(Contest):
@@ -61,6 +69,10 @@ class SemiFinal(Contest):
 
     def __str__(self):
         return "Semifinal %s" % (self.order)
+
+    def has_result(self):
+        entries = self.semientry_set.all()
+        return super(SemiFinal, self).has_result(entries)
 
 
 class Participant(models.Model):
@@ -103,3 +115,9 @@ class SemiEntry(Entry):
 
     def __str__(self):
         return "%s - %s" % (self.participant, self.contest)
+
+    def progressed(self):
+        if self.rank is not None:
+            return self.rank <= self.contest.progression_count
+        else:
+            return None

@@ -5,13 +5,13 @@ from .models import FinalBet, SemiBet, ParticipantReview
 
 @admin.register(FinalBet)
 class FinalBetAdmin(admin.ModelAdmin):
-    list_display = ['owner', 'entry', 'rank_bet']
+    list_display = ['owner', 'entry', 'rank']
     list_filter = ['entry__contest']
 
 
 @admin.register(SemiBet)
 class SemiBetAdmin(admin.ModelAdmin):
-    list_display = ['owner', 'entry', 'advance_bet']
+    list_display = ['owner', 'entry', 'progression']
     list_filter = ['entry__contest']
 
 
