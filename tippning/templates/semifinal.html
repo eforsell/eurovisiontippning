@@ -20,7 +20,34 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-sm-6 nopadding">
+                <div id="race-details">
+                    <div class="col-sm-5 col-sm-push-6">
+                        {% if semi.published %}
+                            {% if not semi.has_started %}
+                                <h5>Tippningen stänger om:</h5> <h4><span id="countdown-label" class="label label-primary"><span id="countdown">Nedräkningen startar...</span></span></h4>
+                                <p>Tippa genom att markera de {{ semi.progression_count }} länder du tror kommer gå vidare till finalen.</p>
+                            {% elif result %}
+                                <h3>Resultatet är klart</h3>
+                                <h4>Ditt resultat</h4>
+                                <p>Bidragen som inte är över&shy;strukna har gått vidare till finalen.</p>
+                                <p>
+                                    {% if bet %}
+                                        Din tippning gav dig {{ bet.points }}
+                                    {% else %}
+                                        Du tippade inte i denna semi&shy;final och fick därför 0 poäng. Totalt har du {{ total_points }} poäng.
+                                    {% endif %}
+                                </p>
+                            {% elif bets and not result %}
+                                <h3>Tippningen är stängd.</h3>
+                                <p>Väntar på resultatet från denna semi&shy;final.</p>
+                            {% elif not bets and not result %}
+                                <h3>Tippningen är stängd.</h3>
+                                <p>Du har inte tippat i denna semifinal.</p>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-sm-6 col-sm-pull-5 nopadding">
 
                     {% if semi.published %}
                         <div class="jumbotron">
@@ -55,7 +82,7 @@
                                     </div>
                                     <div class="btn-group-vertical" id="music-expand" role="group">
                                         {% for entry in entries %}
-                                            <button type="button" class="btn btn-default btn-youtube" data-toggle="modal" data-target=".bs-example-modal-lg" id="expand-video-id-{{ entry.participant.song.youtube.video_id }}"><i class="fa fa-youtube-play fa-lg"></i></button>
+                                            <button type="button" class="btn btn-default btn-youtube" data-toggle="modal" data-target=".youtube-modal" id="expand-video-id-{{ entry.participant.song.youtube.video_id }}"><i class="fa fa-youtube-play fa-lg"></i></button>
                                         {% endfor %}
                                     </div>
                                 </div>
@@ -66,7 +93,7 @@
                     {% endif %}
                 </div>
                 <div class="col-sm-6">
-                    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="YTplayer" data-race-playing="<?php echo $race;?>">
+                    <div class="modal fade youtube-modal" tabindex="-1" role="dialog" id="YTplayer">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="embed-responsive embed-responsive-16by9">
@@ -75,38 +102,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div id="race-details">
-                    {% if semi.published %}
-                        {% if not semi.has_started %}
-                            <div class="col-sm-5">
-                                <h5>Tippningen stänger om:</h5> <h4><span id="countdown-label" class="label label-primary"><span id="countdown">Nedräkningen startar...</span></span></h4>
-                                <p>Tippa genom att markera de {{ semi.progression_count }} länder du tror kommer gå vidare till finalen.</p>
-                            </div>
-                        {% elif result %}
-                            <div class="col-sm-5">
-                                <h3>Resultatet är klart</h3>
-                                <h4>Ditt resultat</h4>
-                                <p>Bidragen som inte är över&shy;strukna har gått vidare till finalen.</p>
-                                <p>
-                                    {% if bet %}
-                                        Din tippning gav dig {{ bet.points }}
-                                    {% else %}
-                                        Du tippade inte i denna semi&shy;final och fick därför 0 poäng. Totalt har du {{ total_points }} poäng.</p>
-                                    {% endif %}
-                            </div>
-                        {% elif bets and not result %}
-                            <div class="col-sm-5">
-                                <h3>Tippningen är stängd.</h3>
-                                <p>Väntar på resultatet från denna semi&shy;final.</p>
-                            </div>
-                        {% elif not bets and not result %}
-                            <div class="col-sm-5">
-                                <h3>Tippningen är stängd.</h3>
-                                <p>Du har inte tippat i denna semifinal.</p>
-                            </div>
-                        {% endif %}
-                    {% endif %}
                 </div>
             </div>
         </div>
