@@ -118,4 +118,18 @@
 {% block footer_javascript_page %}
     {% include "scripts/betting.html" %}
     <!-- <script src="{% static 'tippning/js/youtube.js' %}"></script> -->
+    <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+    <script type="text/javascript">
+
+      function start_time() {
+         return new Date("{{ semi.start_time.isoformat }}")
+      }
+
+      var $clock = $('#countdown');
+
+      $clock.countdown(start_time(), function(event) {
+        $(this).html(event.strftime('%D dagar %H:%M:%S'));
+      });
+
+    </script>
 {% endblock footer_javascript_page %}
