@@ -4,6 +4,10 @@ import tippning.views
 app_name = 'tippning'
 
 urlpatterns = [
-    url(r'^semifinal/(\d+)/?$', tippning.views.semifinal, name="semifinal"),
-    url(r'^final/?$', tippning.views.final, name="final"),
+    url(r'^semifinal/(\d+)/?$',
+        tippning.views.semifinal, name="semifinal"),
+    url(r'^final/?$',
+        tippning.views.final, name="final"),
+    url(r'^tips/?$',
+        tippning.views.tips, name="tips"),
 ]

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Tippningstips{% endblock title %}
+
+{% block content %}
+    <div id="masthead">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Tippnings&shy;tipps</h1>
+                    <p class="lead">
+                        Här hittar du det lilla extra som behövs för en lyckad tippning
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="container" id="point-explanation">
+        <div class="row">
+            <div class="col-sm-5">
+                <h3>Länkar</h3>
+                <p>Sidor som kan vara bra att ha koll på när du tippar.</p>
+                <div class="list-group">
+                    <a href="http://www.eurovision.tv/" class="list-group-item" target="_blank">
+                        <h4 class="list-group-item-heading">eurovision.tv</h4>
+                        <p class="list-group-item-text">EBU:s officiella hemsida för Eurovision Song Contest. Mycket bra information.</p>
+                    </a>
+                    <a href="http://www.svt.se/melodifestivalen/om-esc/" class="list-group-item" target="_blank">
+                        <h4 class="list-group-item-heading">svt.se</h4>
+                        <p class="list-group-item-text">Eurovision Song Contest ur ett svenskt perspektiv.</p>
+                    </a>
+                </div>
+                <div class="list-group">
+
+                </div>
+            </div>
+            <div class="col-sm-6 col-sm-offset-1">
+                <h3>Regel&shy;förslag</h3>
+                <p>Traditionellt är det dessa regler som har gällt. Inget måste, men kanske blir det lite roligare om det verkligen är den egna talangen som ligger bakom tippningen?</p>
+                <strong>Du får:</strong>
+                <ul>
+                    <li>Titta på alla bidrag innan du tippar (såklart).</li>
+                    <li>Titta på SVT:s "Inför Eurovision"-program</li>
+                    <li>Ringa och rösta (hur många gånger du vill) i både semifinalerna och finalen.</li>
+                </ul>
+                <strong>Du får inte:</strong>
+                <ul>
+                    <li>Titta på odds från stora spelbolag innan du tippar.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

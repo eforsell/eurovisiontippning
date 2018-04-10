@@ -26,3 +26,10 @@ def final(request):
     return render(request, 'final.html', {
 
         })
+
+
+def tips(request):
+
+    return render(request, 'tips.html', {
+
+        })
