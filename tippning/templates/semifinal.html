@@ -79,6 +79,7 @@
                                                     {% endif %}
                                                 "
                                                 id="{{ entry.id }}"
+                                                data-bet-id="{{ bet.id }}"
                                                 >
                                                 <span class="badge startNum">{{ entry.start_order }}</span>
                                                 <span class="countryName
@@ -142,36 +143,5 @@
         $(this).html(event.strftime('%D dagar %H:%M:%S'));
       });
 
-    </script>
-    <script>
-        function add_comment() {
-          if (reply_to_id != null) {
-            parent = reply_to_id
-          } else {
-            parent = null
-          }
-          data = {
-            'csrfmiddlewaretoken': '{{ csrf_token }}',
-            'text': $('#comment_text').val(),
-            'comment_type': $('input[name=comment_type]:checked').val(),
-            'parent_id': parent,
-            'assigned_to': $('#assigned_to').val()
-          }
-          url = '{% url 'tippning:semifinal' 1 %}'
-          $.post(url, data).done(function(data){
-            if (parent != null) {
-              $('#comment_' + parent).html(data);
-            } else {
-              $('#comment-list').prepend(data);
-            }
-            $('#comment_text').val("");
-            $('#default_type_radio').prop('checked', true);
-            $('#in_reply_to').html("");
-            show_assigned_to();
-            reply_to_id = null;
-          }).error(function(data){
-            console.log(data);
-          })
-        }
     </script>
 {% endblock footer_javascript_page %}

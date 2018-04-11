@@ -6,6 +6,8 @@ app_name = 'tippning'
 urlpatterns = [
     url(r'^semifinal/(\d+)/?$',
         tippning.views.semifinal, name="semifinal"),
+    url(r'^update_semibet/?$',
+        tippning.views.update_semibet, name="update_semibet"),
     url(r'^final/?$',
         tippning.views.final, name="final"),
     url(r'^tips/?$',

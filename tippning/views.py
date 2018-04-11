@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 
 from events.models import SemiFinal
 from tippning.models import SemiBet
@@ -57,6 +58,16 @@ def semifinal(request, order):
         'bets': bets,
         'has_bets': has_bets
         })
+
+
+def update_semibet(request):
+    if request.method == 'POST' or not request.user.is_authenticated:
+        semibet_id = request.POST.get('semibet_id')
+        semibet = SemiBet.objects.get(id=semibet_id)
+        semibet.progression = (not semibet.progression)
+        semibet.save()
+        return HttpResponse('Semifinal bet updated!')
+    return HttpResponseBadRequest('Only accepts post')
 
 
 def final(request):
