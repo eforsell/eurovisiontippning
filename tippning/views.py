@@ -7,8 +7,19 @@ from tippning.models import SemiBet
 
 def semifinal(request, order):
 
-    semi = SemiFinal.objects.filter(order=order).order_by('-start_time').get()
-    entries = semi.semientry_set.order_by('start_order')
+    semi = (SemiFinal.objects
+                     .filter(order=order)
+                     .order_by('-start_time')
+                     .prefetch_related(
+                        'semientry_set'
+                        )
+                     .get())
+    entries = (semi.semientry_set
+                   .order_by('start_order')
+                   .prefetch_related(
+                        'participant',
+                        'participant__song__youtube'
+                        ))
 
     has_bets = False
 
