@@ -24,6 +24,12 @@ class SemiBet(EntryBet):
                               on_delete=models.CASCADE)
     progression = models.BooleanField(default=False)
 
+    def points(self):
+        if self.entry.progression is not None:
+            return 1 if self.entry.progression == self.progression else 0
+        else:
+            return None
+
 
 class ParticipantReview(models.Model):
     owner = models.ForeignKey(User,

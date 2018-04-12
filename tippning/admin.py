@@ -12,7 +12,7 @@ class FinalBetAdmin(admin.ModelAdmin):
 @admin.register(SemiBet)
 class SemiBetAdmin(admin.ModelAdmin):
     list_display = ['owner', 'entry', 'progression']
-    list_filter = ['entry__contest']
+    list_filter = ['entry__contest', 'owner']
 
 
 @admin.register(ParticipantReview)

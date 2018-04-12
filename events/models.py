@@ -73,8 +73,12 @@ class SemiFinal(Contest):
         return "Semifinal %s" % (self.order)
 
     def has_result(self):
+        progressed = 0
         entries = self.semientry_set.all()
-        return super(SemiFinal, self).has_result(entries)
+        for e in entries:
+            if e.progression:
+                progressed += 1
+        return progressed == self.progression_count
 
 
 class Participant(models.Model):

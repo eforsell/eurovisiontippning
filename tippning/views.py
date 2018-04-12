@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 
 from events.models import SemiFinal, Final
 from tippning.models import SemiBet, FinalBet
+from tippning.utils import semi_points
 
 
 def semifinal(request, order):
@@ -27,6 +28,7 @@ def semifinal(request, order):
     if request.user.is_authenticated and semi.published:
         bets = (SemiBet.objects.filter(owner=request.user,
                                        entry__contest=semi)
+                               .prefetch_related('entry')
                                .order_by('entry__start_order'))
 
         if not (len(bets) == 0 and semi.has_started()):
@@ -40,17 +42,20 @@ def semifinal(request, order):
                                                           entry=entry)
                     bets.append(sb)
 
-    else:
+    if not has_bets:
         bets = [None] * len(entries)
 
     entries_bets = zip(entries, bets)
+
+    points = semi_points(request.user, semi)
 
     return render(request, 'semifinal.html', {
         'semi': semi,
         'entries_bets': entries_bets,
         'entries': entries,
         'bets': bets,
-        'has_bets': has_bets
+        'has_bets': has_bets,
+        'points': points
         })
 
 

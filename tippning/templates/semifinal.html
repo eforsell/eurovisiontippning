@@ -32,7 +32,7 @@
                                 <p>Bidragen som inte är över&shy;strukna har gått vidare till finalen.</p>
                                 <p>
                                     {% if has_bets %}
-                                        Din tippning gav dig {{ bet.points }}
+                                        Din tippning gav dig {{ points }} poäng.
                                     {% else %}
                                         Du tippade inte i denna semi&shy;final och fick därför 0 poäng. Totalt har du {{ total_points }} poäng.
                                     {% endif %}
@@ -84,7 +84,7 @@
                                                 <span class="badge startNum">{{ entry.start_order }}</span>
                                                 <span class="countryName
                                                     {% if semi.has_result and not entry.progression %}
-                                                        'test-linethrough'
+                                                        text-linethrough
                                                     {% endif %}
                                                 ">
                                                     {{ entry.participant.country.name }}
