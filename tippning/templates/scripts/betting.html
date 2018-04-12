@@ -1,12 +1,13 @@
 <script type="text/javascript">
 
-    var semi ='temp';
     var selectedClass = 'btn-info';
 
     $(document).ready(function () {
-        countSelected();
+        {% if semi %}
+            countSelected();
+        {% endif %}
 
-        {% if final and final.published and not final.has_started and not result %}
+        {% if final and final.has_semi_entries and not final.has_started and not result %}
             if($("#country-list-final").length > 0) {
                 $( "#country-list-final" ).disableSelection();
                 $(function() {

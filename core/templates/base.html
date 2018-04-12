@@ -89,7 +89,7 @@
             <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
             <script src="{% static 'js/bootstrap.min.js' %}"></script>
             <script src="{% static 'js/social_share.js' %}"></script>
-            {# <?php include $root.'/js/delning.php';?> #}
+            {% include "includes/ui.html" %}
         {% endblock footer_javascript_site %}
         {% block footer_javascript_section %}{% endblock footer_javascript_section %}
         {% block footer_javascript_page %}{% endblock footer_javascript_page %}

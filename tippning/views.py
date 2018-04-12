@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 
-from events.models import SemiFinal
-from tippning.models import SemiBet
+from events.models import SemiFinal, Final
+from tippning.models import SemiBet, FinalBet
 
 
 def semifinal(request, order):
@@ -44,12 +44,6 @@ def semifinal(request, order):
         bets = [None] * len(entries)
 
     entries_bets = zip(entries, bets)
-    # entry.participant.song.youtube.video_id
-    # entry.participant.country.name
-
-    # result
-    # bet, bet.points
-    # total_points
 
     return render(request, 'semifinal.html', {
         'semi': semi,
@@ -72,8 +66,43 @@ def update_semibet(request):
 
 def final(request):
 
-    return render(request, 'final.html', {
+    final = (Final.objects
+                  .order_by('-start_time')
+                  .get())
+    entries = (final.finalentry_set
+                    .order_by('start_order'))
 
+    has_bets = False
+
+    if request.user.is_authenticated and final.has_semi_entries:
+        bets = (FinalBet.objects.filter(owner=request.user,
+                                        entry__contest=final)
+                                .order_by('rank'))
+
+        if not (len(bets) == 0 and final.has_started()):
+            has_bets = True
+
+            if len(bets) == 0 and not final.has_started():
+                # Create bets if there are none already:
+                bets = []
+                for entry in entries:
+                    sb, _ = FinalBet.objects.get_or_create(
+                                                owner=request.user,
+                                                entry=entry,
+                                                rank=entry.start_order)
+                    bets.append(sb)
+
+    else:
+        bets = [None] * len(entries)
+
+    entries_bets = zip(entries, bets)
+
+    return render(request, 'final.html', {
+        'final': final,
+        'entries_bets': entries_bets,
+        'entries': entries,
+        'bets': bets,
+        'has_bets': has_bets
         })
 
 

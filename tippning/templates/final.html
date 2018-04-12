@@ -35,7 +35,7 @@
                                     </span>
                                 </h4>
                                 <p>Tippa genom att dra bidragen till den placering du tror de kommer få i finalen.</p>
-                            {% elif semi.has_result %}
+                            {% elif final.has_result %}
                                 <h3>Resultatet är klart</h3>
                                 <h4>Ditt resultat</h4>
                                 <p>Till höger om bidragen ser du vilken slut&shy;placering de fick i finalen.</p>
@@ -46,7 +46,7 @@
                                         Du tippade inte i finalen och fick därför 0 poäng. Totalt har du {{ total_points }} poäng i årets eurovision-tippning.
                                     {% endif %}
                                 </p>
-                            {% elif has_bets and not semi.has_result %}
+                            {% elif has_bets and not final.has_result %}
                                 <h3>Tippningen är stängd.</h3>
                                 <p>Väntar på resultatet från finalen.</p>
                             {% elif not has_bets and not semi.has_result %}
@@ -54,10 +54,8 @@
                                 <p>Du har inte tippat i finalen.</p>
                             {% endif %}
                         {% elif final.published and not final.has_semi_entries%}
-                            <div class="col-sm-5">
                                 <h3>Klara bidrag</h3>
                                 <p>Det är ännu inte klart vilka bidrag som har gått vidare från semi&shy;finalerna. Medan du väntar kan du lyssna på de {{ entries |length }} bidrag som redan är klara för final.</p>
-                            </div>
                         {% endif %}
                     </div>
                     {% if final.has_result %}
@@ -118,9 +116,11 @@
                                         <li class="country-list" data-selection="{# i #}" data-position="{{ entry.rank }}">
 
                                             <button type="button" class="btn btn-info" disabled id="{{ entry.id }}">
-                                                <span class="badge startNum">
-                                                    {{ entry.start_order }}
-                                                </span>
+                                                {% if entry.start_order %}
+                                                    <span class="badge startNum">
+                                                        {{ entry.start_order }}
+                                                    </span>
+                                                {% endif %}
                                                 <span class="countryName">
                                                     {{ entry.participant.country.name }}
                                                 </span>
@@ -145,23 +145,6 @@
                                         </li>
                                     {% endfor %}
                                 </ol>
-                            </div>
-                        </div>
-
-
-
-                                    </div>
-                                    <div class="btn-group-vertical" role="group">
-                                        {% for entry in entries %}
-                                            <button type="button" disabled class="btn btn-default music-control" id="video-id-{{ entry.participant.song.youtube.video_id }}" data-video-id="{{ entry.participant.song.youtube.video_id }}"><i class="fa fa-play fa-fw"></i><i class="fa fa-pause fa-fw"></i></button>
-                                        {% endfor %}
-                                    </div>
-                                    <div class="btn-group-vertical" id="music-expand" role="group">
-                                        {% for entry in entries %}
-                                            <button type="button" class="btn btn-default btn-youtube" data-toggle="modal" data-target=".youtube-modal" id="expand-video-id-{{ entry.participant.song.youtube.video_id }}"><i class="fa fa-youtube-play fa-lg"></i></button>
-                                        {% endfor %}
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     {% else %}
@@ -203,5 +186,21 @@
         $(this).html(event.strftime('%D dagar %H:%M:%S'));
       });
 
+    </script>
+    <script>
+        $(document).ready(function () {
+            // Final widths
+            var props = { position: "absolute", visibility: "hidden", display: "block" };
+            var maxWidth = 0;
+            // Double selector to acomodate button group in delningB
+            $( "#country-list-final>li>button, #country-list-final>li>.btn-group>button" ).each(function() {
+                var curWidth = $(this).outerWidth();
+                if(curWidth>maxWidth){
+                    maxWidth = curWidth+8;
+                }
+            })
+            $( "#country-list-final>li>button, #country-list-final>li>.btn-group>button" ).css('width',maxWidth);
+            $( "#final-countryname" ).css('width',maxWidth);
+        });
     </script>
 {% endblock footer_javascript_page %}
