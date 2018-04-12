@@ -112,14 +112,10 @@ class SemiEntry(Entry):
     contest = models.ForeignKey(SemiFinal,
                                 on_delete=models.CASCADE)
 
+    progression = models.BooleanField(default=False)
+
     class Meta:
         verbose_name_plural = "semi entries"
 
     def __str__(self):
         return "%s - %s" % (self.participant, self.contest)
-
-    def progressed(self):
-        if self.rank is not None:
-            return self.rank <= self.contest.progression_count
-        else:
-            return None

@@ -68,9 +68,16 @@ def final(request):
 
     final = (Final.objects
                   .order_by('-start_time')
+                  .prefetch_related(
+                     'finalentry_set'
+                     )
                   .get())
     entries = (final.finalentry_set
-                    .order_by('start_order'))
+                    .order_by('start_order')
+                    .prefetch_related(
+                        'participant',
+                        'participant__song__youtube'
+                        ))
 
     has_bets = False
 

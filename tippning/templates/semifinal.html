@@ -67,7 +67,7 @@
                                                 type="button"
                                                 class="btn btn-default
                                                     {% if semi.has_result %}
-                                                        {% if not entry.progressed %}
+                                                        {% if not entry.progression %}
                                                             see-through
                                                         {% elif bet.progression %}
                                                             correct
@@ -83,7 +83,7 @@
                                                 >
                                                 <span class="badge startNum">{{ entry.start_order }}</span>
                                                 <span class="countryName
-                                                    {% if semi.has_result and not entry.progressed %}
+                                                    {% if semi.has_result and not entry.progression %}
                                                         'test-linethrough'
                                                     {% endif %}
                                                 ">

@@ -50,10 +50,21 @@ class FinalEntryAdmin(admin.ModelAdmin):
         return obj.song.artist
 
 
+def make_progressed(modeladmin, request, queryset):
+    queryset.update(progression=True)
+make_progressed.short_description = "Mark entries as progressed"
+
+
 @admin.register(SemiEntry)
 class SemiEntryAdmin(admin.ModelAdmin):
-    list_display = ['participant', 'contest', 'start_order', 'points', 'rank']
-    list_filter = ['contest']
+    list_display = ['participant', 'contest', 'event', 'start_order', 'points',
+                    'rank', 'progression']
+    list_filter = ['contest__order', 'contest__event']
+    search_fields = ('contest', 'contest__event')
+    actions = [make_progressed]
+
+    def event(self, obj):
+            return (str(obj.contest.event))
 
     def artist(self, obj):
         return obj.song.artist
