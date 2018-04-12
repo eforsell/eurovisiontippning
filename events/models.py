@@ -55,6 +55,8 @@ class Contest(models.Model):
 
 
 class Final(Contest):
+    has_semi_entries = models.BooleanField(default=False)
+
     def __str__(self):
         return "Final - %s" % (str(self.event))
 

@@ -1,8 +1,207 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
-{% block title %}Hem{% endblock title %}
+{% block title %}Final{% endblock title %}
+
+{% block head_css_page %}
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+{% endblock head_css_page %}
 
 
 {% block content %}
-    Final
+    <div id="masthead">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h1 style="white-space:nowrap;">{{ final }}</h1>
+                    <p class="lead">
+                        {{ final.event.city_name }}, {{ final.start_time }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if user.is_authenticated %}
+        <div class="container">
+            <div class="row">
+                <div id="race-details">
+                    <div class="col-sm-5 col-sm-push-6">
+                        {% if final.published and final.has_semi_entries %}
+                            {% if not final.has_started %}
+                                <h5>Tippningen stänger om:</h5>
+                                <h4>
+                                    <span id="countdown-label" class="label label-primary">
+                                        <span id="countdown">Nedräkningen startar...</span>
+                                    </span>
+                                </h4>
+                                <p>Tippa genom att dra bidragen till den placering du tror de kommer få i finalen.</p>
+                            {% elif semi.has_result %}
+                                <h3>Resultatet är klart</h3>
+                                <h4>Ditt resultat</h4>
+                                <p>Till höger om bidragen ser du vilken slut&shy;placering de fick i finalen.</p>
+                                <p>
+                                    {% if has_bets %}
+                                        Din tippning gav dig {{ bet.points }}
+                                    {% else %}
+                                        Du tippade inte i finalen och fick därför 0 poäng. Totalt har du {{ total_points }} poäng i årets eurovision-tippning.
+                                    {% endif %}
+                                </p>
+                            {% elif has_bets and not semi.has_result %}
+                                <h3>Tippningen är stängd.</h3>
+                                <p>Väntar på resultatet från finalen.</p>
+                            {% elif not has_bets and not semi.has_result %}
+                                <h3>Tippningen är stängd.</h3>
+                                <p>Du har inte tippat i finalen.</p>
+                            {% endif %}
+                        {% elif final.published and not final.has_semi_entries%}
+                            <div class="col-sm-5">
+                                <h3>Klara bidrag</h3>
+                                <p>Det är ännu inte klart vilka bidrag som har gått vidare från semi&shy;finalerna. Medan du väntar kan du lyssna på de {{ entries |length }} bidrag som redan är klara för final.</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% if final.has_result %}
+                        <div class="col-sm-5">
+                            <h4>Sortera resultat enligt:</h4>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-default" onClick="sortBet()">
+                                    <i class="fa fa-check-square-o"></i>
+                                    {% if bet %}
+                                        Tippning
+                                    {% else %}
+                                        Startordning
+                                    {% endif %}
+                                </button>
+                                <button type="button" class="btn btn-default" onClick="sortResult()"><i class="fa fa-trophy"></i> Placering</button>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-sm-6 col-sm-pull-5 nopadding">
+
+                    {% if final.published %}
+                        {% if not final.has_semi_entries %}
+                            <div class="alert alert-info" role="alert">
+                                <i class="fa fa-circle-o-notch fa-spin"></i>
+                                Väntar på resultaten från semifinalerna.
+                            </div>
+                        {% endif %}
+                        <div class="jumbotron">
+                            <div class="{% if final.has_result %}result{% endif %} text-center final-notshare" id="final-container">
+                                <div>
+                                    <div class="betNumber">
+                                        <i class="fa fa-check-square-o"></i>
+                                    </div>
+                                    <button class="btn btn-default" id="final-countryname" disabled>
+                                        <span class="badge startNum">
+                                            <i class="fa fa-sort-numeric-asc"></i>
+                                        </span>
+                                        <span>Land</span>
+                                    </button>
+                                    <div class="right-box">
+                                        {% if final.has_result %}
+                                            <div class="resultNum">
+                                                <span class="label label-default">
+                                                    <i class="fa fa-trophy"></i>
+                                                </span>
+                                            </div>
+                                        {% endif %}
+                                        <div id="music-expand">
+                                            <button type="button">
+                                                <i class="fa fa-youtube-play fa-lg"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ol id="country-list-final">
+                                    {% for entry, bet in entries_bets %}
+                                        <li class="country-list" data-selection="{# i #}" data-position="{{ entry.rank }}">
+
+                                            <button type="button" class="btn btn-info" disabled id="{{ entry.id }}">
+                                                <span class="badge startNum">
+                                                    {{ entry.start_order }}
+                                                </span>
+                                                <span class="countryName">
+                                                    {{ entry.participant.country.name }}
+                                                </span>
+                                                <div class="music-control inactive" id="video-id-{{ entry.participant.song.youtube.video_id }}" data-video-id="{{ entry.participant.song.youtube.video_id }}">
+                                                    <i class="fa fa-play fa-fw"></i><i class="fa fa-pause fa-fw"></i>
+                                                </div>
+                                            </button>
+                                            <div class="right-box">
+                                                {% if entry.rank %}
+                                                    <div class="resultNum">
+                                                        <span class="label label-warning">
+                                                            {{ entry.rank }}
+                                                        </span>
+                                                    </div>
+                                                {% endif %}
+                                                <div id="music-expand">
+                                                    <button type="button" data-toggle="modal" data-target=".youtube-modal" id="expand-video-id-{{ entry.participant.song.youtube.video_id }}">
+                                                        <i class="fa fa-youtube-play fa-lg"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ol>
+                            </div>
+                        </div>
+
+
+
+                                    </div>
+                                    <div class="btn-group-vertical" role="group">
+                                        {% for entry in entries %}
+                                            <button type="button" disabled class="btn btn-default music-control" id="video-id-{{ entry.participant.song.youtube.video_id }}" data-video-id="{{ entry.participant.song.youtube.video_id }}"><i class="fa fa-play fa-fw"></i><i class="fa fa-pause fa-fw"></i></button>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="btn-group-vertical" id="music-expand" role="group">
+                                        {% for entry in entries %}
+                                            <button type="button" class="btn btn-default btn-youtube" data-toggle="modal" data-target=".youtube-modal" id="expand-video-id-{{ entry.participant.song.youtube.video_id }}"><i class="fa fa-youtube-play fa-lg"></i></button>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info" role="alert"><i class="fa fa-circle-o-notch fa-spin"></i> Väntar på årets lineup.</div>
+                    {% endif %}
+                </div>
+                <div class="col-sm-6">
+                    <div class="modal fade youtube-modal" tabindex="-1" role="dialog" id="YTplayer">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <div id="player"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        {% include 'login.html' %}
+    {% endif %}
 {% endblock content %}
+
+{% block footer_javascript_page %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    {% include "scripts/betting.html" %}
+    <script src="{% static 'js/youtube.js' %}"></script>
+    <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+    <script type="text/javascript">
+
+      function start_time() {
+         return new Date("{{ final.start_time.isoformat }}")
+      }
+
+      var $clock = $('#countdown');
+
+      $clock.countdown(start_time(), function(event) {
+        $(this).html(event.strftime('%D dagar %H:%M:%S'));
+      });
+
+    </script>
+{% endblock footer_javascript_page %}
