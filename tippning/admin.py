@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import FinalBet, SemiBet, ParticipantReview
+from .models import FinalBet, SemiBet, FinalScore, SemiScore, ParticipantReview
 
 
 @admin.register(FinalBet)
@@ -13,6 +13,24 @@ class FinalBetAdmin(admin.ModelAdmin):
 class SemiBetAdmin(admin.ModelAdmin):
     list_display = ['owner', 'entry', 'progression']
     list_filter = ['entry__contest', 'owner']
+
+
+@admin.register(FinalScore)
+class FinalScoreAdmin(admin.ModelAdmin):
+    list_display = ['owner', 'event', 'contest', 'points']
+    list_filter = ['contest', 'contest__event', 'owner']
+
+    def event(self, obj):
+            return (str(obj.contest.event))
+
+
+@admin.register(SemiScore)
+class SemiScoreAdmin(admin.ModelAdmin):
+    list_display = ['owner', 'event', 'contest', 'points']
+    list_filter = ['contest', 'contest__event', 'owner']
+
+    def event(self, obj):
+            return (str(obj.contest.event))
 
 
 @admin.register(ParticipantReview)

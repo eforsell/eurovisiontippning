@@ -1,9 +1,10 @@
 from django.shortcuts import render
+from django.db.models import Prefetch
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 
-from events.models import SemiFinal, Final
-from tippning.models import SemiBet, FinalBet
+from events.models import Event, SemiFinal, Final
+from tippning.models import SemiBet, FinalBet, SemiScore, FinalScore
 from tippning.utils import semi_points
 
 
@@ -13,23 +14,31 @@ def semifinal(request, order):
                      .filter(order=order)
                      .order_by('-start_time')
                      .prefetch_related(
-                        'semientry_set'
-                        )
-                     .get())
-    entries = (semi.semientry_set
-                   .order_by('start_order')
-                   .prefetch_related(
-                        'participant',
-                        'participant__song__youtube'
-                        ))
+                        'semientry_set',
+                        'semientry_set__participant',
+                        'semientry_set__participant__song__youtube',
+                        Prefetch(
+                            "semientry_set__semibet_set",
+                            queryset=SemiBet.objects.filter(
+                                owner=request.user
+                                ),
+                            to_attr='bets'
+                            ),
+                        Prefetch(
+                            "semiscore_set",
+                            queryset=SemiScore.objects.filter(
+                                owner=request.user
+                                )
+                            )
+                        ).first())
+
+    entries = list(semi.semientry_set.all())
+    entries.sort(key=lambda x: x.start_order)
 
     has_bets = False
 
     if request.user.is_authenticated and semi.published:
-        bets = (SemiBet.objects.filter(owner=request.user,
-                                       entry__contest=semi)
-                               .prefetch_related('entry')
-                               .order_by('entry__start_order'))
+        bets = [e.bets[0] for e in entries if len(e.bets) == 1]
 
         if not (len(bets) == 0 and semi.has_started()):
             has_bets = True
@@ -76,7 +85,7 @@ def final(request):
                   .prefetch_related(
                      'finalentry_set'
                      )
-                  .get())
+                  .first())
     entries = (final.finalentry_set
                     .order_by('start_order')
                     .prefetch_related(

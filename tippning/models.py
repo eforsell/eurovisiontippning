@@ -2,7 +2,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator
 from django.contrib.auth.models import User
 
-from events.models import Participant, FinalEntry, SemiEntry
+from events.models import Participant, Final, SemiFinal, FinalEntry, SemiEntry
 
 
 class EntryBet(models.Model):
@@ -38,3 +38,22 @@ class ParticipantReview(models.Model):
                                     on_delete=models.CASCADE)
     own_score = models.PositiveIntegerField(default=0, validators=[
         MaxValueValidator(10)])
+
+
+class Score(models.Model):
+    owner = models.ForeignKey(User,
+                              on_delete=models.CASCADE)
+    points = models.PositiveIntegerField()
+
+    def __str__(self):
+        return "%s" % (self.owner)
+
+
+class SemiScore(Score):
+    contest = models.ForeignKey(SemiFinal,
+                                on_delete=models.CASCADE)
+
+
+class FinalScore(Score):
+    contest = models.ForeignKey(Final,
+                                on_delete=models.CASCADE)

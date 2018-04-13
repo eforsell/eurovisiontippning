@@ -25,7 +25,7 @@ class FinalAdmin(admin.ModelAdmin):
 @admin.register(SemiFinal)
 class SemiFinalAdmin(admin.ModelAdmin):
     date_hierarchy = 'start_time'
-    list_display = ['order', 'event', 'year']
+    list_display = ['semifinal', 'event', 'year']
     list_filter = ['order']
 
     def year(self, obj):
@@ -60,7 +60,6 @@ class SemiEntryAdmin(admin.ModelAdmin):
     list_display = ['participant', 'contest', 'event', 'start_order', 'points',
                     'rank', 'progression']
     list_filter = ['contest__order', 'contest__event']
-    search_fields = ('contest', 'contest__event')
     actions = [make_progressed]
 
     def event(self, obj):
