@@ -43,8 +43,12 @@ class ParticipantAdmin(admin.ModelAdmin):
 
 @admin.register(FinalEntry)
 class FinalEntryAdmin(admin.ModelAdmin):
-    list_display = ['participant', 'contest', 'start_order', 'points', 'rank']
-    list_filter = ['contest']
+    list_display = ['participant', 'contest', 'event', 'start_order', 'points',
+                    'rank']
+    list_filter = ['contest__event']
+
+    def event(self, obj):
+            return (str(obj.contest.event))
 
     def artist(self, obj):
         return obj.song.artist

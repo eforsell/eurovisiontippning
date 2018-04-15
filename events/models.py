@@ -64,6 +64,28 @@ class Final(Contest):
         entries = self.finalentry_set.all()
         return super(Final, self).has_result(entries)
 
+    def add_semientries(self):
+        semifinals = (SemiFinal.objects.filter(event=self.event)
+                                       .prefetch_related(
+                                        'semientry_set'
+                                        ))
+
+        semi_results = []
+        for semi in semifinals:
+            has_result = semi.has_result()
+            semi_results.append(has_result)
+            if has_result:
+                semientries = semi.semientry_set.all()
+                for semientry in semientries:
+                    if semientry.progression:
+                        finalentry, _ = FinalEntry.objects.get_or_create(
+                            participant=semientry.participant,
+                            contest=self)
+
+        if all(semi_results):
+            self.has_semi_entries = True
+            self.save()
+
 
 class SemiFinal(Contest):
     order = models.PositiveIntegerField()

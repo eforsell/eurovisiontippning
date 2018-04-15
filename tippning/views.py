@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.db.models import Prefetch
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
+from django.http import (HttpResponse, HttpResponseRedirect,
+                         HttpResponseBadRequest, JsonResponse)
 
 from events.models import Event, SemiFinal, Final
 from tippning.models import SemiBet, FinalBet, SemiScore, FinalScore
@@ -49,7 +50,8 @@ def semifinal(request, order):
                 for entry in entries:
                     sb, _ = SemiBet.objects.get_or_create(owner=request.user,
                                                           entry=entry)
-                    bets.append(sb)
+
+                return HttpResponseRedirect("")
 
     if not has_bets:
         bets = [None] * len(entries)
@@ -83,22 +85,30 @@ def final(request):
     final = (Final.objects
                   .order_by('-start_time')
                   .prefetch_related(
-                     'finalentry_set'
-                     )
-                  .first())
-    entries = (final.finalentry_set
-                    .order_by('start_order')
-                    .prefetch_related(
-                        'participant',
-                        'participant__song__youtube'
-                        ))
+                     'finalentry_set',
+                     'finalentry_set__participant',
+                     'finalentry_set__participant__song__youtube',
+                     Prefetch(
+                         "finalentry_set__finalbet_set",
+                         queryset=FinalBet.objects.filter(
+                             owner=request.user
+                             ),
+                         to_attr='bets'
+                         ),
+                     Prefetch(
+                         "finalscore_set",
+                         queryset=FinalScore.objects.filter(
+                             owner=request.user
+                             )
+                         )
+                     ).first())
+
+    entries = list(final.finalentry_set.all())
 
     has_bets = False
 
     if request.user.is_authenticated and final.has_semi_entries:
-        bets = (FinalBet.objects.filter(owner=request.user,
-                                        entry__contest=final)
-                                .order_by('rank'))
+        bets = [e.bets[0] for e in entries if len(e.bets) == 1]
 
         if not (len(bets) == 0 and final.has_started()):
             has_bets = True
@@ -111,18 +121,22 @@ def final(request):
                                                 owner=request.user,
                                                 entry=entry,
                                                 rank=entry.start_order)
-                    bets.append(sb)
+
+                return HttpResponseRedirect("")
 
     else:
         bets = [None] * len(entries)
 
-    entries_bets = zip(entries, bets)
+    if any(bets):
+        entries.sort(key=lambda x: (x.bets[0].rank is None,
+                                    x.start_order is None,
+                                    x.start_order))
+    else:
+        entries.sort(key=lambda x: (x.start_order is None, x.start_order))
 
     return render(request, 'final.html', {
         'final': final,
-        'entries_bets': entries_bets,
         'entries': entries,
-        'bets': bets,
         'has_bets': has_bets
         })
 
