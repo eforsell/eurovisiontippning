@@ -10,6 +10,8 @@ urlpatterns = [
         tippning.views.update_semibet, name="update_semibet"),
     url(r'^final/?$',
         tippning.views.final, name="final"),
+    url(r'^update_finalbet/?$',
+        tippning.views.update_finalbet, name="update_finalbet"),
     url(r'^tips/?$',
         tippning.views.tips, name="tips"),
 ]

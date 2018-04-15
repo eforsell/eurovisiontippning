@@ -141,6 +141,25 @@ def final(request):
         })
 
 
+def update_finalbet(request):
+    if request.method == 'POST' or not request.user.is_authenticated:
+        entry_order = request.POST.getlist('entry_order[]')
+        entry_order = [int(x) for x in entry_order]
+
+        final_id = request.POST.get('final_id')
+        finalbets = FinalBet.objects.filter(entry__contest__id=final_id,
+                                            owner=request.user)
+
+        for bet in finalbets:
+            entry_rank = entry_order.index(bet.entry.id) + 1
+            if bet.rank != entry_rank:
+                bet.rank = entry_rank
+                bet.save()
+
+        return HttpResponse('Final order updated!')
+    return HttpResponseBadRequest('Only accepts post')
+
+
 def tips(request):
 
     return render(request, 'tips.html', {

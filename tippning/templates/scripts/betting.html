@@ -40,17 +40,24 @@
 
     {% if final %}
 
-        function sendFinal(){
-            var activeCountries = [];
+        function sendFinal() {
+            var entry_order = [];
             $( "#country-list-final > li > button" ).each(function( i ) {
-                activeCountries.push($(this).attr('id'));
+                entry_order.push(parseInt($(this).attr('id')));
             });
-            $.post("/update/updateFinal.php", {'activeCountries': activeCountries, 'semi': semi}, function( data ){
-                if(data == 'fail'){
-                    location.reload();
-                }
-            });
-        };
+            data = {
+              'csrfmiddlewaretoken': '{{ csrf_token }}',
+              'final_id': {{ final.id}},
+              'entry_order[]': entry_order
+            }
+
+            url = '{% url 'tippning:update_finalbet' %}'
+            $.post(url, data).done(function(data){
+              console.log(data);
+            }).error(function(data){
+              location.reload();
+            })
+        }
 
         function sortResult(){
             $("#country-list-final li").sort(sort_li).appendTo('#country-list-final');
@@ -99,6 +106,7 @@
             location.reload();
           })
         }
+
         function countSelected(){
             {% if semi.has_result %}
                 var countClass = 'correct';
