@@ -49,74 +49,13 @@
                 <form class="form-inline">
                     <div class="col-xs-12">
 
-                        <div role="tabpanel" class="nav-control">
-
-                            <ul class="nav nav-tabs nav-justified" role="tablist">
-
-                                <li role="presentation" class="active">
-                                    <a href="#nav-delning" role="tab" data-toggle="tab">
-                                        <i class="fa fa-share-square-o fa-fw"></i> Delning
-                                    </a>
-                                </li>
-
-                                <li role="presentation">
-                                    <a href="#nav-poäng" role="tab" data-toggle="tab">
-                                        <i class="fa fa-star fa-fw"></i> Poäng
-                                    </a>
-                                </li>
-
-                            </ul>
-
-                            <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane" id="nav-poäng">
-                                    <p>
-                                    {# if results from any contest #}
-                                    <table class="table nav-points">
-                                        <thead>
-                                            <tr>
-                                                <td colspan="2"><h4>Poäng från ESC {# current year #}</h4></td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {# if semi1 results #}
-                                            <tr>
-                                                <td><strong>Semi 1:</strong></td>
-                                                <td>{# points from semi 1 #}</td>
-                                            </tr>
-
-                                            {# if semi2 results #}
-                                            <tr>
-                                                <td><strong>Semi 2:</strong></td>
-                                                <td>{# points from semi 2 #}</td>
-                                            </tr>
-                                            {# if final results #}
-                                            <tr>
-                                                <td><strong>Final:</strong></td>
-                                                <td>{# points from final #}</td>
-                                            </tr>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <td><strong>Totalt:</strong></td>
-                                                <td><strong>{# total points #}</strong></td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-
-                                    {# if no results #}
-                                    Inga poäng har räknats än.
-
-                                    </p>
-                                </div>
-
-                                <div role="tabpanel" class="tab-pane active" id="nav-delning">
-                                    <p>Dela mina tippningar: <input type="checkbox" id="shareToggle" {# check if share is true #} name="point-check"></p>
-                                    <div id="shareid-box" style="display:none">
-                                        <p class="share-list">Min delningskod:</p>
-                                        <div class="input-group input-group-sm">
-                                            <input id="shareid" class="form-control" readonly="readonly" onClick="this.setSelectionRange(0, this.value.length)" value="{# share id #}" />
-                                        </div>
-                                    </div>
+                        <div id="nav-delning">
+                            <h4>Inställningar</h4>
+                            <p>Dela mina tippningar: <input type="checkbox" id="shareToggle" {# check if share is true #} name="point-check"></p>
+                            <div id="shareid-box" style="display:none">
+                                <p class="share-list">Min delningskod:</p>
+                                <div class="input-group input-group-sm">
+                                    <input id="shareid" class="form-control" readonly="readonly" onClick="this.setSelectionRange(0, this.value.length)" value="{# share id #}" />
                                 </div>
                             </div>
                         </div>
