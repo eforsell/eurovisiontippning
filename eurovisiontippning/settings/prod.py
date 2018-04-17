@@ -32,16 +32,13 @@ AWS_PRELOAD_METADATA = True
 if AWS_STORAGE_BUCKET_NAME:
     STATIC_URL = 'https://s3-%s.amazonaws.com:443/%s/static/' % (AWS_REGION, AWS_STORAGE_BUCKET_NAME)
     MEDIA_URL = 'https://s3-%s.amazonaws.com:443/%s/media/' % (AWS_REGION, AWS_STORAGE_BUCKET_NAME)
-    STATICFILES_STORAGE = 'eurovisiontippning.settings.customstorages.StaticStorage'
-    DEFAULT_FILE_STORAGE = 'eurovisiontippning.settings.customstorages.MediaStorage'
     STATICFILES_LOCATION = 'static'
     MEDIAFILES_LOCATION = 'media'
+    STATICFILES_STORAGE = 'eurovisiontippning.settings.customstorages.StaticStorage'
+    DEFAULT_FILE_STORAGE = 'eurovisiontippning.settings.customstorages.MediaStorage'
 else:
     STATIC_URL = '/static/'
     MEDIA_URL = '/media/'
-
-MEDIA_URL = os.environ.get('MEDIA_URL', MEDIA_URL)
-STATIC_URL = os.environ.get('STATIC_URL', STATIC_URL)
 
 
 def get_static_memcache():
