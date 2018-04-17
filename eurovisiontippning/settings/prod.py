@@ -1,3 +1,4 @@
+import dj_database_url
 from .base import *
 
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
@@ -7,13 +8,10 @@ DEBUG = False
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+db_from_env = dj_database_url.config(conn_max_age=60)
 DATABASES = {
-    'default': {
-        'ENGINE': '',
-        'NAME': '',
-    }
+    'default': db_from_env
 }
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
