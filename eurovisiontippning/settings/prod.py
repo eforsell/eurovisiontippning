@@ -40,6 +40,9 @@ else:
     STATIC_URL = '/static/'
     MEDIA_URL = '/media/'
 
+MEDIA_URL = os.environ.get('MEDIA_URL', MEDIA_URL)
+STATIC_URL = os.environ.get('STATIC_URL', STATIC_URL)
+
 
 def get_static_memcache():
     from urllib.parse import urlparse
