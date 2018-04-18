@@ -6,7 +6,10 @@ register = template.Library()
 
 @register.simple_tag
 def navactive(request, urls, *args, **kwargs):
-    if request.path in (
-            reverse(url, args=args, kwargs=kwargs) for url in urls.split()):
-        return "active"
+    try:
+        if request.path in (
+                reverse(url, args=args, kwargs=kwargs) for url in urls.split()):
+            return "active"
+    except:
+        pass
     return ""

@@ -18,6 +18,7 @@ from django.conf import settings
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from django.views import defaults
 
 import core.views
 
@@ -33,4 +34,6 @@ if settings.DEBUG is True:
     import debug_toolbar
     urlpatterns += [
         url(r'^__debug__/', include(debug_toolbar.urls)),
+        url(r'^500/$', defaults.server_error),
+        url(r'^404/([A-Za-z0-9\-\_\.]+)/$', defaults.page_not_found),
     ]
