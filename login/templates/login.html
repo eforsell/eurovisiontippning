@@ -1,15 +1,17 @@
 <div class="container">
     <div class="row">
-        <div class="col-xs-10 col-xs-offset-1 col-sm-4 well col-sm-offset-0">
-            <h3 style="margin-top:0px;">Logga in:</h3>
-            <a class="btn btn-sm btn-social btn-google" href="{% url 'social:begin' 'google-oauth2' %}" style="width:48%; max-width:130px;">
-                <i class="fa fa-google-plus"></i>
-                Google+
-            </a>
-            <a class="btn btn-sm btn-social btn-facebook" href="#" style="width:48%; max-width:130px;">
-                <i class="fa fa-facebook"></i>
-                Facebook
-            </a>
+        <div class="col-xs-10 col-xs-offset-1 col-sm-5 col-sm-offset-0">
+            <div class="well">
+                <h3 style="margin-top:0px;">Logga in:</h3>
+                <a class="btn btn-sm btn-social btn-google" href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.get_full_path }}" style="width:48%; max-width:130px;">
+                    <i class="fa fa-google-plus"></i>
+                    Google+
+                </a>
+                <a class="btn btn-sm btn-social btn-facebook" href="#" style="width:48%; max-width:130px;">
+                    <i class="fa fa-facebook"></i>
+                    Facebook
+                </a>
+            </div>
         </div>
     </div>
 </div>

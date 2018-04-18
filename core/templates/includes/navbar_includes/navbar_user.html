@@ -42,7 +42,12 @@
                 <div class="profile-img"
                      style="background-image:url({% get_social_data user 'photo' %})">
                 </div>
-                {{ user.first_name }} <span class="caret"></span>
+                {% if user.first_name %}
+                  {{ user.first_name }}
+                {% else %}
+                  {{ user }}
+                {% endif %}
+                <span class="caret"></span>
             </a>
 
             <ul class="dropdown-menu" style="padding: 20px 0 20px 0;min-width:250px;">
