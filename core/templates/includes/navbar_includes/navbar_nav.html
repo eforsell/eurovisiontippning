@@ -58,8 +58,8 @@
                 <a href="{% url 'tippning:tips' %}">Tippningstips</a>
             </li>
 
-            <li>
-                <a href="/poangsattning/">Poängsättning</a>
+            <li class="{% navactive request 'tippning:points' %}">
+                <a href="{% url 'tippning:points' %}">Poängsättning</a>
             </li>
 
         </ul>

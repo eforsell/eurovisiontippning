@@ -14,4 +14,6 @@ urlpatterns = [
         tippning.views.update_finalbet, name="update_finalbet"),
     url(r'^tips/?$',
         tippning.views.tips, name="tips"),
+    url(r'^poang/?$',
+        tippning.views.points, name="points"),
 ]

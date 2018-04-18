@@ -183,7 +183,8 @@ def update_finalbet(request):
 
 
 def tips(request):
+    return render(request, 'tips.html')
 
-    return render(request, 'tips.html', {
 
-        })
+def points(request):
+    return render(request, 'points.html')

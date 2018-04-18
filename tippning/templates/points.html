@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Poängsättning{% endblock title %}
+
+{% block head_css_page %}
+    {% block head_js_page %}
+    {% endblock head_js_page %}
+    <script type="text/javascript" src="{% static 'js/MathJax-2.7.4/MathJax.js' %}?config=TeX-AMS_CHTML"></script>
+{% endblock head_css_page %}
+
+{% block content %}
+    <div id="masthead">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Poäng&shy;sättning
+                        <p class="lead">Bakom kulisserna</p>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container" id="point-explanation">
+        <div class="row">
+            <div class="col-xs-9 col-sm-5">
+                <p><strong>Här beskrivs hur poängen sätts, allt enligt ett system som har framarbetats och finjusterats under många år.</strong></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>Semifinalerna</h3>
+
+                <p>I semifinalerna får du tre poäng per rätt gissad finalist. Du får alltså inga poäng för att du korrekt gissar att vissa bidrag inte går vidare. Eftersom det är tio bidrag som går vidare från varje semifinal är maxpoängen per semifinal 30 och den totala maxpoängen 60. Detta utgör ca 15 procent av tippningens totala maxpoäng.</p>
+
+                <h3>Finalen</h3>
+
+                <p>Här blir det lite mer komplicerat. Först och främst får du olika många poäng för de olika placeringarna i finalen. Till exempel ger förstaplaceringen 100 poäng medan den femtonde placeringen endast ger 5 poäng. Se poäng-grafen för alla placeringspoäng.</p>
+                <p>För att räkna ut hur många poäng just du får multipliceras bidragets placeringspoäng med en vikt som avgörs utifrån hur nära bidragets faktiska placering du tippade att det skulle komma. Denna vikt räknas ut genom formeln:</p>
+                <div class="text-center chart">
+                    \[V=\frac{1}{|P-T|+1}\]
+                </div>
+                <p>där \(V\) är vikten, \(P\) är bidragets placering i finalen och \(T\) är den placering du tippade att bidraget skulle få. Se vikt-grafen för viktens storlek vid olika avstånd från bidragets faktiska placering.</p>
+                <p>Din totala poäng för varje bidrag ges av placeringspoängen multiplicerat med  den vikt som motsvarar din tippning. Därefter summeras dina poäng för varje bidrag för att slutligen ge din totala poäng från finalen.</p>
+
+                <p>Maxpoängen i finalen beror på hur många bidrag som tävlar i finalen. De första 11 placeringarna ger sammanlagt 337 poäng, därefter ger varje bidrag 5 poäng fram till det sista som ger 30 poäng. Med 26 bidrag i final blir den totala maxpoängen 437 i finalen.</p>
+                <div class="col-xs-12" >
+                    <div class="chart" id="points_chart" style="width: 100%"></div>
+                    <div class="chart" id="weight_chart" style="width: 100%"></div>
+                </div>
+
+                <h3>Sammanräkning:</h3>
+                <p>Slutligen räknas dina poäng från semifinalerna och finalen ihop. Har du tippat helt rätt i alla deltävlingar kommer du ha 497 poäng (30+30+437).</p>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block footer_javascript_page %}
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <script type="text/javascript" src="{% static 'js/weight_chart.js' %}"></script>
+
+{% endblock footer_javascript_page %}
