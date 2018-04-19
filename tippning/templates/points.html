@@ -18,7 +18,7 @@
         "HTML-CSS": { fonts: ["Gyre-Pagella"] }
       });
     </script>
-    <script type="text/javascript" src="{% static 'js/mathjax-2.7.4/MathJax.js' %}"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
 {% endblock head_css_page %}
 
 {% block content %}
@@ -72,7 +72,7 @@
 
 {% block footer_javascript_page %}
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
     <script type="text/javascript" src="{% static 'js/weight_chart.js' %}"></script>
 
 {% endblock footer_javascript_page %}
