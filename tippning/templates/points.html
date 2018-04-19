@@ -6,7 +6,19 @@
 {% block head_css_page %}
     {% block head_js_page %}
     {% endblock head_js_page %}
-    <script type="text/javascript" src="{% static 'js/MathJax-2.7.4/MathJax.js' %}?config=TeX-AMS_CHTML"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+          processEscapes: true
+        },
+        "HTML-CSS": { fonts: ["Gyre-Pagella"] }
+      });
+    </script>
+    <script type="text/javascript" src="{% static 'js/mathjax-2.7.4/MathJax.js' %}"></script>
 {% endblock head_css_page %}
 
 {% block content %}
