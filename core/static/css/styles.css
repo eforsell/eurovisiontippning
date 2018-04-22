@@ -696,3 +696,23 @@ body {
 .touch .btn.btn-default:not(.btn-info):hover{
     background-color: #fff;
 }
+
+
+/* Chartist
+---------------------------------------------*/
+.ct-axis-title{
+    fill: rgba(0,0,0,.4);
+    font-size: 1rem;
+}
+
+.ct-point{
+    stroke-width: 8px !important;
+}
+
+.ct-blue-line .ct-line{
+    stroke:blue !important;
+}
+
+.ct-blue-line .ct-point{
+    stroke:blue !important;
+}

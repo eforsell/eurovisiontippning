@@ -4,8 +4,9 @@
 {% block title %}Poängsättning{% endblock title %}
 
 {% block head_css_page %}
-    {% block head_js_page %}
-    {% endblock head_js_page %}
+    <link rel="stylesheet" href="{% static 'js/chartist/chartist.min.css' %}">
+{% endblock head_css_page %}
+{% block head_js_page %}
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
         extensions: ["tex2jax.js"],
@@ -19,7 +20,10 @@
       });
     </script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-{% endblock head_css_page %}
+    <script src="{% static 'js/chartist/chartist.min.js' %}"></script>
+    <script src="{% static 'js/chartist/chartist-plugin-axistitle.min.js' %}"></script>
+{% endblock head_js_page %}
+
 
 {% block content %}
     <div id="masthead">
@@ -46,23 +50,35 @@
                 <h3>Semifinalerna</h3>
 
                 <p>I semifinalerna får du tre poäng per rätt gissad finalist. Du får alltså inga poäng för att du korrekt gissar att vissa bidrag inte går vidare. Eftersom det är tio bidrag som går vidare från varje semifinal är maxpoängen per semifinal 30 och den totala maxpoängen 60. Detta utgör ca 15 procent av tippningens totala maxpoäng.</p>
-
+            </div>
+            <div class="clearfix hidden-xs-block"></div>
+            <div class="col-sm-6">
                 <h3>Finalen</h3>
 
                 <p>Här blir det lite mer komplicerat. Först och främst får du olika många poäng för de olika placeringarna i finalen. Till exempel ger förstaplaceringen 100 poäng medan den femtonde placeringen endast ger 5 poäng. Se poäng-grafen för alla placeringspoäng.</p>
+
                 <p>För att räkna ut hur många poäng just du får multipliceras bidragets placeringspoäng med en vikt som avgörs utifrån hur nära bidragets faktiska placering du tippade att det skulle komma. Denna vikt räknas ut genom formeln:</p>
                 <div class="text-center chart">
                     \[V=\frac{1}{|P-T|+1}\]
                 </div>
                 <p>där \(V\) är vikten, \(P\) är bidragets placering i finalen och \(T\) är den placering du tippade att bidraget skulle få. Se vikt-grafen för viktens storlek vid olika avstånd från bidragets faktiska placering.</p>
+            </div>
+            <div class="col-sm-6">
+                <h5 class="text-center">Bidragens poäng i finalen</h5>
+                <div id="points_chart" class="ct-chart ct-golden-section"></div>
+            </div>
+            <div class="clearfix hidden-xs-block"></div>
+            <div class="col-sm-6">
                 <p>Din totala poäng för varje bidrag ges av placeringspoängen multiplicerat med  den vikt som motsvarar din tippning. Därefter summeras dina poäng för varje bidrag för att slutligen ge din totala poäng från finalen.</p>
 
                 <p>Maxpoängen i finalen beror på hur många bidrag som tävlar i finalen. De första 11 placeringarna ger sammanlagt 337 poäng, därefter ger varje bidrag 5 poäng fram till det sista som ger 30 poäng. Med 26 bidrag i final blir den totala maxpoängen 437 i finalen.</p>
-                <div class="col-xs-12" >
-                    <div class="chart" id="points_chart" style="width: 100%"></div>
-                    <div class="chart" id="weight_chart" style="width: 100%"></div>
-                </div>
-
+            </div>
+            <div class="col-sm-6">
+                <h5 class="text-center">Poängens värde i finalen</h5>
+                <div id="weight_chart" class="ct-chart ct-golden-section ct-blue-line"></div>
+            </div>
+            <div class="clearfix hidden-xs-block"></div>
+            <div class="col-sm-6">
                 <h3>Sammanräkning:</h3>
                 <p>Slutligen räknas dina poäng från semifinalerna och finalen ihop. Har du tippat helt rätt i alla deltävlingar kommer du ha 497 poäng (30+30+437).</p>
             </div>
@@ -71,8 +87,93 @@
 {% endblock content %}
 
 {% block footer_javascript_page %}
-    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-    <script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-    <script type="text/javascript" src="{% static 'js/weight_chart.js' %}"></script>
+    <script>
+
+        var data = {
+          // A labels array that can contain any sort of values
+          labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25],
+          // Our series array that contains series objects or in this case series data arrays
+          series: [
+            [100, 65, 45, 33, 25, 20, 15, 12, 9, 7, 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 30]
+          ]
+        };
+
+        var options = {
+            axisX: {
+                showGrid: false,
+              },
+            plugins: [
+              Chartist.plugins.ctAxisTitle({
+                axisX: {
+                  axisTitle: 'Slutgiltlig placering',
+                  axisClass: 'ct-axis-title',
+                  offset: {
+                    x: 0,
+                    y: 30
+                  },
+                  textAnchor: 'middle'
+                },
+                axisY: {
+                  axisTitle: 'Poäng',
+                  axisClass: 'ct-axis-title',
+                  offset: {
+                    x: 0,
+                    y: 20
+                  },
+                  textAnchor: 'middle',
+                  flipTitle: true
+                }
+              })
+            ]
+        }
+        new Chartist.Line('#points_chart', data, options);
+    </script>
+
+    <script>
+
+        var data = {
+          // A labels array that can contain any sort of values
+          labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25],
+          // Our series array that contains series objects or in this case series data arrays
+          series: [
+            [1.000, 0.500, 0.333, 0.250, 0.200, 0.167, 0.143, 0.125, 0.111, 0.100, 0.091, 0.083, 0.077, 0.071, 0.067, 0.063, 0.059, 0.056, 0.053, 0.050, 0.048, 0.045, 0.043, 0.042, 0.040, 0.038]
+          ]
+        };
+
+        var options = {
+            axisX: {
+                showGrid: false,
+              },
+            axisY: {
+              labelInterpolationFnc: function(value) {
+                    return value * 100 + '%';
+                  }
+              },
+            plugins: [
+              Chartist.plugins.ctAxisTitle({
+                axisX: {
+                  axisTitle: 'Skillnad från rätt placering',
+                  axisClass: 'ct-axis-title',
+                  offset: {
+                    x: 0,
+                    y: 30
+                  },
+                  textAnchor: 'middle'
+                },
+                axisY: {
+                  axisTitle: 'Poängens vikt',
+                  axisClass: 'ct-axis-title',
+                  offset: {
+                    x: 0,
+                    y: 20
+                  },
+                  textAnchor: 'middle',
+                  flipTitle: true
+                }
+              })
+            ]
+        }
+        new Chartist.Line('#weight_chart', data, options);
+    </script>
 
 {% endblock footer_javascript_page %}
