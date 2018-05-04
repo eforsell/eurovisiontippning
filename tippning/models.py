@@ -43,7 +43,7 @@ class ParticipantReview(models.Model):
 class Score(models.Model):
     owner = models.ForeignKey(User,
                               on_delete=models.CASCADE)
-    points = models.PositiveIntegerField()
+    points = models.FloatField()
 
     def __str__(self):
         return "%s" % (self.owner)

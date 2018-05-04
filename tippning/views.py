@@ -1,12 +1,11 @@
 from django.shortcuts import render
 from django.db.models import Prefetch
-from django.core.exceptions import ObjectDoesNotExist
 from django.http import (HttpResponse, HttpResponseRedirect,
-                         HttpResponseBadRequest, JsonResponse)
+                         HttpResponseBadRequest)
 
-from events.models import Event, SemiFinal, Final
+from events.models import SemiFinal, Final
 from tippning.models import SemiBet, FinalBet, SemiScore, FinalScore
-from tippning.utils import semi_points
+from tippning.utils import semi_points, final_points
 
 
 def semifinal(request, order):
@@ -61,10 +60,11 @@ def semifinal(request, order):
                     # Create bets if there are none already:
                     bets = []
                     for entry in entries:
-                        sb, _ = SemiBet.objects.get_or_create(owner=request.user,
-                                                              entry=entry)
+                        sb, _ = SemiBet.objects.get_or_create(
+                            owner=request.user,
+                            entry=entry)
 
-                    return HttpResponseRedirect("")
+                    return HttpResponseRedirect(request.path_info)
 
         if not has_bets:
             bets = [None] * len(entries)
@@ -87,6 +87,8 @@ def update_semibet(request):
     if request.method == 'POST' or not request.user.is_authenticated:
         semibet_id = request.POST.get('semibet_id')
         semibet = SemiBet.objects.get(id=semibet_id)
+        if semibet.entry.contest.has_started():
+            return HttpResponseBadRequest('Semifinal has started')
         semibet.progression = (not semibet.progression)
         semibet.save()
         return HttpResponse('Semifinal bet updated!')
@@ -144,7 +146,7 @@ def final(request):
                                                     entry=entry,
                                                     rank=entry.start_order)
 
-                    return HttpResponseRedirect("")
+                    return HttpResponseRedirect(request.path_info)
 
         else:
             bets = [None] * len(entries)
@@ -152,14 +154,18 @@ def final(request):
         if any(bets):
             entries.sort(key=lambda x: (x.bets[0].rank is None,
                                         x.start_order is None,
+                                        x.bets[0].rank,
                                         x.start_order))
         else:
             entries.sort(key=lambda x: (x.start_order is None, x.start_order))
 
+    points = final_points(request.user, final)
+
     return render(request, 'final.html', {
         'final': final,
         'entries': entries,
-        'has_bets': has_bets
+        'has_bets': has_bets,
+        'points': points
         })
 
 
@@ -169,6 +175,9 @@ def update_finalbet(request):
         entry_order = [int(x) for x in entry_order]
 
         final_id = request.POST.get('final_id')
+        final = Final.objects.get(id=final_id)
+        if final.has_started():
+            return HttpResponseBadRequest('Final has started')
         finalbets = FinalBet.objects.filter(entry__contest__id=final_id,
                                             owner=request.user)
 

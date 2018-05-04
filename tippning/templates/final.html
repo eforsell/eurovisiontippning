@@ -42,10 +42,11 @@
                                 <p>Till höger om bidragen ser du vilken slut&shy;placering de fick i finalen.</p>
                                 <p>
                                     {% if has_bets %}
-                                        Din tippning gav dig {{ bet.points }}
+                                        Din tippning gav dig {{ points |floatformat }} poäng.
                                     {% else %}
-                                        Du tippade inte i finalen och fick därför 0 poäng. Totalt har du {{ total_points }} poäng i årets eurovision-tippning.
+                                        Du tippade inte i finalen och fick därför 0 poäng.
                                     {% endif %}
+                                        Totalt fick du {{ total_points |floatformat }} poäng i årets eurovision-tippning.
                                 </p>
                             {% elif has_bets and not final.has_result %}
                                 <h3>Tippningen är stängd.</h3>
@@ -59,22 +60,6 @@
                                 <p>Det är ännu inte klart vilka bidrag som har gått vidare från semi&shy;finalerna. Medan du väntar kan du lyssna på de {{ entries |length }} bidrag som redan är klara för final.</p>
                         {% endif %}
                     </div>
-                    {% if final.has_result %}
-                        <div class="col-sm-5">
-                            <h4>Sortera resultat enligt:</h4>
-                            <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-default" onClick="sortBet()">
-                                    <i class="fa fa-check-square-o"></i>
-                                    {% if bet %}
-                                        Tippning
-                                    {% else %}
-                                        Startordning
-                                    {% endif %}
-                                </button>
-                                <button type="button" class="btn btn-default" onClick="sortResult()"><i class="fa fa-trophy"></i> Placering</button>
-                            </div>
-                        </div>
-                    {% endif %}
                 </div>
                 <div class="col-sm-6 col-sm-pull-5 nopadding">
 
@@ -83,6 +68,25 @@
                             <div class="alert alert-info" role="alert">
                                 <i class="fa fa-circle-o-notch fa-spin"></i>
                                 Väntar på resultaten från semifinalerna.
+                            </div>
+                        {% elif final.has_result %}
+                            <div class="text-center">
+                            <h4>Sortera resultat enligt:</h4>
+                            <div class="btn-group" role="group">
+                                {% if has_bets %}
+                                    <button type="button" class="btn btn-default" onClick="sortBet()">
+                                        <i class="fa fa-check-square-o"></i>
+                                        Tippning
+                                    </button>
+                                {% endif %}
+                                <button type="button" class="btn btn-default" onClick="sortStartOrder()">
+                                    <i class="fa fa-sort-numeric-asc"></i>
+                                    Startordning
+                                </button>
+                                <button type="button" class="btn btn-default" onClick="sortResult()"><i class="fa fa-trophy"></i> Placering</button>
+                            </div>
+                            <br>
+                            <br>
                             </div>
                         {% endif %}
                         <div class="jumbotron">
@@ -114,7 +118,14 @@
                                 </div>
                                 <ol id="country-list-final">
                                     {% for entry in entries %}
-                                        <li class="country-list" data-selection="{# i #}" data-position="{{ entry.rank }}">
+                                        <li class="country-list" data-bet-rank="{{ entry.bets.0.rank }}" data-start-order="{{ entry.start_order }}" data-rank="{{ entry.rank }}"
+                                        {% if final.has_result %}
+                                            {% if has_bets %}
+                                                value="{{ entry.bets.0.rank }}"
+                                            {% else %}
+                                                value="{{ entry.start_order }}"
+                                            {% endif %}
+                                        {% endif %}>
 
                                             <button type="button" class="btn btn-info" disabled id="{{ entry.id }}">
                                                 {% if entry.start_order %}

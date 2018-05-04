@@ -62,14 +62,21 @@
         function sortResult(){
             $("#country-list-final li").sort(sort_li).appendTo('#country-list-final');
             function sort_li(a, b){
-                return (parseInt($(b).attr('data-position'),10)) < (parseInt($(a).attr('data-position'),10)) ? 1 : -1;
+                return (parseInt($(b).attr('data-rank'),10)) < (parseInt($(a).attr('data-rank'),10)) ? 1 : -1;
             }
         }
 
         function sortBet(){
             $("#country-list-final li").sort(sort_li).appendTo('#country-list-final');
             function sort_li(a, b){
-                return (parseInt($(b).attr('data-selection'),10)) < (parseInt($(a).attr('data-selection'),10)) ? 1 : -1;
+                return (parseInt($(b).attr('data-bet-rank'),10)) < (parseInt($(a).attr('data-bet-rank'),10)) ? 1 : -1;
+            }
+        }
+
+        function sortStartOrder(){
+            $("#country-list-final li").sort(sort_li).appendTo('#country-list-final');
+            function sort_li(a, b){
+                return (parseInt($(b).attr('data-start-order'),10)) < (parseInt($(a).attr('data-start-order'),10)) ? 1 : -1;
             }
         }
 

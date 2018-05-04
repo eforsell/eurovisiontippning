@@ -33,9 +33,9 @@
                                 <p>Bidragen som inte är över&shy;strukna har gått vidare till finalen.</p>
                                 <p>
                                     {% if has_bets %}
-                                        Din tippning gav dig {{ points }} poäng.
+                                        Din tippning gav dig {{ points|floatformat }} poäng.
                                     {% else %}
-                                        Du tippade inte i denna semi&shy;final och fick därför 0 poäng. Totalt har du {{ total_points }} poäng.
+                                        Du tippade inte i denna semi&shy;final och fick därför 0 poäng.
                                     {% endif %}
                                 </p>
                             {% elif has_bets and not semi.has_result %}

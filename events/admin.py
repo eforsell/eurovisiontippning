@@ -63,7 +63,7 @@ make_progressed.short_description = "Mark entries as progressed"
 class SemiEntryAdmin(admin.ModelAdmin):
     list_display = ['participant', 'contest', 'event', 'start_order', 'points',
                     'rank', 'progression']
-    list_filter = ['contest__order', 'contest__event']
+    list_filter = ['contest__order', 'contest__event', 'progression']
     actions = [make_progressed]
 
     def event(self, obj):

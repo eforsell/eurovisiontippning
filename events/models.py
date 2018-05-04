@@ -62,7 +62,8 @@ class Final(Contest):
 
     def has_result(self):
         entries = self.finalentry_set.all()
-        return super(Final, self).has_result(entries)
+        ranked_entries = [e for e in entries if e.rank is not None]
+        return len(entries) == len(ranked_entries)
 
     def add_semientries(self):
         semifinals = (SemiFinal.objects.filter(event=self.event)
@@ -85,6 +86,50 @@ class Final(Contest):
         if all(semi_results):
             self.has_semi_entries = True
             self.save()
+
+    def update_start_order(self):
+        entries = self.finalentry_set.all()
+        for entry in entries:
+
+            if entry.start_order is None:
+                entry.input_start_order()
+            else:
+                print("Current start order for %s is %s." %
+                      (entry.participant.country.name, entry.start_order))
+                try:
+                    update = str(input("Do you want to update (y/N)? "))
+                    if update.lower() == "y":
+                        entry.input_start_order()
+                    elif update.lower() == "n":
+                        continue
+                except ValueError:
+                    print("Sorry, I didn't understand that.")
+                    continue
+
+            print("")
+
+    def update_rank(self):
+        entries = self.finalentry_set.all().order_by('start_order')
+        for entry in entries:
+
+            if entry.rank is None:
+                entry.input_rank()
+            else:
+                print("Current final rank for %s. %s is %s." %
+                      (entry.start_order,
+                       entry.participant.country.name,
+                       entry.rank))
+                try:
+                    update = str(input("Do you want to update (y/N)? "))
+                    if update.lower() == "y":
+                        entry.input_rank()
+                    elif update.lower() == "n":
+                        continue
+                except ValueError:
+                    print("Sorry, I didn't understand that.")
+                    continue
+
+            print("")
 
 
 class SemiFinal(Contest):
@@ -132,6 +177,46 @@ class FinalEntry(Entry):
 
     def __str__(self):
         return "%s - %s" % (self.participant, self.contest)
+
+    def input_start_order(self):
+        country_name = self.participant.country.name
+        while True:
+            try:
+                new_order = input("Input start order for %s: " %
+                                  (country_name))
+
+                if new_order.lower() == "q":
+                    return None
+                else:
+                    new_order = int(new_order)
+            except ValueError:
+                print("Sorry, I didn't understand that.")
+                continue
+            else:
+                break
+
+        self.start_order = new_order
+        self.save()
+
+    def input_rank(self):
+        while True:
+            try:
+                new_rank = input("Input final rank for %s. %s: " %
+                                 (self.start_order,
+                                  self.participant.country.name))
+
+                if new_rank.lower() == "q":
+                    return None
+                else:
+                    new_rank = int(new_rank)
+            except ValueError:
+                print("Sorry, I didn't understand that.")
+                continue
+            else:
+                break
+
+        self.rank = new_rank
+        self.save()
 
 
 class SemiEntry(Entry):
