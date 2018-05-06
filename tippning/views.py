@@ -1,86 +1,47 @@
 from django.shortcuts import render
 from django.db.models import Prefetch
+from django.contrib.auth.models import User
 from django.http import (HttpResponse, HttpResponseRedirect,
                          HttpResponseBadRequest)
 
-from events.models import SemiFinal, Final
-from tippning.models import SemiBet, FinalBet, SemiScore, FinalScore
-from tippning.utils import semi_points, final_points
+from events.models import Final
+from tippning.models import SemiBet, FinalBet, FinalScore
+from tippning.utils import fetch_semifinal_data, final_points
 
 
 def semifinal(request, order):
-
-    entries_bets = None
-    entries = None
-    bets = None
-    has_bets = None
-    points = None
 
     if request.user.is_authenticated:
         owner = request.user
     else:
         owner = None
 
-    semi = (SemiFinal.objects
-                     .filter(order=order)
-                     .order_by('-start_time')
-                     .prefetch_related(
-                        'semientry_set',
-                        'semientry_set__participant',
-                        'semientry_set__participant__song__youtube',
-                        Prefetch(
-                            "semientry_set__semibet_set",
-                            queryset=SemiBet.objects.filter(
-                                owner=owner
-                                ),
-                            to_attr='bets'
-                            ),
-                        Prefetch(
-                            "semiscore_set",
-                            queryset=SemiScore.objects.filter(
-                                owner=owner
-                                )
-                            )
-                        ).first())
-
-    if request.user.is_authenticated:
-
-        entries = list(semi.semientry_set.all())
-        entries.sort(key=lambda x: x.start_order)
-
-        has_bets = False
-
-        if semi.published:
-            bets = [e.bets[0] for e in entries if len(e.bets) == 1]
-
-            if not (len(bets) == 0 and semi.has_started()):
-                has_bets = True
-
-                if len(bets) == 0 and not semi.has_started():
-                    # Create bets if there are none already:
-                    bets = []
-                    for entry in entries:
-                        sb, _ = SemiBet.objects.get_or_create(
-                            owner=request.user,
-                            entry=entry)
-
-                    return HttpResponseRedirect(request.path_info)
-
-        if not has_bets:
-            bets = [None] * len(entries)
-
-        entries_bets = zip(entries, bets)
-
-        points = semi_points(request.user, semi)
+    semi_data = fetch_semifinal_data(order, owner, create_bets=True)
 
     return render(request, 'semifinal.html', {
-        'semi': semi,
-        'entries_bets': entries_bets,
-        'entries': entries,
-        'bets': bets,
-        'has_bets': has_bets,
-        'points': points
+        'semi': semi_data['semi'],
+        'entries_bets': semi_data['entries_bets'],
+        'entries': semi_data['entries'],
+        'bets': semi_data['bets'],
+        'has_bets': semi_data['has_bets'],
+        'points': semi_data['points'],
         })
+
+
+def semifinal_lineup(request, order, user_id):
+    user = User.objects.get(id=user_id)
+    semi_data = fetch_semifinal_data(order, user)
+
+    return HttpResponse(
+        render(request, 'includes/semi_lineup.html', {
+            'semi': semi_data['semi'],
+            'entries_bets': semi_data['entries_bets'],
+            'entries': semi_data['entries'],
+            'bets': semi_data['bets'],
+            'has_bets': semi_data['has_bets'],
+            'points': semi_data['points'],
+            })
+        )
 
 
 def update_semibet(request):
@@ -189,6 +150,10 @@ def update_finalbet(request):
 
         return HttpResponse('Final order updated!')
     return HttpResponseBadRequest('Only accepts post')
+
+
+def share_users(request):
+    return render(request, 'sharing/users.html')
 
 
 def tips(request):

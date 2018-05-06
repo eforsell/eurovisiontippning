@@ -1,4 +1,80 @@
+from django.db.models import Prefetch
+from events.models import SemiFinal
 from tippning.models import SemiBet, SemiScore, FinalBet, FinalScore
+
+
+def create_semifinal_bets(entries, user):
+    bets = []
+    for entry in entries:
+        sb, _ = SemiBet.objects.get_or_create(
+            owner=user,
+            entry=entry)
+        bets.append(sb)
+    return bets
+
+
+def fetch_semifinal_data(order, user=None, create_bets=False):
+
+    entries_bets = None
+    entries = None
+    bets = None
+    has_bets = None
+    points = None
+
+    semi = (SemiFinal.objects
+                     .filter(order=order)
+                     .order_by('-start_time')
+                     .prefetch_related(
+                        'semientry_set',
+                        'semientry_set__participant',
+                        'semientry_set__participant__song__youtube',
+                        Prefetch(
+                            "semientry_set__semibet_set",
+                            queryset=SemiBet.objects.filter(
+                                owner=user
+                                ),
+                            to_attr='bets'
+                            ),
+                        Prefetch(
+                            "semiscore_set",
+                            queryset=SemiScore.objects.filter(
+                                owner=user
+                                )
+                            )
+                        ).first())
+
+    entries = list(semi.semientry_set.all())
+    entries.sort(key=lambda x: x.start_order)
+
+    has_bets = False
+
+    if semi.published:
+        bets = [e.bets[0] for e in entries if len(e.bets) == 1]
+
+        if len(bets) > 0:
+            has_bets = True
+
+        elif create_bets and not semi.has_started():
+            bets = create_semifinal_bets(entries, user)
+            has_bets = True
+
+    if not has_bets:
+        bets = [None] * len(entries)
+
+    entries_bets = zip(entries, bets)
+
+    points = semi_points(user, semi)
+
+    data = {
+        'semi': semi,
+        'entries_bets': entries_bets,
+        'entries': entries,
+        'bets': bets,
+        'has_bets': has_bets,
+        'points': points
+        }
+
+    return data
 
 
 def semi_points_from_bets(user, semifinal):

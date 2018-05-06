@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load social_user_tags %}
+
+{% block title %}Semifinal {{ semi.order }}{% endblock title %}
+
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="user-row">
+
+                        <div class="share-box">
+                            <a href="#" class="thumbnail share-thumbnail" data-user-id="{{ user.id }}">
+                                <div class="share-img" style="background-image:url({% get_social_data user 'photo' %});"></div>
+                            </a>
+                            <p>Du</p>
+                        </div>
+                        {% for friend in friends %}
+                            <div class="share-box">
+                                <a href="#" class="thumbnail share-thumbnail" data-user-id="{{ friend.id }}">
+                                    <div class="share-remove"><i class="fa fa-times-circle fa-lg  "></i></div>
+                                    <div class="share-img" style="background-image:url({% get_social_data friend 'photo' %});"></div>
+                                </a>
+                                <p>
+                                    {% if user.first_name %}
+                                      {{ user.first_name }}
+                                    {% else %}
+                                      {{ user }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                        {% endfor %}
+
+                        <div class="share-box">
+                            <a href="#" class="thumbnail share-thumbnail" data-share-id="addshare">
+                                <div class="cross" id="plus-sign-rounded"><div></div></div>
+                            </a>
+                            <p>Lägg till</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <div role="tabpanel">
+                        <ul class="nav nav-pills nav-justified nav-share share-select">
+                            <li role="presentation" class="active">
+                                <a href="#bets-semi1" data-race="semi1" aria-controls="bets-semi1" role="tab" data-toggle="tab">Semi 1</a>
+                            </li>
+                          <!--   <li role="presentation">
+                                <a href="#bets-semi2" data-race="semi2" aria-controls="bets-semi2" role="tab" data-toggle="tab">Semi 2</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#bets-final" data-race="final" aria-controls="bets-final" role="tab" data-toggle="tab">Final</a>
+                            </li> -->
+                        </ul>
+                        <div class="alert alert-warning" role="alert" id="bets-no-bet" style="display:none">
+                            <i style="margin-right:10px;" class="fa fa-user-times"></i>
+                            <span>Användaren</span> har inte tippat i denna deltävling.
+                        </div>
+                        <div class="alert alert-warning" role="alert" id="bets-select-user">
+                            Klicka på en användare för att se hur hen har tippat.
+                        </div>
+                        <div class="tab-content" id="bets-container" style="display:none">
+                            <div role="tabpanel" class="tab-pane active" id="bets-semi1">
+                                <div class="alert alert-warning" role="alert"><i style="margin-right:10px;" class="fa fa-clock-o fa-lg"></i>Tippningen är fortfarande öppen.</div>
+                                <div id="semi1-ajax">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="modal fade youtube-modal" tabindex="-1" role="dialog" id="YTplayer">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <div id="player"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% else %}
+        {% include 'login.html' %}
+    {% endif %}
+{% endblock content %}
+
+{% block footer_javascript_page %}
+    {% include "scripts/betting.html" %}
+    <script>
+
+        function fetch_semifinal(order, user_id) {
+            url = '{% url 'tippning:semifinal_lineup_helper' %}'
+            final_url = url  + order + "/" + user_id
+            $.get(final_url).done(function(data){
+              $('#semi' + order + '-ajax').html(data);
+            }).error(function(data){
+              // location.reload();
+            })
+        };
+
+        // Välj (och lägg till) användare
+        $('.share-thumbnail').on('click', function () {
+            $(this).blur();
+            if($(this).hasClass('active')){
+                return;
+            }
+            if($(this).attr('data-share-id')=="addshare"){
+                var sharecode = prompt("Skriv in användarens delningskod", "Delningskod");
+
+                if (sharecode != null) {
+                    if(sharecode.length==13 && $.isNumeric(sharecode)){
+                        $.post("/update/updateShares.php", {'action': 'add', 'newshareid': sharecode}, function( data ){
+                            location.reload();
+                        });
+                    } else {
+                        alert('Du måste mata in en riktig delningskod (13 siffror).');
+                    }
+                }
+                return;
+            }
+            if($('#bets-select-user').is(":visible")){
+                $('#bets-select-user').hide();
+                $('#bets-container').show();
+                finalWidths();
+            }
+            $('.share-remove').hide();
+            $('.share-thumbnail').removeClass('active');
+            $('.share-thumbnail').attr('aria-pressed','false');
+            $(this).attr('aria-pressed','true');
+            $(this).addClass('active');
+            $(this).find('.share-remove').show();
+            var name = $(this).find("img").attr('alt');
+            $('#bets-no-bet>span').text(name);
+
+            var id = $(this).data("user-id");
+            fetch_semifinal(1, {{ user.id }});
+
+            $('.country-list-semi>button').removeClass('btn-info');
+            $('.country-list-semi>button').removeClass('correct');
+            $('#bets-no-bet').hide();
+            sortBet();
+        });
+    </script>
+    <script src="{% static 'js/youtube.js' %}"></script>
+
+{% endblock footer_javascript_page %}

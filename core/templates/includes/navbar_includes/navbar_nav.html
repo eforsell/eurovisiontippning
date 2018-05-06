@@ -34,8 +34,12 @@
         </a>
         <ul class="dropdown-menu" role="menu">
 
-            <li>
-                <p class="navbar-text">Kommer snart!</p>
+            <li class="{% navactive request 'tippning:share_users' %}">
+                <a href="{% url 'tippning:share_users' %}">Användare</a>
+            </li>
+
+            <li class="{% navactive request 'tippning:share_contests' %}">
+                <a href="{% url 'tippning:share_contests' %}">Deltävlingar</a>
             </li>
 
         </ul>
