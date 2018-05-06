@@ -18,11 +18,13 @@
                         </span>
                     </div>
                 {% endif %}
-                <div id="music-expand">
-                    <button type="button">
-                        <i class="fa fa-youtube-play fa-lg"></i>
-                    </button>
-                </div>
+                {% if youtube or youtube is none %}
+                    <div id="music-expand">
+                        <button type="button">
+                            <i class="fa fa-youtube-play fa-lg"></i>
+                        </button>
+                    </div>
+                {% endif %}
             </div>
         </div>
         <ol id="country-list-final">
@@ -45,9 +47,11 @@
                         <span class="countryName">
                             {{ entry.participant.country.name }}
                         </span>
-                        <div class="music-control inactive" id="video-id-{{ entry.participant.song.youtube.video_id }}" data-video-id="{{ entry.participant.song.youtube.video_id }}">
-                            <i class="fa fa-play fa-fw"></i><i class="fa fa-pause fa-fw"></i>
-                        </div>
+                        {% if youtube or youtube is none %}
+                            <div class="music-control inactive" id="video-id-{{ entry.participant.song.youtube.video_id }}" data-video-id="{{ entry.participant.song.youtube.video_id }}">
+                                <i class="fa fa-play fa-fw"></i><i class="fa fa-pause fa-fw"></i>
+                            </div>
+                        {% endif %}
                     </button>
                     <div class="right-box">
                         {% if entry.rank %}
@@ -57,14 +61,35 @@
                                 </span>
                             </div>
                         {% endif %}
-                        <div id="music-expand">
-                            <button type="button" data-toggle="modal" data-target=".youtube-modal" id="expand-video-id-{{ entry.participant.song.youtube.video_id }}">
-                                <i class="fa fa-youtube-play fa-lg"></i>
-                            </button>
-                        </div>
+                        {% if youtube or youtube is none %}
+                            <div id="music-expand">
+                                <button type="button" data-toggle="modal" data-target=".youtube-modal" id="expand-video-id-{{ entry.participant.song.youtube.video_id }}">
+                                    <i class="fa fa-youtube-play fa-lg"></i>
+                                </button>
+                            </div>
+                        {% endif %}
                     </div>
                 </li>
             {% endfor %}
         </ol>
     </div>
 </div>
+
+{% if ajax %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Final widths
+        var props = { position: "absolute", visibility: "hidden", display: "block" };
+        var maxWidth = 0;
+        // Double selector to acomodate button group in delningB
+        $( "#country-list-final>li>button, #country-list-final>li>.btn-group>button" ).each(function() {
+            var curWidth = $(this).outerWidth();
+            if(curWidth>maxWidth){
+                maxWidth = curWidth+8;
+            }
+        })
+        $( "#country-list-final>li>button, #country-list-final>li>.btn-group>button" ).css('width',maxWidth);
+        $( "#final-countryname" ).css('width',maxWidth);
+    })
+</script>
+{% endif %}

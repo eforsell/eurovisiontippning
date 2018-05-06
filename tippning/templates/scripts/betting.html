@@ -5,9 +5,23 @@
     $(document).ready(function () {
         {% if semi %}
             countSelected();
-        {% endif %}
+        {% elif final %}
+            function finalWidths() {
+                // Final widths
+                var props = { position: "absolute", visibility: "hidden", display: "block" };
+                var maxWidth = 0;
+                // Double selector to acomodate button group in delningB
+                $( "#country-list-final>li>button, #country-list-final>li>.btn-group>button" ).each(function() {
+                    var curWidth = $(this).outerWidth();
+                    if(curWidth>maxWidth){
+                        maxWidth = curWidth+8;
+                    }
+                })
+                $( "#country-list-final>li>button, #country-list-final>li>.btn-group>button" ).css('width',maxWidth);
+                $( "#final-countryname" ).css('width',maxWidth);
+            };
 
-        finalWidths();
+        {% endif %}
 
         {% if final and final.has_semi_entries and not final.has_started and not result %}
             if($("#country-list-final").length > 0) {
@@ -39,21 +53,6 @@
             console.log('touch');
         }
     } });
-
-    function finalWidths() {
-        // Final widths
-        var props = { position: "absolute", visibility: "hidden", display: "block" };
-        var maxWidth = 0;
-        // Double selector to acomodate button group in delningB
-        $( "#country-list-final>li>button, #country-list-final>li>.btn-group>button" ).each(function() {
-            var curWidth = $(this).outerWidth();
-            if(curWidth>maxWidth){
-                maxWidth = curWidth+8;
-            }
-        })
-        $( "#country-list-final>li>button, #country-list-final>li>.btn-group>button" ).css('width',maxWidth);
-        $( "#final-countryname" ).css('width',maxWidth);
-    };
 
     {% if final %}
 

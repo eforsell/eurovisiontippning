@@ -48,16 +48,16 @@
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3">
                     <div role="tabpanel">
-                        <ul class="nav nav-pills nav-justified nav-share share-select">
+                        <ul id="share-select" class="nav nav-pills nav-justified nav-share">
                             <li role="presentation" class="active">
-                                <a href="#bets-semi1" data-race="semi1" aria-controls="bets-semi1" role="tab" data-toggle="tab">Semi 1</a>
-                            </li>
-                          <!--   <li role="presentation">
-                                <a href="#bets-semi2" data-race="semi2" aria-controls="bets-semi2" role="tab" data-toggle="tab">Semi 2</a>
+                                <a href="#bets-semi1" role="tab" data-contest="semi" data-order="1" data-toggle="tab">Semi 1</a>
                             </li>
                             <li role="presentation">
-                                <a href="#bets-final" data-race="final" aria-controls="bets-final" role="tab" data-toggle="tab">Final</a>
-                            </li> -->
+                                <a href="#bets-semi2" role="tab" data-contest="semi" data-order="2" data-toggle="tab">Semi 2</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#bets-final" data-contest="final" role="tab" data-toggle="tab">Final</a>
+                            </li>
                         </ul>
                         <div class="alert alert-warning" role="alert" id="bets-no-bet" style="display:none">
                             <i style="margin-right:10px;" class="fa fa-user-times"></i>
@@ -68,21 +68,10 @@
                         </div>
                         <div class="tab-content" id="bets-container" style="display:none">
                             <div role="tabpanel" class="tab-pane active" id="bets-semi1">
-                                <div class="alert alert-warning" role="alert"><i style="margin-right:10px;" class="fa fa-clock-o fa-lg"></i>Tippningen är fortfarande öppen.</div>
-                                <div id="semi1-ajax">
-
-                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="modal fade youtube-modal" tabindex="-1" role="dialog" id="YTplayer">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="embed-responsive embed-responsive-16by9">
-                                    <div id="player"></div>
-                                </div>
+                            <div role="tabpanel" class="tab-pane" id="bets-semi2">
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="bets-final">
                             </div>
                         </div>
                     </div>
@@ -97,17 +86,37 @@
 
 {% block footer_javascript_page %}
     {% include "scripts/betting.html" %}
+    <script src="{% static 'js/youtube.js' %}"></script>
     <script>
 
-        function fetch_semifinal(order, user_id) {
-            url = '{% url 'tippning:semifinal_lineup_helper' %}'
-            final_url = url  + order + "/" + user_id
-            $.get(final_url).done(function(data){
-              $('#semi' + order + '-ajax').html(data);
-            }).error(function(data){
-              // location.reload();
-            })
+        function fetch_contest() {
+            var active_user_id = $('.share-thumbnail.active').data("user-id");
+            if (typeof active_user_id != 'undefined'){
+                var contest = $('#share-select').find('li.active>a').data('contest');
+                if (contest == 'semi'){
+                    var order = $('#share-select').find('li.active>a').data('order');
+                    fetch_semifinal(order, active_user_id);
+                } else if (contest == 'final'){
+                    fetch_final(active_user_id);
+                }
+            }
         };
+
+        function fetch_semifinal(order, user_id) {
+            url = '{% url 'tippning:semifinal_lineup_helper' %}';
+            final_url = url  + order + "/" + user_id;
+            $('#bets-semi' + order).load(final_url);
+        };
+
+        function fetch_final(user_id) {
+            url = '{% url 'tippning:final_lineup_helper' %}';
+            final_url = url + user_id;
+            $('#bets-final').load(final_url);
+        };
+
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+          fetch_contest();
+        })
 
         // Välj (och lägg till) användare
         $('.share-thumbnail').on('click', function () {
@@ -132,26 +141,14 @@
             if($('#bets-select-user').is(":visible")){
                 $('#bets-select-user').hide();
                 $('#bets-container').show();
-                finalWidths();
             }
             $('.share-remove').hide();
             $('.share-thumbnail').removeClass('active');
-            $('.share-thumbnail').attr('aria-pressed','false');
-            $(this).attr('aria-pressed','true');
             $(this).addClass('active');
             $(this).find('.share-remove').show();
-            var name = $(this).find("img").attr('alt');
-            $('#bets-no-bet>span').text(name);
 
-            var id = $(this).data("user-id");
-            fetch_semifinal(1, {{ user.id }});
-
-            $('.country-list-semi>button').removeClass('btn-info');
-            $('.country-list-semi>button').removeClass('correct');
-            $('#bets-no-bet').hide();
-            sortBet();
+            fetch_contest();
         });
     </script>
-    <script src="{% static 'js/youtube.js' %}"></script>
 
 {% endblock footer_javascript_page %}

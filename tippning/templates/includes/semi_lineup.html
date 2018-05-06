@@ -2,8 +2,10 @@
     <div class="text-center" id="country-list-semi">
         <p>
             {% if semi.has_result %}Antal rätt{% else %}Valda länder{% endif %}:
-            <span class="badge" id="select-c"><span id="select-n">0</span>/{{ semi.progression_count }}</span></p>
-        <div class="btn-toolbar" role="toolbar" style="margin-right:-46.5px;">
+            <span class="badge" id="select-c"><span id="select-n">0</span>/{{ semi.progression_count }}</span>
+        </p>
+
+        <div class="btn-toolbar" role="toolbar" {% if youtube or youtube is none %}style="margin-right:-46.5px;"{% endif %}>
             <div class="btn-group-vertical country-list country-list-semi" id="" role="group">
                 {% for entry, bet in entries_bets %}
                     <button
@@ -40,16 +42,18 @@
                     </button>
                 {% endfor %}
             </div>
-            <div class="btn-group-vertical" role="group">
-                {% for entry in entries %}
-                    <button type="button" disabled class="btn btn-default music-control" id="video-id-{{ entry.participant.song.youtube.video_id }}" data-video-id="{{ entry.participant.song.youtube.video_id }}"><i class="fa fa-play fa-fw"></i><i class="fa fa-pause fa-fw"></i></button>
-                {% endfor %}
-            </div>
-            <div class="btn-group-vertical" id="music-expand" role="group">
-                {% for entry in entries %}
-                    <button type="button" class="btn btn-default btn-youtube" data-toggle="modal" data-target=".youtube-modal" id="expand-video-id-{{ entry.participant.song.youtube.video_id }}"><i class="fa fa-youtube-play fa-lg"></i></button>
-                {% endfor %}
-            </div>
+            {% if youtube or youtube is none %}
+                <div class="btn-group-vertical" role="group">
+                    {% for entry in entries %}
+                        <button type="button" disabled class="btn btn-default music-control" id="video-id-{{ entry.participant.song.youtube.video_id }}" data-video-id="{{ entry.participant.song.youtube.video_id }}"><i class="fa fa-play fa-fw"></i><i class="fa fa-pause fa-fw"></i></button>
+                    {% endfor %}
+                </div>
+                <div class="btn-group-vertical" id="music-expand" role="group">
+                    {% for entry in entries %}
+                        <button type="button" class="btn btn-default btn-youtube" data-toggle="modal" data-target=".youtube-modal" id="expand-video-id-{{ entry.participant.song.youtube.video_id }}"><i class="fa fa-youtube-play fa-lg"></i></button>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>

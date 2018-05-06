@@ -1,5 +1,5 @@
 from django.db.models import Prefetch
-from events.models import SemiFinal
+from events.models import SemiFinal, Final
 from tippning.models import SemiBet, SemiScore, FinalBet, FinalScore
 
 
@@ -9,6 +9,17 @@ def create_semifinal_bets(entries, user):
         sb, _ = SemiBet.objects.get_or_create(
             owner=user,
             entry=entry)
+        bets.append(sb)
+    return bets
+
+
+def create_final_bets(entries, user):
+    bets = []
+    for entry in entries:
+        sb, _ = FinalBet.objects.get_or_create(
+                                    owner=user,
+                                    entry=entry,
+                                    rank=entry.start_order)
         bets.append(sb)
     return bets
 
@@ -43,27 +54,28 @@ def fetch_semifinal_data(order, user=None, create_bets=False):
                             )
                         ).first())
 
-    entries = list(semi.semientry_set.all())
-    entries.sort(key=lambda x: x.start_order)
+    if user is not None:
+        entries = list(semi.semientry_set.all())
+        entries.sort(key=lambda x: x.start_order)
 
-    has_bets = False
+        has_bets = False
 
-    if semi.published:
-        bets = [e.bets[0] for e in entries if len(e.bets) == 1]
+        if semi.published:
+            bets = [e.bets[0] for e in entries if len(e.bets) == 1]
 
-        if len(bets) > 0:
-            has_bets = True
+            if len(bets) > 0:
+                has_bets = True
 
-        elif create_bets and not semi.has_started():
-            bets = create_semifinal_bets(entries, user)
-            has_bets = True
+            elif create_bets and not semi.has_started():
+                bets = create_semifinal_bets(entries, user)
+                has_bets = True
 
-    if not has_bets:
-        bets = [None] * len(entries)
+        if not has_bets:
+            bets = [None] * len(entries)
 
-    entries_bets = zip(entries, bets)
+        entries_bets = zip(entries, bets)
 
-    points = semi_points(user, semi)
+        points = semi_points(user, semi)
 
     data = {
         'semi': semi,
@@ -73,6 +85,71 @@ def fetch_semifinal_data(order, user=None, create_bets=False):
         'has_bets': has_bets,
         'points': points
         }
+
+    return data
+
+
+def fetch_final_data(user=None, create_bets=False):
+
+    entries = None
+    has_bets = None
+    points = None
+
+    final = (Final.objects
+                  .order_by('-start_time')
+                  .prefetch_related(
+                     'finalentry_set',
+                     'finalentry_set__participant',
+                     'finalentry_set__participant__song__youtube',
+                     Prefetch(
+                         "finalentry_set__finalbet_set",
+                         queryset=FinalBet.objects.filter(
+                             owner=user
+                             ),
+                         to_attr='bets'
+                         ),
+                     Prefetch(
+                         "finalscore_set",
+                         queryset=FinalScore.objects.filter(
+                             owner=user
+                             )
+                         )
+                     ).first())
+
+    if user is not None:
+        entries = list(final.finalentry_set.all())
+
+        has_bets = False
+
+        if final.has_semi_entries:
+            bets = [e.bets[0] for e in entries if len(e.bets) == 1]
+
+            if len(bets) > 0:
+                has_bets = True
+
+            elif create_bets and not final.has_started():
+                bets = create_final_bets(entries, user)
+                has_bets = True
+
+        if not has_bets:
+            bets = [None] * len(entries)
+
+        if any(bets):
+            entries.sort(key=lambda x: (x.bets[0].rank is None,
+                                        x.start_order is None,
+                                        x.bets[0].rank,
+                                        x.start_order))
+        else:
+            entries.sort(key=lambda x: (x.start_order is None, x.start_order))
+
+        points = final_points(user, final)
+
+    data = {
+        'final': final,
+        'entries': entries,
+        'has_bets': has_bets,
+        'points': points
+    }
 
     return data
 
