@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 
 def get_share_code():
-    return randint(1000000000000, 9999999999999)
+    return randint(100000000, 999999999)
 
 
 class BetShares(models.Model):

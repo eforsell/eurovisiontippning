@@ -158,10 +158,10 @@
                 var sharecode = prompt("Skriv in användarens delningskod", "Delningskod");
 
                 if (sharecode != null) {
-                    if(sharecode.length==13 && $.isNumeric(sharecode)){
+                    if(sharecode.length==9 && $.isNumeric(sharecode)){
                         add_follow(sharecode);
                     } else {
-                        alert('Du måste mata in en riktig delningskod (13 siffror).');
+                        alert('Du måste mata in en riktig delningskod (9 siffror).');
                     }
                 }
                 return;
