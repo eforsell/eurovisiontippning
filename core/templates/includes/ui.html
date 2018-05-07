@@ -12,22 +12,30 @@
 
     });
 
+    function updateSharing(share_bets) {
+      data = {
+        'csrfmiddlewaretoken': '{{ csrf_token }}',
+        'share_bets': share_bets,
+      }
+      url = '{% url 'sharing:update_betshares' %}'
+      $.post(url, data).done(function(data){
+        $('#shareid-box').html(data);
+      }).error(function(data){
+        console.log(data);
+      })
+    }
+
     // Dela min tippning
     $("#shareToggle").change(function() {
         if(this.checked) {
             //Om rutan kryssas i:
-            $("#shareid-box").toggle();
-            $.post("/update/updateShares.php", {'action': 'create'}, function( data ){
-                $("#shareid").val(data);
-            });
+            updateSharing(true)
         } else {
             // Om rutan kryssas ur:
             var returnVal = confirm("Din delningskod kommer att återställas och alla som du delat din delningskod med kommer inte längre kunna se dina tippningar. Vill du fortsätta?");
             if (returnVal==true){
                 // Om rutan verkligen kryssades ur
-                $("#shareid-box").toggle();
-                $.post("/update/updateShares.php", {'action': 'destroy'}, function( data ){
-                });
+                updateSharing(false)
             } else {
                 // Om rutan faktiskt inte kryssades ur
                 $(this).prop('checked', true);

@@ -43,6 +43,7 @@ PROJECT_APPS = [
     'events',
     'tippning',
     'login',
+    'sharing',
 ]
 
 INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS

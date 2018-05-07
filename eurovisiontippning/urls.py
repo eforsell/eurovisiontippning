@@ -28,6 +28,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^tippning/', include('tippning.urls')),
+    url(r'^delning/', include('sharing.urls')),
 ]
 
 if settings.DEBUG is True:

@@ -18,19 +18,13 @@
                             </a>
                             <p>Du</p>
                         </div>
-                        {% for friend in friends %}
+                        {% for friend in user.betshares.follows.all %}
                             <div class="share-box">
                                 <a href="#" class="thumbnail share-thumbnail" data-user-id="{{ friend.id }}">
                                     <div class="share-remove"><i class="fa fa-times-circle fa-lg  "></i></div>
                                     <div class="share-img" style="background-image:url({% get_social_data friend 'photo' %});"></div>
                                 </a>
-                                <p>
-                                    {% if user.first_name %}
-                                      {{ user.first_name }}
-                                    {% else %}
-                                      {{ user }}
-                                    {% endif %}
-                                </p>
+                                <p>{% if user.first_name %}{{ user.first_name }}{% else %}{{ user }}{% endif %}</p>
                             </div>
                         {% endfor %}
 
@@ -59,19 +53,21 @@
                                 <a href="#bets-final" data-contest="final" role="tab" data-toggle="tab">Final</a>
                             </li>
                         </ul>
-                        <div class="alert alert-warning" role="alert" id="bets-no-bet" style="display:none">
-                            <i style="margin-right:10px;" class="fa fa-user-times"></i>
-                            <span>Användaren</span> har inte tippat i denna deltävling.
-                        </div>
-                        <div class="alert alert-warning" role="alert" id="bets-select-user">
-                            Klicka på en användare för att se hur hen har tippat.
-                        </div>
-                        <div class="tab-content" id="bets-container" style="display:none">
+                        <div class="tab-content" id="bets-container">
                             <div role="tabpanel" class="tab-pane active" id="bets-semi1">
+                                <div class="alert alert-warning" role="alert" id="bets-select-user">
+                                    Klicka på en användare för att se hur hen har tippat.
+                                </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="bets-semi2">
+                                <div class="alert alert-warning" role="alert" id="bets-select-user">
+                                    Klicka på en användare för att se hur hen har tippat.
+                                </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="bets-final">
+                                <div class="alert alert-warning" role="alert" id="bets-select-user">
+                                    Klicka på en användare för att se hur hen har tippat.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -86,7 +82,6 @@
 
 {% block footer_javascript_page %}
     {% include "scripts/betting.html" %}
-    <script src="{% static 'js/youtube.js' %}"></script>
     <script>
 
         function fetch_contest() {
@@ -114,6 +109,41 @@
             $('#bets-final').load(final_url);
         };
 
+        function add_follow(share_code) {
+          data = {
+            'csrfmiddlewaretoken': '{{ csrf_token }}',
+            'share_code': share_code,
+          }
+          url = '{% url 'sharing:add_follow' %}'
+          $.post(url, data).done(function(data){
+            location.reload();
+          }).error(function(data){
+            console.log(data);
+          })
+        }
+
+        function remove_follow(user_id) {
+          data = {
+            'csrfmiddlewaretoken': '{{ csrf_token }}',
+            'user_id': user_id,
+          }
+          url = '{% url 'sharing:remove_follow' %}'
+          $.post(url, data).done(function(data){
+            $('.share-thumbnail.active').closest('.share-box').fadeOut("fast",function(){
+                $(this).remove();
+            });
+            $('#bets-container').hide();
+          }).error(function(data){
+            console.log(data);
+          })
+        }
+
+        // Ta bort användare
+        $('.share-remove').on('click', function () {
+            var user_id = $('.share-thumbnail.active').attr('data-user-id');
+            remove_follow(user_id);
+        });
+
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
           fetch_contest();
         })
@@ -129,19 +159,14 @@
 
                 if (sharecode != null) {
                     if(sharecode.length==13 && $.isNumeric(sharecode)){
-                        $.post("/update/updateShares.php", {'action': 'add', 'newshareid': sharecode}, function( data ){
-                            location.reload();
-                        });
+                        add_follow(sharecode);
                     } else {
                         alert('Du måste mata in en riktig delningskod (13 siffror).');
                     }
                 }
                 return;
             }
-            if($('#bets-select-user').is(":visible")){
-                $('#bets-select-user').hide();
-                $('#bets-container').show();
-            }
+
             $('.share-remove').hide();
             $('.share-thumbnail').removeClass('active');
             $(this).addClass('active');

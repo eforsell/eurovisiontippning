@@ -1,5 +1,11 @@
 <div class="jumbotron">
     <div class="{% if final.has_result %}result{% endif %} text-center final-notshare" id="final-container">
+        {% if ajax and points %}
+            <p>
+                Poäng:
+                <span class="badge"">234.6</span>
+            </p>
+        {% endif %}
         <div>
             <div class="betNumber">
                 <i class="fa fa-check-square-o"></i>

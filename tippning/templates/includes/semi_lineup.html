@@ -2,7 +2,15 @@
     <div class="text-center" id="country-list-semi">
         <p>
             {% if semi.has_result %}Antal rätt{% else %}Valda länder{% endif %}:
-            <span class="badge" id="select-c"><span id="select-n">0</span>/{{ semi.progression_count }}</span>
+            <span class="badge" id="select-c">
+                <span id="select-n">
+                    {% if correct_progressions is not None %}
+                        {{ correct_progressions }}
+                    {% elif selected_progressions %}
+                        {{ selected_progressions }}
+                    {% endif %}
+                </span>/{{ semi.progression_count }}
+            </span>
         </p>
 
         <div class="btn-toolbar" role="toolbar" {% if youtube or youtube is none %}style="margin-right:-46.5px;"{% endif %}>

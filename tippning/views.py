@@ -1,11 +1,9 @@
 from django.shortcuts import render
-from django.db.models import Prefetch
 from django.contrib.auth.models import User
-from django.http import (HttpResponse, HttpResponseRedirect,
-                         HttpResponseBadRequest)
+from django.http import (HttpResponse, HttpResponseBadRequest)
 
 from events.models import Final
-from tippning.models import SemiBet, FinalBet, FinalScore
+from tippning.models import SemiBet, FinalBet
 from tippning.utils import fetch_semifinal_data, fetch_final_data
 
 
@@ -29,7 +27,7 @@ def semifinal(request, order):
 
 
 def update_semibet(request):
-    if request.method == 'POST' or not request.user.is_authenticated:
+    if request.method == 'POST' and request.user.is_authenticated:
         semibet_id = request.POST.get('semibet_id')
         semibet = SemiBet.objects.get(id=semibet_id)
         if semibet.entry.contest.has_started():
@@ -51,6 +49,13 @@ def friend_semi_lineup(request, order, user_id):
             'Tippningen är fortfarande öppen.</div>')
         return HttpResponse(message)
 
+    if not semi_data['has_bets']:
+        message = (
+            '<div class="alert alert-warning" role="alert">'
+            '<i style="margin-right:10px;" class="fa fa-user-times"></i>'
+            'Användaren har inte tippat i denna deltävling.</div>')
+        return HttpResponse(message)
+
     return HttpResponse(
         render(request, 'includes/semi_lineup.html', {
             'semi': semi_data['semi'],
@@ -59,7 +64,10 @@ def friend_semi_lineup(request, order, user_id):
             'bets': semi_data['bets'],
             'has_bets': semi_data['has_bets'],
             'points': semi_data['points'],
+            'correct_progressions': semi_data['correct_progressions'],
+            'selected_progressions': semi_data['selected_progressions'],
             'youtube': False,
+            'ajax': True,
             })
         )
 
@@ -82,7 +90,7 @@ def final(request):
 
 
 def update_finalbet(request):
-    if request.method == 'POST' or not request.user.is_authenticated:
+    if request.method == 'POST' and request.user.is_authenticated:
         entry_order = request.POST.getlist('entry_order[]')
         entry_order = [int(x) for x in entry_order]
 
@@ -112,6 +120,13 @@ def friend_final_lineup(request, user_id):
             '<div class="alert alert-warning" role="alert">'
             '<i style="margin-right:10px;" class="fa fa-clock-o fa-lg"></i>'
             'Tippningen är fortfarande öppen.</div>')
+        return HttpResponse(message)
+
+    if not final_data['has_bets']:
+        message = (
+            '<div class="alert alert-warning" role="alert">'
+            '<i style="margin-right:10px;" class="fa fa-user-times"></i>'
+            'Användaren har inte tippat i denna deltävling.</div>')
         return HttpResponse(message)
 
     return HttpResponse(
