@@ -1,4 +1,5 @@
 {% load social_user_tags %}
+{% load sharing_tags %}
 
 <ul class="nav navbar-right navbar-nav" id="dropdown-user">
 
@@ -53,6 +54,28 @@
             <ul class="dropdown-menu" style="padding: 20px 0 20px 0;min-width:250px;">
                 <form class="form-inline">
                     <div class="col-xs-12">
+
+                        <div id="nav-delning">
+                          <h4>Inställningar</h4>
+                          <p>Dela mina tippningar: <input type="checkbox" id="shareToggle" {% if user.betshares.share_bets %}checked{% endif %} name="point-check"></p>
+                          <div id="shareid-box">
+                            {% if user.betshares.share_bets %}
+                              <p class="share-list">Min delningskod:</p>
+                              <div class="input-group input-group-sm">
+                                <input id="shareid"
+                                       class="form-control"
+                                       readonly="readonly"
+                                       onClick="this.setSelectionRange(0, this.value.length)"
+                                       value="{{ user.betshares.share_code }}"/
+                                       >
+                              </div>
+                            {% endif %}
+                          </div>
+
+
+                        </div>
+
+                        <hr>
 
                         <a type="button"
                            class="btn btn-default btn-sm"

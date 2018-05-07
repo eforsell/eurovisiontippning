@@ -1,0 +1,101 @@
+<div class="jumbotron">
+    <div class="{% if final.has_result %}result{% endif %} text-center final-notshare" id="final-container">
+        {% if ajax and points %}
+            <p>
+                Poäng:
+                <span class="badge"">234.6</span>
+            </p>
+        {% endif %}
+        <div>
+            <div class="betNumber">
+                <i class="fa fa-check-square-o"></i>
+            </div>
+            <button class="btn btn-default" id="final-countryname" disabled>
+                <span class="badge startNum">
+                    <i class="fa fa-sort-numeric-asc"></i>
+                </span>
+                <span>Land</span>
+            </button>
+            <div class="right-box">
+                {% if final.has_result %}
+                    <div class="resultNum">
+                        <span class="label label-default">
+                            <i class="fa fa-trophy"></i>
+                        </span>
+                    </div>
+                {% endif %}
+                {% if youtube or youtube is none %}
+                    <div id="music-expand">
+                        <button type="button">
+                            <i class="fa fa-youtube-play fa-lg"></i>
+                        </button>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <ol id="country-list-final">
+            {% for entry in entries %}
+                <li class="country-list" data-bet-rank="{{ entry.bets.0.rank }}" data-start-order="{{ entry.start_order }}" data-rank="{{ entry.rank }}"
+                {% if final.has_result %}
+                    {% if has_bets %}
+                        value="{{ entry.bets.0.rank }}"
+                    {% else %}
+                        value="{{ entry.start_order }}"
+                    {% endif %}
+                {% endif %}>
+
+                    <button type="button" class="btn btn-info" disabled id="{{ entry.id }}">
+                        {% if entry.start_order %}
+                            <span class="badge startNum">
+                                {{ entry.start_order }}
+                            </span>
+                        {% endif %}
+                        <span class="countryName">
+                            {{ entry.participant.country.name }}
+                        </span>
+                        {% if youtube or youtube is none %}
+                            <div class="music-control inactive" id="video-id-{{ entry.participant.song.youtube.video_id }}" data-video-id="{{ entry.participant.song.youtube.video_id }}">
+                                <i class="fa fa-play fa-fw"></i><i class="fa fa-pause fa-fw"></i>
+                            </div>
+                        {% endif %}
+                    </button>
+                    <div class="right-box">
+                        {% if entry.rank %}
+                            <div class="resultNum">
+                                <span class="label label-warning">
+                                    {{ entry.rank }}
+                                </span>
+                            </div>
+                        {% endif %}
+                        {% if youtube or youtube is none %}
+                            <div id="music-expand">
+                                <button type="button" data-toggle="modal" data-target=".youtube-modal" id="expand-video-id-{{ entry.participant.song.youtube.video_id }}">
+                                    <i class="fa fa-youtube-play fa-lg"></i>
+                                </button>
+                            </div>
+                        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+</div>
+
+{% if ajax %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Final widths
+        var props = { position: "absolute", visibility: "hidden", display: "block" };
+        var maxWidth = 0;
+        // Double selector to acomodate button group in delningB
+        $( "#country-list-final>li>button, #country-list-final>li>.btn-group>button" ).each(function() {
+            var curWidth = $(this).outerWidth();
+            if(curWidth>maxWidth){
+                maxWidth = curWidth+8;
+            }
+        })
+        $( "#country-list-final>li>button, #country-list-final>li>.btn-group>button" ).css('width',maxWidth);
+        $( "#final-countryname" ).css('width',maxWidth);
+    })
+</script>
+{% endif %}
