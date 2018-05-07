@@ -132,7 +132,7 @@
             $('.share-thumbnail.active').closest('.share-box').fadeOut("fast",function(){
                 $(this).remove();
             });
-            $('#bets-container').hide();
+            $('#bets-container>.tab-pane').html('<div class="alert alert-warning" role="alert" id="bets-select-user">Klicka på en användare för att se hur hen har tippat.</div>');
           }).error(function(data){
             console.log(data);
           })
