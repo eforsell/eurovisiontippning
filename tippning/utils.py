@@ -32,6 +32,7 @@ def fetch_semifinal_data(order, user=None, create_bets=False):
     has_bets = None
     points = None
     correct_progressions = None
+    selected_progressions = None
 
     semi = (SemiFinal.objects
                      .filter(order=order)
