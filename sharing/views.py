@@ -1,7 +1,12 @@
 from django.contrib.auth.models import User
+from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import (HttpResponse, HttpResponseBadRequest)
 from sharing.models import BetShares
+
+
+def share_users(request):
+    return render(request, 'users.html')
 
 
 def update_betshares(request):

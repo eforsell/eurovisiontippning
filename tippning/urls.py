@@ -24,8 +24,4 @@ urlpatterns = [
         tippning.views.tips, name="tips"),
     url(r'^poang/?$',
         tippning.views.points, name="points"),
-    url(r'^delningar/anvandare/?$',
-        tippning.views.share_users, name="share_users"),
-    url(r'^delningar/deltavlingar/?$',
-        tippning.views.points, name="share_contests"),
 ]

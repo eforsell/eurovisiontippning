@@ -4,6 +4,8 @@ import sharing.views
 app_name = 'sharing'
 
 urlpatterns = [
+    url(r'^anvandare/?$',
+        sharing.views.share_users, name="share_users"),
     url(r'^update_betshares/?$',
         sharing.views.update_betshares, name="update_betshares"),
     url(r'^add_follow/?$',

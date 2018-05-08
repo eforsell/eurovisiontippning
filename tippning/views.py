@@ -141,10 +141,6 @@ def friend_final_lineup(request, user_id):
         )
 
 
-def share_users(request):
-    return render(request, 'sharing/users.html')
-
-
 def tips(request):
     return render(request, 'tips.html')
 
