@@ -24,7 +24,7 @@
                                     <div class="share-remove"><i class="fa fa-times-circle fa-lg  "></i></div>
                                     <div class="share-img" style="background-image:url({% get_social_data friend 'photo' %});"></div>
                                 </a>
-                                <p>{% if user.first_name %}{{ user.first_name }}{% else %}{{ user }}{% endif %}</p>
+                                <p>{% if friend.first_name %}{{ friend.first_name }}{% else %}{{ friend }}{% endif %}</p>
                             </div>
                         {% endfor %}
 
