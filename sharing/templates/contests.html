@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load social_user_tags %}
+{% load order_by %}
+
+{% block title %}Semifinal {{ semi.order }}{% endblock title %}
+
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <div role="tabpanel">
+                        <ul id="share-select" class="nav nav-pills nav-justified nav-share">
+                            <li role="presentation" class="active">
+                                <a href="#bets-semi1" role="tab" data-contest="semi" data-order="1" data-toggle="tab">Semi 1</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#bets-semi2" role="tab" data-contest="semi" data-order="2" data-toggle="tab">Semi 2</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#bets-final" data-contest="final" role="tab" data-toggle="tab">Final</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="bets-container">
+
+                            <div role="tabpanel" class="tab-pane active" id="bets-semi1">
+                                {% if not semi1.has_started %}
+                                    <div class="alert alert-warning" role="alert">
+                                        <i style="margin-right:10px;" class="fa fa-clock-o fa-lg"></i> Tippningen är fortfarande öppen.
+                                    </div>
+                                {% else %}
+                                    <div class="jumbotron share-semi">
+                                        <div class="text-center">
+                                            <div class="btn-group-vertical country-list country-list-semi" role="group">
+                                                {% for entry in semi1.semientry_set.all %}
+                                                    <div class="btn-group country-list-semi">
+                                                        <button
+                                                            {% if not entry.bets %}disabled{% endif %}
+                                                            type="button"
+                                                            class="btn btn-default dropdown-toggle
+                                                                    {% if semi1.has_result and not entry.progression %}
+                                                                        see-through
+                                                                    {% endif %}"
+                                                            id="semi1-{{ entry.id }}"
+                                                            data-toggle="dropdown">
+                                                            <span class="badge startNum">{{ entry.start_order }}</span>
+                                                            <span class="countryName
+                                                                {% if semi1.has_result and not entry.progression %}
+                                                                    text-linethrough
+                                                                {% endif %}
+                                                            ">
+                                                                {{ entry.participant.country.name }}
+                                                            </span>
+                                                        </button>
+                                                        <ul class="dropdown-menu" role="menu">
+                                                            {% for bet in entry.bets %}
+                                                                <li>
+                                                                    <a>
+                                                                        <div class="profile-img" style="background-image:url('{% get_social_data bet.owner 'photo' %}')"></div>
+                                                                        {% if bet.owner == user %}Du{% elif bet.owner.first_name %}{{ bet.owner.first_name }}{% else %}{{ bet.owner }}{% endif %}
+                                                                    </a>
+                                                                </li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane" id="bets-semi2">
+                                {% if not semi2.has_started %}
+                                    <div class="alert alert-warning" role="alert">
+                                        <i style="margin-right:10px;" class="fa fa-clock-o fa-lg"></i> Tippningen är fortfarande öppen.
+                                    </div>
+                                {% else %}
+                                    <div class="jumbotron share-semi">
+                                        <div class="text-center">
+                                            <div class="btn-group-vertical country-list country-list-semi" role="group">
+                                                {% for entry in semi2.semientry_set.all %}
+                                                    <div class="btn-group country-list-semi">
+                                                        <button
+                                                            {% if not entry.bets %}disabled{% endif %}
+                                                            type="button"
+                                                            class="btn btn-default dropdown-toggle
+                                                                    {% if semi2.has_result and not entry.progression %}
+                                                                        see-through
+                                                                    {% endif %}"
+                                                            id="semi2-{{ entry.id }}"
+                                                            data-toggle="dropdown">
+                                                            <span class="badge startNum">{{ entry.start_order }}</span>
+                                                            <span class="countryName
+                                                                {% if semi2.has_result and not entry.progression %}
+                                                                    text-linethrough
+                                                                {% endif %}
+                                                            ">
+                                                                {{ entry.participant.country.name }}
+                                                            </span>
+                                                        </button>
+                                                        <ul class="dropdown-menu" role="menu">
+                                                            {% for bet in entry.bets %}
+                                                                <li>
+                                                                    <a>
+                                                                        <div class="profile-img" style="background-image:url('{% get_social_data bet.owner 'photo' %}')"></div>
+                                                                        {% if bet.owner == user %}Du{% elif bet.owner.first_name %}{{ bet.owner.first_name }}{% else %}{{ bet.owner }}{% endif %}
+                                                                    </a>
+                                                                </li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane" id="bets-final">
+                                {% if not final.has_started %}
+                                    <div class="alert alert-warning" role="alert">
+                                        <i style="margin-right:10px;" class="fa fa-clock-o fa-lg"></i> Tippningen är fortfarande öppen.
+                                    </div>
+                                {% else %}
+                                    <div class="jumbotron">
+                                        <div class="{% if final.has_result %}result{% endif %} text-center final-notshare" id="final-container">
+                                            <div>
+                                                <div class="betNumber">
+                                                    <i class="fa fa-check-square-o"></i>
+                                                </div>
+                                                <button class="btn btn-default" id="final-countryname" disabled>
+                                                    <span class="badge startNum"><i class="fa fa-sort-numeric-asc"></i></span>
+                                                    <span>Land</span>
+                                                </button>
+                                                <div class="right-box">
+                                                    {% if final.has_result %}
+                                                        <div class="resultNum">
+                                                            <span class="label label-default">
+                                                                <i class="fa fa-trophy"></i>
+                                                            </span>
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if youtube or youtube is none %}
+                                                        <div id="music-expand">
+                                                            <button type="button">
+                                                                <i class="fa fa-youtube-play fa-lg"></i>
+                                                            </button>
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <ol id="country-list-final">
+                                                {% for entry in final.finalentry_set.all|order_by_start_order %}
+                                                    <li class="country-list"
+                                                        value="{{ entry.start_order }}"
+                                                    >
+                                                        <div class="btn-group {% if forloop.counter > 10 %}dropup{% endif %}">
+                                                            <button
+                                                                {% if not entry.bets %}disabled{% endif %}
+                                                                type="button"
+                                                                class="btn btn-info dropdown-toggle"
+                                                                data-toggle="dropdown"
+                                                            >
+                                                                <span class="badge startNum">
+                                                                    {{ entry.start_order }}
+                                                                </span>
+                                                                <span class="countryName">
+                                                                    {{ entry.participant.country.name }}
+                                                                </span>
+                                                            </button>
+                                                            <ul class="dropdown-menu" role="menu">
+                                                                {% for bet in entry.bets %}
+                                                                    <li>
+                                                                        <a>
+                                                                            <div class="profile-img" style="background-image:url('{% get_social_data bet.owner 'photo' %}')"></div>
+                                                                            {% if bet.owner == user %}Du{% elif bet.owner.first_name %}{{ bet.owner.first_name }}{% else %}{{ bet.owner }}{% endif %}: {{ bet.rank}}
+                                                                        </a>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </div>
+                                                        <div class="right-box">
+                                                            {% if entry.rank %}
+                                                                <div class="resultNum">
+                                                                    <span class="label label-warning">
+                                                                        {{ entry.rank }}
+                                                                    </span>
+                                                                </div>
+                                                            {% endif %}
+                                                            {% if youtube or youtube is none %}
+                                                                <div id="music-expand">
+                                                                    <button type="button" data-toggle="modal" data-target=".youtube-modal" id="expand-video-id-{{ entry.participant.song.youtube.video_id }}">
+                                                                        <i class="fa fa-youtube-play fa-lg"></i>
+                                                                    </button>
+                                                                </div>
+                                                            {% endif %}
+                                                        </div>
+                                                    </li>
+                                                {% endfor %}
+                                            </ol>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% else %}
+        <div style="height: 50px;"></div>
+        {% include 'login.html' %}
+    {% endif %}
+{% endblock content %}
+
+{% block footer_javascript_page %}
+    <script>
+        $('a[data-toggle="tab"][data-contest="final"]').on('shown.bs.tab', function (e) {
+          var props = { position: "absolute", visibility: "hidden", display: "block" };
+          var maxWidth = 0;
+          // Double selector to acomodate button group in delningB
+          $( "#country-list-final>li>button, #country-list-final>li>.btn-group>button" ).each(function() {
+              var curWidth = $(this).outerWidth();
+              if(curWidth>maxWidth){
+                  maxWidth = curWidth+8;
+              }
+          })
+          $( "#country-list-final>li>button, #country-list-final>li>.btn-group>button" ).css('width',maxWidth);
+          $( "#final-countryname" ).css('width',maxWidth);
+          console.log("ok");
+        })
+    </script>
+{% endblock footer_javascript_page %}

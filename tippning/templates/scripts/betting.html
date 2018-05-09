@@ -5,7 +5,9 @@
     $(document).ready(function () {
         {% if semi %}
             countSelected();
-        {% elif final %}
+        {% endif %}
+
+        {% if final %}
             function finalWidths() {
                 // Final widths
                 var props = { position: "absolute", visibility: "hidden", display: "block" };

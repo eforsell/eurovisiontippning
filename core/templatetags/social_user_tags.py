@@ -8,8 +8,8 @@ register = template.Library()
 def get_social_data(user, key):
     if user.is_authenticated:
         try:
-            social_user = user.social_auth.get()
-        except ObjectDoesNotExist:
+            social_user = user.social_auth.all()[0]
+        except IndexError:
             return None
 
     try:

@@ -6,6 +6,8 @@ app_name = 'sharing'
 urlpatterns = [
     url(r'^anvandare/?$',
         sharing.views.share_users, name="share_users"),
+    url(r'^deltavlingar/?$',
+        sharing.views.share_contests, name="share_contests"),
     url(r'^update_betshares/?$',
         sharing.views.update_betshares, name="update_betshares"),
     url(r'^add_follow/?$',

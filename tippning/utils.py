@@ -130,12 +130,14 @@ def fetch_final_data(user=None, create_bets=False):
         entries = list(final.finalentry_set.all())
 
         has_bets = False
+        had_bets = False
 
         if final.has_semi_entries:
             bets = [e.bets[0] for e in entries if len(e.bets) == 1]
 
             if len(bets) > 0:
                 has_bets = True
+                had_bets = True
 
             elif create_bets and not final.has_started():
                 bets = create_final_bets(entries, user)
@@ -144,7 +146,7 @@ def fetch_final_data(user=None, create_bets=False):
         if not has_bets:
             bets = [None] * len(entries)
 
-        if any(bets):
+        if had_bets:
             entries.sort(key=lambda x: (x.bets[0].rank is None,
                                         x.start_order is None,
                                         x.bets[0].rank,
