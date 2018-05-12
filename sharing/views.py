@@ -100,8 +100,7 @@ def share_results(request):
         friends = user.betshares.follows.prefetch_related('social_auth').all()
         user_ids = [user.id] + [f.id for f in friends]
     else:
-        user = None
-        user_ids = [None]
+        return render(request, 'friend_results.html')
 
     final = (Final.objects
                   .order_by('-start_time')

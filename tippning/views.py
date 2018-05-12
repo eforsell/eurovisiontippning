@@ -143,7 +143,10 @@ def friend_final_lineup(request, user_id):
 
 
 def results(request):
-    user = request.user
+    if request.user.is_authenticated:
+        user = request.user
+    else:
+        return render(request, 'results.html')
 
     data = fetch_results(user)
 

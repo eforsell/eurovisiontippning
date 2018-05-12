@@ -196,7 +196,6 @@ def semi_points(user, semifinal):
                 break
 
         if points is None:
-            raise ValueError('A very specific bad thing happened.')
             points = semi_points_from_bets(user, semifinal)
 
         correct = int(points/3)
