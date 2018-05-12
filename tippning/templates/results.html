@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Semifinal {{ semi.order }}{% endblock title %}
+
+
+{% block content %}
+    <div id="masthead">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h1 style="white-space:nowrap;">Resultat
+                        <p class="lead">
+                            Hur gick det för dig i Eurovision {{ data.final.contest.start_time|date:'Y' }}?
+                        </p>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if user.is_authenticated %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <table class="table table-condensed">
+                        <thead>
+                            <td><h4><strong>Deltävling</strong></h4></td>
+                            <td><h4><strong>Poäng</strong></h4></td>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Semifinal 1</td>
+                                <td>
+                                    {% if data.semi1.contest.has_result %}
+                                        {{ data.semi1.points |floatformat }}
+                                    {% else %}
+                                        <em>...</em>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Semifinal 2</td>
+                                <td>
+                                    {% if data.semi2.contest.has_result %}
+                                        {{ data.semi2.points |floatformat }}
+                                    {% else %}
+                                        <em>...</em>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Final</td>
+                                <td>
+                                    {% if data.final.contest.has_result %}
+                                        {{ data.final.points |floatformat }}
+                                    {% else %}
+                                        <em>...</em>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr class="active">
+                                <td><strong>Totalt</strong></td>
+                                <td><strong>{{ data.total_points |floatformat}}</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        {% include 'login.html' %}
+    {% endif %}
+{% endblock content %}

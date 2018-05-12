@@ -22,6 +22,10 @@
                 <a href="{% url 'tippning:final' %}">Final</a>
             </li>
 
+            <li class="{% navactive request 'tippning:results' %}">
+                <a href="{% url 'tippning:results' %}">Resultat</a>
+            </li>
+
         </ul>
     </li>
 
@@ -40,6 +44,10 @@
 
             <li class="{% navactive request 'sharing:share_contests' %}">
                 <a href="{% url 'sharing:share_contests' %}">Deltävlingar</a>
+            </li>
+
+            <li class="{% navactive request 'sharing:share_results' %}">
+                <a href="{% url 'sharing:share_results' %}">Resultat</a>
             </li>
 
         </ul>

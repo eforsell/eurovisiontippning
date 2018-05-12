@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Semifinal {{ semi.order }}{% endblock title %}
+
+
+{% block content %}
+    <div id="masthead">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h1 style="white-space:nowrap;">Resultat
+                        <p class="lead">
+                            Hur gick det för dig i Eurovision {{ data.final.contest.start_time|date:'Y' }}?
+                        </p>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if user.is_authenticated %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <table class="table table-condensed">
+                        <thead>
+                            <td><h4><strong>Placering</strong></h4></td>
+                            <td><h4><strong>Användare</strong></h4></td>
+                            <td><h4><strong>Poäng</strong></h4></td>
+                            <td><h5><strong>Semi 1</strong></h5></td>
+                            <td><h5><strong>Semi 2</strong></h5></td>
+                            <td><h5><strong>Final</strong></h5></td>
+
+                        </thead>
+                        <tbody>
+                            {% for data in friend_data %}
+                                <tr>
+                                    <td>
+                                        {{ forloop.counter }}
+                                    </td>
+                                    <td>
+                                        <div class="profile-img" style="background-image:url('{{ data.photo  }}')"></div>
+                                        {% if data.friend == user %}Du{% elif data.friend.first_name %}{{ data.friend.first_name }}{% else %}{{ data.friend }}{% endif %}
+                                    </td>
+                                    <td><strong>{{ data.total|floatformat }}</strong></td>
+                                    <td style="border-left: solid 1px #ccc">
+                                        {% if data.semi1 is not None %}
+                                            {{ data.semi1|floatformat }}
+                                        {% else %}
+                                            <div class="text-center">
+                                                <i style="margin-right:10px;" class="fa fa-clock-o fa-lg"></i>
+                                            </div>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if data.semi2 is not None %}
+                                            {{ data.semi2 |floatformat }}
+                                        {% else %}
+                                            <div class="text-center">
+                                                <i style="margin-right:10px;" class="fa fa-clock-o fa-lg"></i>
+                                            </div>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if data.final is not None %}
+                                            {{ data.final|floatformat }}
+                                        {% else %}
+                                            <div class="text-center">
+                                                <i style="margin-right:10px;" class="fa fa-clock-o fa-lg"></i>
+                                            </div>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        {% include 'login.html' %}
+    {% endif %}
+{% endblock content %}

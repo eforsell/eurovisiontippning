@@ -4,7 +4,8 @@ from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import (HttpResponse, HttpResponseBadRequest)
 from events.models import SemiFinal, Final
-from tippning.models import SemiBet, FinalBet
+from tippning.models import SemiBet, FinalBet, SemiScore, FinalScore
+from tippning.utils import semi_points, final_points
 from sharing.models import BetShares
 
 
@@ -90,6 +91,88 @@ def share_contests(request):
         'semi2': semi2,
         'final': final,
         'youtube': False
+        })
+
+
+def share_results(request):
+    if request.user.is_authenticated:
+        user = request.user
+        friends = user.betshares.follows.prefetch_related('social_auth').all()
+        user_ids = [user.id] + [f.id for f in friends]
+    else:
+        user = None
+        user_ids = [None]
+
+    final = (Final.objects
+                  .order_by('-start_time')
+                  .prefetch_related(
+                    "event",
+                    "finalentry_set",
+                    Prefetch(
+                        "finalscore_set",
+                        queryset=FinalScore.objects.filter(
+                            owner_id__in=user_ids
+                            ).select_related(
+                            'score_ptr',
+                            'owner'
+                            )
+                        ))
+                  .first())
+
+    semis = (SemiFinal.objects
+                      .filter(event=final.event)
+                      .prefetch_related(
+                        "semientry_set",
+                        Prefetch(
+                            "semiscore_set",
+                            queryset=SemiScore.objects.filter(
+                                owner_id__in=user_ids
+                                ).select_related(
+                                'score_ptr',
+                                'owner',
+                                )
+                            ))
+                      .order_by('order'))
+
+    semi1 = semis[0]
+    semi2 = semis[1]
+
+    friend_data = []
+    for friend in [user] + list(friends):
+        tot = 0
+        fp = final_points(friend, final)
+        if fp is not None:
+            tot += fp
+        s1p, _ = semi_points(friend, semi1)
+        if s1p is not None:
+            tot += s1p
+        s2p, _ = semi_points(friend, semi2)
+        if s2p is not None:
+            tot += s2p
+
+        try:
+            photo = friend.social_auth.all()[0].extra_data['photo']
+        except:
+            photo = None
+
+        data = {
+            'friend': friend,
+            'photo': photo,
+            'semi1': s1p,
+            'semi2': s2p,
+            'final': fp,
+            'total': tot
+        }
+
+        friend_data.append(data)
+
+    friend_data.sort(key=lambda x: (-x['total']))
+
+    return render(request, 'friend_results.html', {
+        'friend_data': friend_data,
+        'final': final,
+        'semi1': semis[0],
+        'semi2': semis[1]
         })
 
 

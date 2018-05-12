@@ -20,6 +20,8 @@ urlpatterns = [
         tippning.views.friend_final_lineup, name="final_lineup"),
     url(r'^final/lineup/$',
         tippning.views.friend_final_lineup, name="final_lineup_helper"),
+    url(r'^resultat/?$',
+        tippning.views.results, name="results"),
     url(r'^tips/?$',
         tippning.views.tips, name="tips"),
     url(r'^poang/?$',

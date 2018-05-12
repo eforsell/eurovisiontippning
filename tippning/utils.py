@@ -193,8 +193,10 @@ def semi_points(user, semifinal):
         for semiscore in semifinal.semiscore_set.all():
             if semiscore.owner == user:
                 points = semiscore.points
+                break
 
         if points is None:
+            raise ValueError('A very specific bad thing happened.')
             points = semi_points_from_bets(user, semifinal)
 
         correct = int(points/3)
@@ -260,3 +262,65 @@ def final_points(user, final):
         return final_points_from_bets(user, final)
     else:
         return None
+
+
+def fetch_results(user, final=None, semis=None):
+    if final is None:
+        final = (Final.objects
+                      .order_by('-start_time')
+                      .prefetch_related(
+                        "event",
+                        "finalentry_set",
+                        Prefetch(
+                            "finalscore_set",
+                            queryset=FinalScore.objects.filter(
+                                owner=user
+                                ).select_related(
+                                'score_ptr',
+                                'owner'
+                                )
+                            ))
+                      .first())
+
+    if semis is None:
+        semis = (SemiFinal.objects
+                          .filter(event=final.event)
+                          .prefetch_related(
+                            "semientry_set",
+                            Prefetch(
+                                "semiscore_set",
+                                queryset=SemiScore.objects.filter(
+                                    owner=user
+                                    ).select_related(
+                                    'score_ptr',
+                                    'owner'
+                                    )
+                                ))
+                          .order_by('order'))
+
+    if user is not None:
+        fp = final_points(user, final)
+        s1p, _ = semi_points(user, semis[0])
+        s2p, _ = semi_points(user, semis[1])
+    else:
+        fp = None
+        s1p = None
+        s2p = None
+
+    data = {
+        'final': {
+            'contest': final,
+            'points': fp
+        },
+        'semi1': {
+            'contest': semis[0],
+            'points': s1p
+        },
+        'semi2': {
+            'contest': semis[1],
+            'points': s2p
+        },
+        'total_points': fp + s1p + s2p
+    }
+
+    return data

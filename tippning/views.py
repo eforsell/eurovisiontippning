@@ -2,9 +2,10 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.http import (HttpResponse, HttpResponseBadRequest)
 
-from events.models import Final
+from events.models import SemiFinal, Final
 from tippning.models import SemiBet, FinalBet
-from tippning.utils import fetch_semifinal_data, fetch_final_data
+from tippning.utils import (fetch_semifinal_data, fetch_final_data,
+                            fetch_results)
 
 
 def semifinal(request, order):
@@ -139,6 +140,16 @@ def friend_final_lineup(request, user_id):
                 'ajax': True,
                 })
         )
+
+
+def results(request):
+    user = request.user
+
+    data = fetch_results(user)
+
+    return render(request, 'results.html', {
+        'data': data
+        })
 
 
 def tips(request):

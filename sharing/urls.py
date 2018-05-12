@@ -8,6 +8,8 @@ urlpatterns = [
         sharing.views.share_users, name="share_users"),
     url(r'^deltavlingar/?$',
         sharing.views.share_contests, name="share_contests"),
+    url(r'^resultat/?$',
+        sharing.views.share_results, name="share_results"),
     url(r'^update_betshares/?$',
         sharing.views.update_betshares, name="update_betshares"),
     url(r'^add_follow/?$',
