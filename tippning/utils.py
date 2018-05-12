@@ -298,6 +298,16 @@ def fetch_results(user, final=None, semis=None):
                           .order_by('order'))
 
     if user is not None:
+        tot = 0
+        fp = final_points(user, final)
+        if fp is not None:
+            tot += fp
+        s1p, _ = semi_points(user, semis[0])
+        if s1p is not None:
+            tot += s1p
+        s2p, _ = semi_points(user, semis[1])
+        if s2p is not None:
+            tot += s2p
         fp = final_points(user, final)
         s1p, _ = semi_points(user, semis[0])
         s2p, _ = semi_points(user, semis[1])
@@ -319,7 +329,7 @@ def fetch_results(user, final=None, semis=None):
             'contest': semis[1],
             'points': s2p
         },
-        'total_points': fp + s1p + s2p
+        'total_points': tot
     }
 
     return data
