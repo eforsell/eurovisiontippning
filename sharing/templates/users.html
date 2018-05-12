@@ -86,9 +86,9 @@
     <script>
 
         function fetch_contest() {
-            $('#bets-container>.tab-pane').html('<div class="alert alert-info" role="alert" id="bets-select-user"><em>Laddar</em> <i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i></div>');
             var active_user_id = $('.share-thumbnail.active').data("user-id");
             if (typeof active_user_id != 'undefined'){
+                $('#bets-container>.tab-pane').html('<div class="alert alert-info" role="alert" id="bets-select-user"><em>Laddar</em> <i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i></div>');
                 var contest = $('#share-select').find('li.active>a').data('contest');
                 if (contest == 'semi'){
                     var order = $('#share-select').find('li.active>a').data('order');
