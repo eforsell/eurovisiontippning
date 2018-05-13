@@ -3,7 +3,7 @@
         {% if ajax and points %}
             <p>
                 Poäng:
-                <span class="badge"">234.6</span>
+                <span class="badge"">{{ points|floatformat }}</span>
             </p>
         {% endif %}
         <div>
