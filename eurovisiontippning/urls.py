@@ -24,7 +24,7 @@ import core.views
 
 urlpatterns = [
     url(r'^$', core.views.home, name='home'),
-    url(r'^logout/$', auth_views.logout, name='logout'),
+    url(r'^logout/$', auth_views.LogoutView, name='logout'),
     path('admin/', admin.site.urls),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^tippning/', include('tippning.urls')),
