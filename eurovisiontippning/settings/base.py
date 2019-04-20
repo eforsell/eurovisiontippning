@@ -136,6 +136,8 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.profile'
 ]
 
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
