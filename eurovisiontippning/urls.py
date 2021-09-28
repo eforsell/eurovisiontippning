@@ -24,6 +24,7 @@ import core.views
 
 urlpatterns = [
     url(r'^$', core.views.home, name='home'),
+    path('privacy/', core.views.privacy, name='privacy'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     path('admin/', admin.site.urls),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
