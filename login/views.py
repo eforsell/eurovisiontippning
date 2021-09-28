@@ -3,6 +3,8 @@ import random
 import string
 import base64, hmac, hashlib
 
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from django.views import View
 from django.conf import settings
@@ -18,6 +20,7 @@ def confirm_deletion(request):
     return render(request, 'confirm_deletion.html')
 
 
+@method_decorator(csrf_exempt, name='post')
 class FacebookDeauthorizeView(View):
     # From: https://stackoverflow.com/questions/48609148/handle-facebook-deauthorize-callback-in-python
 
