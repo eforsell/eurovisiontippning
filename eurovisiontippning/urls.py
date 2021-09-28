@@ -21,11 +21,14 @@ from django.contrib.auth import views as auth_views
 from django.views import defaults
 
 import core.views
+import login.views
 
 urlpatterns = [
     url(r'^$', core.views.home, name='home'),
-    path('privacy/', core.views.privacy, name='privacy'),
+    path('personuppgiftspolicy/', core.views.privacy, name='privacy'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
+    url(r'^databorttagning/$', login.views.confirm_deletion, name='confirm_deletion'),
+    url(r'^facebook_deauthorize/$', login.views.FacebookDeauthorizeView.as_view(), name='facebook_deauthorize'),
     path('admin/', admin.site.urls),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^tippning/', include('tippning.urls')),
