@@ -20,7 +20,7 @@ def confirm_deletion(request):
     return render(request, 'confirm_deletion.html')
 
 
-@method_decorator(csrf_exempt, name='post')
+@method_decorator(csrf_exempt, name='dispatch')
 class FacebookDeauthorizeView(View):
     # From: https://stackoverflow.com/questions/48609148/handle-facebook-deauthorize-callback-in-python
 
