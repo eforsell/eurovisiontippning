@@ -21,16 +21,34 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-5">
-                <h4>Inte alls egentligen.</h4>
+                <h3>Inte alls egentligen.</h3>
 
                 <p>Eurovisiontippning.se går bara ut på att ha kul och göra det enkelt att tippa och tävla mot varandra i ESC. När du loggar in med hjälp av Google eller Facebook är den enda datan som sparas länken till din profilbild och i Googles fall din e-mail (fast den använder vi inte ändå).</p>
 
             </div>
             <div class="col-sm-5">
-                <h4>Ta bort mina Facebook-data</h4>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3>Ta bort mina data</h3>
 
-                <p>Om du vill ta bort kopplingen till Facebook och alla dina Facebook-data gör du det genom att på Facebook gå till Appar och webbplatser och där ta bort kopplingen till Eurovisiontippning.</p>
+                        <p>
+                            Om du är inloggad kan du trycka på knappen nedan för att ta bort din användare och alla data.
 
+                            {% if request.user.is_authenticated %}
+                                <form action="{% url 'user_delete' %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="submit" value="Radera min användare" onclick="return confirm('Är du säker på att du vill ta bort din användare och all data?')">
+                                </form>
+                            {% endif %}
+                        </p>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <h4>Facebook</h4>
+                        <p>För att ta bort kopplingen till Facebook och alla dina Facebook-data kan du även göra det genom att på Facebook gå till Appar och webbplatser och där ta bort kopplingen till Eurovisiontippning.</p>
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
