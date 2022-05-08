@@ -8,7 +8,7 @@
     "contests": [
         {
             "type": "final",
-            "start_time": {"time": "2021-05-14 21:00:00", "timezone": "Europe/Rome"},
+            "start_time": {"time": "2022-05-14 21:00:00", "timezone": "Europe/Rome"},
             "youtube": {"id": "",
                         "list": "PLmWYEDTNOGUITFdWJRp2Bm2yqnltTeRw2"},
             "spotify": "spotify:user:spotify:playlist:37i9dQZF1DWVCKO3xAlT1Q"
@@ -17,7 +17,7 @@
             "type": "semi",
             "order": 1,
             "progression_count": 10,
-            "start_time": {"time": "2021-05-12 21:00:00", "timezone": "Europe/Rome"},
+            "start_time": {"time": "2022-05-10 21:00:00", "timezone": "Europe/Rome"},
             "youtube": {"id": "",
                         "list": "PLmWYEDTNOGUJo5JNzaAnNkcnCkt5m827e"},
             "spotify": "spotify:user:spotify:playlist:37i9dQZF1DWVCKO3xAlT1Q"
@@ -26,7 +26,7 @@
             "type": "semi",
             "order": 2,
             "progression_count": 10,
-            "start_time": {"time": "2021-05-10 21:00:00", "timezone": "Europe/Rome"},
+            "start_time": {"time": "2022-05-12 21:00:00", "timezone": "Europe/Rome"},
             "youtube": {"id": "",
                         "list": "PLmWYEDTNOGUIbjdiLKezybWdHShW68JKY"},
             "spotify": "spotify:user:spotify:playlist:37i9dQZF1DWVCKO3xAlT1Q"
