@@ -24,7 +24,7 @@ progressbar2==3.39.3
 psycopg2==2.8.2
 psycopg2-binary==2.8.2
 pyasn1==0.4.5
-PyJWT==1.7.1
+PyJWT==2.4.0
 python-dateutil==2.8.0
 python-social-auth==0.3.6
 python-utils==2.3.0
