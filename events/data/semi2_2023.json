@@ -1,0 +1,826 @@
+{
+  "kind": "youtube#playlistItemListResponse",
+  "etag": "LZL9sza8q4O26Jzg_G-ZRMfue7g",
+  "items": [
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "rxLp4rzjB8pyqzqk__98yOx6X_s",
+      "id": "UExtV1lFRFROT0dVSnRaZS1POTFRWmpVNlViY3JjeUJEZi4zMDg5MkQ5MEVDMEM1NTg2",
+      "snippet": {
+        "publishedAt": "2023-04-17T14:58:20Z",
+        "channelId": "UCRpjHHu8ivVWs73uxHlWwFA",
+        "title": "Reiley - Breaking My Heart | Denmark 🇩🇰 | Official Music Video | Eurovision 2023",
+        "description": "Subscribe and 🔔 to Eurovision 👉 https://www.youtube.com/user/eurovision?sub_confirmation=1\n\nReiley (@ReileyPeters) will represent Denmark at the Eurovision Song Contest 2023 in Liverpool with the song Breaking My Heart.\n\nThanks to participating broadcaster DR (@dr9194)\n\n-\n#UnitedByMusic - Liverpool 2023\n\nThe Eurovision Song Contest celebrates diversity through music. Please keep your comments respectful. We will not tolerate racism, sexism, ableism, homophobia, transphobia, body-shaming or any other derogatory or hostile language. Offensive users will be blocked and reported. Music first, always.\n\nSubscribe to the Official Eurovision Song Contest Podcast: https://pod.link/1617767675\nFollow us on TikTok: https://www.tiktok.com/@Eurovision \nFollow us on Instagram: https://www.instagram.com/eurovision \nFollow us on Twitter: https://twitter.com/Eurovision\nFollow us on Facebook: https://www.facebook.com/EurovisionSo...\n\nIf you want to know more about the Eurovision Song Contest, visit https://eurovision.tv\n\nShop for official Eurovision Song Contest merchandise: https://shop.eurovision.tv/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/uWs69ddGEW4/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/uWs69ddGEW4/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/uWs69ddGEW4/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/uWs69ddGEW4/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/uWs69ddGEW4/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Eurovision Song Contest",
+        "playlistId": "PLmWYEDTNOGUJtZe-O91QZjU6UbcrcyBDf",
+        "position": 0,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "uWs69ddGEW4"
+        },
+        "videoOwnerChannelTitle": "Eurovision Song Contest",
+        "videoOwnerChannelId": "UCRpjHHu8ivVWs73uxHlWwFA"
+      },
+      "contentDetails": {
+        "videoId": "uWs69ddGEW4",
+        "videoPublishedAt": "2023-03-07T14:40:44Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "rh40ngXwJE-ck-LVsj4ufV8LSgY",
+      "id": "UExtV1lFRFROT0dVSnRaZS1POTFRWmpVNlViY3JjeUJEZi4yODlGNEE0NkRGMEEzMEQy",
+      "snippet": {
+        "publishedAt": "2023-04-17T14:57:47Z",
+        "channelId": "UCRpjHHu8ivVWs73uxHlWwFA",
+        "title": "Brunette - Future Lover | Armenia 🇦🇲 | Official Music Video | Eurovision 2023",
+        "description": "Subscribe and 🔔 to Eurovision 👉 https://www.youtube.com/user/eurovision?sub_confirmation=1\n\nBrunette will represent Armenia at the Eurovision Song Contest 2023 in Liverpool with the song Future Lover.\n\nThanks to participating broadcaster: @ArmenianPublicTV \n\n~~~~~ Credits ~~~~~\n\nMusic and lyrics: Brunette\nMix & mastering, arrangement: Arthur Armeni\nProduced by: Nare Manukyan\nMusic video director: Aramayis Hayrapetyan\nDOP: Artyom Abovyan\nLine Producer: Mikayel Sargsyan\nSecond Director: Lilit Frangulyan\nProject Manager: Anush Hakobyan\nStylist:  Narek Jhangiryan\nMake up: Liana Ayvazyan\nHair: Siran Matshkalyan\nGaffer: Geras Velikhanyan\nEditing: Aramayis Hayrapetyan\nCG: Andranik Torosyan\nColour Correction: Karen Melkumyan\nChoreography: Jan Abrahamyan\nDecoration: Stage Style\nProduced by: Gravity Production\n\n-\n#UnitedByMusic - Liverpool 2023\n\nThe Eurovision Song Contest celebrates diversity through music. Please keep your comments respectful. We will not tolerate racism, sexism, ableism, homophobia, transphobia, body-shaming or any other derogatory or hostile language. Offensive users will be blocked and reported. Music first, always.\n\nSubscribe to the Official Eurovision Song Contest Podcast: https://pod.link/1617767675\nFollow us on TikTok: https://www.tiktok.com/@Eurovision \nFollow us on Instagram: https://www.instagram.com/eurovision \nFollow us on Twitter: https://twitter.com/Eurovision\nFollow us on Facebook: https://www.facebook.com/EurovisionSo...\n\nIf you want to know more about the Eurovision Song Contest, visit https://eurovision.tv\n\nShop for official Eurovision Song Contest merchandise: https://shop.eurovision.tv/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Co8ZJIejXBA/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Co8ZJIejXBA/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Co8ZJIejXBA/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/Co8ZJIejXBA/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/Co8ZJIejXBA/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Eurovision Song Contest",
+        "playlistId": "PLmWYEDTNOGUJtZe-O91QZjU6UbcrcyBDf",
+        "position": 1,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "Co8ZJIejXBA"
+        },
+        "videoOwnerChannelTitle": "Eurovision Song Contest",
+        "videoOwnerChannelId": "UCRpjHHu8ivVWs73uxHlWwFA"
+      },
+      "contentDetails": {
+        "videoId": "Co8ZJIejXBA",
+        "videoPublishedAt": "2023-03-15T18:00:08Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "-Lj-2utk9ABYKD_DLA64qXLxfiI",
+      "id": "UExtV1lFRFROT0dVSnRaZS1POTFRWmpVNlViY3JjeUJEZi5EMEEwRUY5M0RDRTU3NDJC",
+      "snippet": {
+        "publishedAt": "2023-04-17T14:58:20Z",
+        "channelId": "UCRpjHHu8ivVWs73uxHlWwFA",
+        "title": "Theodor Andrei - D.G.T. (Off And On) | Romania 🇷🇴 | Official Music Video | Eurovision 2023",
+        "description": "Subscribe and 🔔 to Eurovision 👉 https://www.youtube.com/user/eurovision?sub_confirmation=1\n\nTheodor Andrei won Romania's Selecția Națională with D.G.T (Off And On) and will represent the country at the Eurovision Song Contest 2023 in Liverpool. This performance from Selecția Națională appears courtesy of @TVRcanaluloficial \n\n-\n#UnitedByMusic - Liverpool 2023\n\nThe Eurovision Song Contest celebrates diversity through music. Please keep your comments respectful. We will not tolerate racism, sexism, ableism, homophobia, transphobia, body-shaming or any other derogatory or hostile language. Offensive users will be blocked and reported. Music first, always.\n\nSubscribe to the Official Eurovision Song Contest Podcast: https://pod.link/1617767675\nFollow us on TikTok: https://www.tiktok.com/@Eurovision \nFollow us on Instagram: https://www.instagram.com/eurovision \nFollow us on Twitter: https://twitter.com/Eurovision\nFollow us on Facebook: https://www.facebook.com/EurovisionSo...\n\nIf you want to know more about the Eurovision Song Contest, visit https://eurovision.tv\n\nShop for official Eurovision Song Contest merchandise: https://shop.eurovision.tv/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/NRxv-AUCinQ/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/NRxv-AUCinQ/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/NRxv-AUCinQ/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/NRxv-AUCinQ/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/NRxv-AUCinQ/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Eurovision Song Contest",
+        "playlistId": "PLmWYEDTNOGUJtZe-O91QZjU6UbcrcyBDf",
+        "position": 2,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "NRxv-AUCinQ"
+        },
+        "videoOwnerChannelTitle": "Eurovision Song Contest",
+        "videoOwnerChannelId": "UCRpjHHu8ivVWs73uxHlWwFA"
+      },
+      "contentDetails": {
+        "videoId": "NRxv-AUCinQ",
+        "videoPublishedAt": "2023-02-13T11:15:10Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "KtUe1fEBTPbFhZoW-yxzJgGBRTA",
+      "id": "UExtV1lFRFROT0dVSnRaZS1POTFRWmpVNlViY3JjeUJEZi5DQUNERDQ2NkIzRUQxNTY1",
+      "snippet": {
+        "publishedAt": "2023-04-17T14:57:47Z",
+        "channelId": "UCRpjHHu8ivVWs73uxHlWwFA",
+        "title": "Alika - Bridges | Estonia 🇪🇪 | Official Music Video | Eurovision 2023",
+        "description": "Subscribe and 🔔 to Eurovision 👉 https://www.youtube.com/user/eurovision?sub_confirmation=1\n\nAlika will represent Estonia at the Eurovision Song Contest 2023 in Liverpool with the song Bridges.\n\nThanks to participating broadcaster ERR: @Rahvusringhaaling \n\n~~~~~ Lyrics ~~~~~\n\nNow I’m heading home\nTo solid ground\nRealised that all the lies I’ve told myself have died\nBring me to the place\nWhere I belong\nFilled with all the memories and dreams I have ignored\nAaaa, Aaaa, Aaaa\n\nThere is always time\nTo get back on track\nTearing down the walls\nSlowly every step\nNow I see myself\nBuilding up a world of bridges\n\nThere is one more thing\nYou need to know\nThat I forgive myself for all the lies I said before\nNow I see the road\nOf leading lights\nShowing me where I should go and what to leave behind\n\nAaaa Aaaa\n\nThere is always time\nTo get back on track\nTearing down the walls\nSlowly every step\nNow I see myself\nBuilding up a world of bridges\nYou will find a way\nTo begin again\nNo more time to waste\nOr to play pretend\nNow I see myself\nBuilding up a world of bridges\n\nI remember all the things that I went through\nAll the lies and blurry lines and city lights I knew\nNow I'm strong enough to see what lays inside\nAnd I can feel it all\n\nThere is always time\nTo get back on track\nTearing down the walls\nSlowly every step\nNow I see myself\nBuilding up a world of bridges\nYou will find a way\nTo begin again\nNo more time to waste\nOr to play pretend\nNow I see myself\nBuilding up a world of bridges\n\n-\n#UnitedByMusic - Liverpool 2023\n\nThe Eurovision Song Contest celebrates diversity through music. Please keep your comments respectful. We will not tolerate racism, sexism, ableism, homophobia, transphobia, body-shaming or any other derogatory or hostile language. Offensive users will be blocked and reported. Music first, always.\n\nSubscribe to the Official Eurovision Song Contest Podcast: https://pod.link/1617767675\nFollow us on TikTok: https://www.tiktok.com/@Eurovision \nFollow us on Instagram: https://www.instagram.com/eurovision \nFollow us on Twitter: https://twitter.com/Eurovision\nFollow us on Facebook: https://www.facebook.com/EurovisionSo...\n\nIf you want to know more about the Eurovision Song Contest, visit https://eurovision.tv\n\nShop for official Eurovision Song Contest merchandise: https://shop.eurovision.tv/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/wO9g5t3VSuw/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/wO9g5t3VSuw/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/wO9g5t3VSuw/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/wO9g5t3VSuw/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/wO9g5t3VSuw/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Eurovision Song Contest",
+        "playlistId": "PLmWYEDTNOGUJtZe-O91QZjU6UbcrcyBDf",
+        "position": 3,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "wO9g5t3VSuw"
+        },
+        "videoOwnerChannelTitle": "Eurovision Song Contest",
+        "videoOwnerChannelId": "UCRpjHHu8ivVWs73uxHlWwFA"
+      },
+      "contentDetails": {
+        "videoId": "wO9g5t3VSuw",
+        "videoPublishedAt": "2023-03-09T18:00:10Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "TrPdH_1H69pnLAlpJDMFBp3zf_w",
+      "id": "UExtV1lFRFROT0dVSnRaZS1POTFRWmpVNlViY3JjeUJEZi4wOTA3OTZBNzVEMTUzOTMy",
+      "snippet": {
+        "publishedAt": "2023-04-17T14:57:47Z",
+        "channelId": "UCRpjHHu8ivVWs73uxHlWwFA",
+        "title": "Gustaph - Because Of You | Belgium 🇧🇪 | Official Music Video | Eurovision 2023",
+        "description": "Subscribe and 🔔 to Eurovision 👉 https://www.youtube.com/user/eurovision?sub_confirmation=1\n\nGustaph will represent Belgium at the Eurovision Song Contest 2023 in Liverpool with the song Because Of You.\n\nThanks to participating broadcaster VRT: @vrt1043be \n\n~~~~~ Credits ~~~~~\n\nDirector, DoP and Editor: Roen Lommelen @roenlommelen\nMotion Graphic Design: Bart Lommelen\nBacking Vocalists: Monique Harcum, Chantal Kashala & Sandrine Van Handenhoven\nDrag Performers: Veronika Deneuve & Lola McQueen\nBallroom Dancers: Mikael De Geyter & Mamore Ninja\nMovement Direction: Yves Ruth & Sarah Hadadia - L.E.A.D. Agency\nBooking Dancers: Nina Muñoz\nGustaph's Stylist: Walter Van Beirendonck \nProduction: VRT\n\n~~~~~ Lyrics ~~~~~\n\nAnd when the world got me going crazy I’ll carry on\nAnd it’s all because of you\nBecause of you\n\nRemember when they told us\nYou’re not good enough\nThen you came into my life\nAnd you changed my world for good\n\nYou told me to love myself a bit harder than yesterday\nCause life is too short and we sure got to celebrate\n\nAnd when the world got me going crazy I’ll carry on\nCause I know I’m strong\nAnd when the world got me going crazy I’ll carry on\nAnd it’s all because of you\nBecause of you\n\nRemember when they tried to break us\nBut look at us now\nYou told me the right things at the right time\nYou got me feeling wild\n\nNow I love myself much more than I did yesterday\nCause life is too short and we sure got to celebrate\n\nAnd when the world got me going crazy I’ll carry on\nCause I know I’m strong\nAnd when the world got me going crazy I’ll carry on\nAnd it’s all because of you\n\nI’ll carry on\nDespite of the things they’ve said and done\nThey’ll never kill this fire\nYour love will take me higher\nIt’s all because of you\n\nBecause of you\nWell, because of you\nBecause of you I keep on going baby, baby for a brighter day\n\nAnd when the world got me going crazy I’ll carry on\nSee I’ll carry on because of you\nAnd when the world got me going crazy, see I will carry on\nAnd it’s all because of you\n\nBecause of you\nBecause of you\n\n-\n#UnitedByMusic - Liverpool 2023\n\nThe Eurovision Song Contest celebrates diversity through music. Please keep your comments respectful. We will not tolerate racism, sexism, ableism, homophobia, transphobia, body-shaming or any other derogatory or hostile language. Offensive users will be blocked and reported. Music first, always.\n\nSubscribe to the Official Eurovision Song Contest Podcast: https://pod.link/1617767675\nFollow us on TikTok: https://www.tiktok.com/@Eurovision \nFollow us on Instagram: https://www.instagram.com/eurovision \nFollow us on Twitter: https://twitter.com/Eurovision\nFollow us on Facebook: https://www.facebook.com/EurovisionSo...\n\nIf you want to know more about the Eurovision Song Contest, visit https://eurovision.tv\n\nShop for official Eurovision Song Contest merchandise: https://shop.eurovision.tv/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/ORhEoS6d8e4/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/ORhEoS6d8e4/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/ORhEoS6d8e4/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/ORhEoS6d8e4/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/ORhEoS6d8e4/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Eurovision Song Contest",
+        "playlistId": "PLmWYEDTNOGUJtZe-O91QZjU6UbcrcyBDf",
+        "position": 4,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "ORhEoS6d8e4"
+        },
+        "videoOwnerChannelTitle": "Eurovision Song Contest",
+        "videoOwnerChannelId": "UCRpjHHu8ivVWs73uxHlWwFA"
+      },
+      "contentDetails": {
+        "videoId": "ORhEoS6d8e4",
+        "videoPublishedAt": "2023-03-10T06:45:08Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "url048uh4B4yocoGnrk-mqpZVvw",
+      "id": "UExtV1lFRFROT0dVSnRaZS1POTFRWmpVNlViY3JjeUJEZi45NDk1REZENzhEMzU5MDQz",
+      "snippet": {
+        "publishedAt": "2023-04-17T14:57:47Z",
+        "channelId": "UCRpjHHu8ivVWs73uxHlWwFA",
+        "title": "Andrew Lambrou - Break A Broken Heart | Cyprus 🇨🇾 | Official Music Video | Eurovision 2023",
+        "description": "Subscribe and 🔔 to Eurovision 👉 https://www.youtube.com/user/eurovision?sub_confirmation=1\n\nAndrew Lambrou will represent Cyprus at the Eurovision Song Contest 2023 in Liverpool with the song Break A Broken Heart.\n\nThanks to participating broadcaster CyBC: @CyprusBroadcastingCorporation \n\n~~~~~ Lyrics provided by CyBC ~~~~~\n\nThe lights went out \nI hit the ground \nYou didn’t mind that I was bleeding out \nYou filled my life \nWith minor songs \nI loved you but you loved to do me wrong \nI miss your kiss, gasoline and a matchstick \nRed Lights, flashes, rising out of the ashes \n\nI see you \nFor who you are \nBut you can’t break… a broken heart \n\nYou lift me up and leave me in the gutter \nTear me up and move on to another \nI’m torn apart but I am a survivor \nYou can’t, you can’t break a broken heart \nNo-o-o \nYou can’t break a broken heart \nNo-o-o \n\nAn all-time low \nBut I’ll get by \nAnd over you I’ll find the highest high \nYou did your best \nTo do your worst \nI got used to all the ways it hurt \nFeel the fever telling me that I need her \nScience fiction turning into an addiction \n\nI see you \nFor who you are \nBut you can’t break… a broken heart \n\nYou lift me up and leave me in the gutter \nTear me up and move on to another \nI’m torn apart but I am a survivor \nYou can’t, you can’t break a broken heart … \nNo-o-o \nYou can’t break a broken heart \nNo-o-o \n\nOh I miss your kiss, gasoline and a matchstick \nRed Lights, flashes, rising from the ashes… \n\nYou lift me up and leave me in the gutter \nTear me up and move on to another \nI’m torn apart but I am a survivor \n\nYou can’t break a… \nNo-o-o \nOh you can’t break a broken… \nNo-o-o \nYou can’t, you can’t break a broken heart \nYou can’t, you can’t, you can’t break a broken heart \nYou can’t, you can’t break a broken heart \nYou can’t… \nYou can’t break a broken heart!\n\n-\n#UnitedByMusic - Liverpool 2023\n\nThe Eurovision Song Contest celebrates diversity through music. Please keep your comments respectful. We will not tolerate racism, sexism, ableism, homophobia, transphobia, body-shaming or any other derogatory or hostile language. Offensive users will be blocked and reported. Music first, always.\n\nSubscribe to the Official Eurovision Song Contest Podcast: https://pod.link/1617767675\nFollow us on TikTok: https://www.tiktok.com/@Eurovision \nFollow us on Instagram: https://www.instagram.com/eurovision \nFollow us on Twitter: https://twitter.com/Eurovision\nFollow us on Facebook: https://www.facebook.com/EurovisionSo...\n\nIf you want to know more about the Eurovision Song Contest, visit https://eurovision.tv\n\nShop for official Eurovision Song Contest merchandise: https://shop.eurovision.tv/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/zrFUKqTy4zI/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/zrFUKqTy4zI/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/zrFUKqTy4zI/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/zrFUKqTy4zI/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/zrFUKqTy4zI/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Eurovision Song Contest",
+        "playlistId": "PLmWYEDTNOGUJtZe-O91QZjU6UbcrcyBDf",
+        "position": 5,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "zrFUKqTy4zI"
+        },
+        "videoOwnerChannelTitle": "Eurovision Song Contest",
+        "videoOwnerChannelId": "UCRpjHHu8ivVWs73uxHlWwFA"
+      },
+      "contentDetails": {
+        "videoId": "zrFUKqTy4zI",
+        "videoPublishedAt": "2023-03-11T18:30:06Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "vHML1m2g2nBga-qMt8EN6eALrHA",
+      "id": "UExtV1lFRFROT0dVSnRaZS1POTFRWmpVNlViY3JjeUJEZi41NkI0NEY2RDEwNTU3Q0M2",
+      "snippet": {
+        "publishedAt": "2023-04-17T14:57:47Z",
+        "channelId": "UCRpjHHu8ivVWs73uxHlWwFA",
+        "title": "Diljá - Power | Iceland 🇮🇸 | Official Music Video | Eurovision 2023",
+        "description": "Subscribe and 🔔 to Eurovision 👉 https://www.youtube.com/user/eurovision?sub_confirmation=1\n\nDiljá  will represent Iceland at the Eurovision Song Contest 2023 in Liverpool with the song Power.\n\nThanks to participating broadcaster RÚV: @nymidlar \n\n~~~~~ Lyrics ~~~~~\n\nI'm ready to let you go\nWon't hold you back no more\nGo on spread your wings and fly away\nBeen carrying you way too long\nLike an obsession\nI thought you were a living part of me\n\nBut I got my power in my hand\nYou hold no power over me\nI’ll take my flowers while I can\nSo let the love shower over me\n\nYou hold no p-p-p-power over me\nYou hold no p-p-p-power over me\n\nI'm not doing this dance again\nso goodbye old friend\nTired of finding meaning in the dark\nI'm releasing all of you\nIn gratitude\nReplacing you with light that fills my heart\n\nBut I got my power in my hand\nYou hold no power over me\nI’ll take my flowers while I can\nSo let the love shower over me\n\nYou hold no p-p-p-power over me\nYou hold no p-p-p-power over me\n\nI’ll take my flowers while I can\nSo let the love shower over me\n\nYou hold no p-p-p-power over me\nYou hold no p-p-p-power over me\n\n-\n#UnitedByMusic - Liverpool 2023\n\nThe Eurovision Song Contest celebrates diversity through music. Please keep your comments respectful. We will not tolerate racism, sexism, ableism, homophobia, transphobia, body-shaming or any other derogatory or hostile language. Offensive users will be blocked and reported. Music first, always.\n\nSubscribe to the Official Eurovision Song Contest Podcast: https://pod.link/1617767675\nFollow us on TikTok: https://www.tiktok.com/@Eurovision \nFollow us on Instagram: https://www.instagram.com/eurovision \nFollow us on Twitter: https://twitter.com/Eurovision\nFollow us on Facebook: https://www.facebook.com/EurovisionSo...\n\nIf you want to know more about the Eurovision Song Contest, visit https://eurovision.tv\n\nShop for official Eurovision Song Contest merchandise: https://shop.eurovision.tv/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/BhlJXcCv7gw/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/BhlJXcCv7gw/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/BhlJXcCv7gw/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/BhlJXcCv7gw/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/BhlJXcCv7gw/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Eurovision Song Contest",
+        "playlistId": "PLmWYEDTNOGUJtZe-O91QZjU6UbcrcyBDf",
+        "position": 6,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "BhlJXcCv7gw"
+        },
+        "videoOwnerChannelTitle": "Eurovision Song Contest",
+        "videoOwnerChannelId": "UCRpjHHu8ivVWs73uxHlWwFA"
+      },
+      "contentDetails": {
+        "videoId": "BhlJXcCv7gw",
+        "videoPublishedAt": "2023-03-11T18:00:08Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "Qy1HcuqDiMPL0m9_tP6LV25_fuw",
+      "id": "UExtV1lFRFROT0dVSnRaZS1POTFRWmpVNlViY3JjeUJEZi41MzJCQjBCNDIyRkJDN0VD",
+      "snippet": {
+        "publishedAt": "2023-04-17T14:57:47Z",
+        "channelId": "UCRpjHHu8ivVWs73uxHlWwFA",
+        "title": "Victor Vernicos - What They Say | Greece 🇬🇷 | Official Music Video | Eurovision 2023",
+        "description": "Subscribe and 🔔 to Eurovision 👉 https://www.youtube.com/user/eurovision?sub_confirmation=1\n\nVictor Vernicos will represent Greece at the Eurovision Song Contest 2023 in Liverpool with the song What They Say.\n\nThanks to participating broadcaster ERT: @ert.\n\n~~~~~ Lyrics provided by ERT ~~~~~\n\nLate august \nFeet start to shake heart starts to ache \nCan't focus\nPanic I lay on the floor and I hate \nThat I'm holding on\nMy lungs'll break can’t stop to make \nMy mind up\nTime starts to rain clouds not afraid\n\nOf the pain they’re giving\nAnxious the way I’m breathing\nCan’t say that I am longing for\nAnother day to break my spirit\nInsane and I can tell who’s winning\nWish this was something I could just ignore\n\nWell you know What They Say \nLost souls make sure no one loses their way \nHurt ones can’t stand seeing others in pain \nOh I am both now I got too much on my plate \nAnd I save all the others cause for me it’s too \n\nNostalgic mind,\nI miss the days when my heart wouldn’t ache and\nI’m drowning, time\nQuicksand of life, we don’t live to die \nNow I’m tryna, fight\nAll of the lights that leave me so blind\nAs a writer\nBut I’m not an actor no I don’t live my own \n\nLife and I hate my feelings,\nI’m overwhelmed and heated,\nCan’t say that I am longing for,\nAnother day to break my spirit,\nInsane and I can tell who’s winning,\nWish this was something I could just ignore,\n\nWell you know What They Say\nLost souls make sure no one loses their way \nHurt ones can’t stand seeing others in pain \nOh I am both now I got too much on my plate \nAnd I save all the others cause for me it’s too \n\n(Oh Yeahh)\n\nWell you know What They Say\nLost souls make sure no one loses their way \nHurt ones can’t stand seeing others in pain \nOh I am both now I got too much on my plate \nAnd I save all the others cause for me it’s too late \n\n-\n#UnitedByMusic - Liverpool 2023\n\nThe Eurovision Song Contest celebrates diversity through music. Please keep your comments respectful. We will not tolerate racism, sexism, ableism, homophobia, transphobia, body-shaming or any other derogatory or hostile language. Offensive users will be blocked and reported. Music first, always.\n\nSubscribe to the Official Eurovision Song Contest Podcast: https://pod.link/1617767675\nFollow us on TikTok: https://www.tiktok.com/@Eurovision \nFollow us on Instagram: https://www.instagram.com/eurovision \nFollow us on Twitter: https://twitter.com/Eurovision\nFollow us on Facebook: https://www.facebook.com/EurovisionSo...\n\nIf you want to know more about the Eurovision Song Contest, visit https://eurovision.tv\n\nShop for official Eurovision Song Contest merchandise: https://shop.eurovision.tv/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/qL0EkId_sTY/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/qL0EkId_sTY/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/qL0EkId_sTY/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/qL0EkId_sTY/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/qL0EkId_sTY/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Eurovision Song Contest",
+        "playlistId": "PLmWYEDTNOGUJtZe-O91QZjU6UbcrcyBDf",
+        "position": 7,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "qL0EkId_sTY"
+        },
+        "videoOwnerChannelTitle": "Eurovision Song Contest",
+        "videoOwnerChannelId": "UCRpjHHu8ivVWs73uxHlWwFA"
+      },
+      "contentDetails": {
+        "videoId": "qL0EkId_sTY",
+        "videoPublishedAt": "2023-03-12T15:45:36Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "0CRQ7RB5D3dzEWLLUNDxjR30x2Y",
+      "id": "UExtV1lFRFROT0dVSnRaZS1POTFRWmpVNlViY3JjeUJEZi41MjE1MkI0OTQ2QzJGNzNG",
+      "snippet": {
+        "publishedAt": "2023-04-17T14:57:47Z",
+        "channelId": "UCRpjHHu8ivVWs73uxHlWwFA",
+        "title": "Blanka - Solo | Poland 🇵🇱 | Official Music Video | Eurovision 2023",
+        "description": "Subscribe and 🔔 to Eurovision 👉 https://www.youtube.com/user/eurovision?sub_confirmation=1\n\nBlanka (@blikeblanka656) will represent Poland at the Eurovision Song Contest 2023 in Liverpool with the song Solo.\n\nThanks to participating broadcaster TVP: @tvp_vod \n\n~~~~~ Lyrics ~~~~~\n\nBaby, it’s kind of crazy \nHow else to phrase it?\nWith you I’ve lost my senses\nBaby, what happened to ya? \nI thought I knew ya \nBut now it’s time to face it\n\nYa hot and cold, high and you’re low, messin' with my mind \nNo oh oh, that’s not how it goes, so let me spell it out\n\nNow I’m better solo, solo\nI never let me down didi down down down \nand now I’m gonna show ya, show ya\nshow you what it is you're missing out\nNow I’m better solo, solo\nI never let me down down didi down down down \nNow I’m gonna show ya, show ya\nHow I be getting down (solo)\n\nTell me, now was it worth it?\nPlayin’ me dirty, but now who’s laughing baby?\nWatch me, all eyes on me now\nBet you regret how\nWhat goes around comes around\n\nYa hot and cold, high and you’re low, messin' with my mind \nNo oh oh, that’s not how it goes, so let me spell it out\n\nNow I’m better solo solo\nI never let me down didi down down down \nand now I’m gonna show ya, show ya \nshow you what it is you're missing out\nNow I’m better solo solo\nI never let me down down didi down down down \nNow I’m gonna show ya show ya\nHow I be getting down (solo)\n\nNo no, I’m going solo\n(Yeah) ya better, better watch me now \ncause I know how to let go \ngonna make it, make it on my own\nOh, oh no, I’m going solo\n(yeah) ya better, better watch me now \ncause I know how to let go \nso it’s clear to see I’m...\n\nNow I’m better solo, solo\nI never let me down didi down down down \nand now I’m gonna show ya, show ya \nshow you what it is you're missing out\nNow I’m better solo, solo\nI never let me down down didi down down down \nNow I’m gonna show ya, show ya\nHow I be getting down (solo) \n\n-\n#UnitedByMusic - Liverpool 2023\n\nThe Eurovision Song Contest celebrates diversity through music. Please keep your comments respectful. We will not tolerate racism, sexism, ableism, homophobia, transphobia, body-shaming or any other derogatory or hostile language. Offensive users will be blocked and reported. Music first, always.\n\nSubscribe to the Official Eurovision Song Contest Podcast: https://pod.link/1617767675\nFollow us on TikTok: https://www.tiktok.com/@Eurovision \nFollow us on Instagram: https://www.instagram.com/eurovision \nFollow us on Twitter: https://twitter.com/Eurovision\nFollow us on Facebook: https://www.facebook.com/EurovisionSo...\n\nIf you want to know more about the Eurovision Song Contest, visit https://eurovision.tv\n\nShop for official Eurovision Song Contest merchandise: https://shop.eurovision.tv/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Jjsl-JCHDWE/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Jjsl-JCHDWE/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Jjsl-JCHDWE/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/Jjsl-JCHDWE/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/Jjsl-JCHDWE/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Eurovision Song Contest",
+        "playlistId": "PLmWYEDTNOGUJtZe-O91QZjU6UbcrcyBDf",
+        "position": 8,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "Jjsl-JCHDWE"
+        },
+        "videoOwnerChannelTitle": "Eurovision Song Contest",
+        "videoOwnerChannelId": "UCRpjHHu8ivVWs73uxHlWwFA"
+      },
+      "contentDetails": {
+        "videoId": "Jjsl-JCHDWE",
+        "videoPublishedAt": "2023-03-10T18:00:09Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "SAHywf9rR8eayYq4MTx6tdGMx2U",
+      "id": "UExtV1lFRFROT0dVSnRaZS1POTFRWmpVNlViY3JjeUJEZi41Mzk2QTAxMTkzNDk4MDhF",
+      "snippet": {
+        "publishedAt": "2023-04-17T14:58:36Z",
+        "channelId": "UCRpjHHu8ivVWs73uxHlWwFA",
+        "title": "Joker Out - Carpe Diem | Slovenia 🇸🇮 | Official Video | Eurovision 2023",
+        "description": "Subscribe and 🔔 to Eurovision 👉 https://www.youtube.com/user/eurovision?sub_confirmation=1\n\nJoker Out @jokeroutofficial will represent Slovenia at the Eurovision Song Contest 2023 in Liverpool with the song Carpe Diem.\n\nThanks to participating broadcaster @RtvSlovenijaSi.\n\n~~~~~ Credits ~~~~~\n\nRTV Slovenija & Shagadelic Records present:\nProduction Company: Studio7\nDirector: Bonino Englaro\nCinematographer: Mark Pirc\nEditor: Lukas Miheljak\nCreative Director & Executive Producer : Mark Pirc\nScript Writers: Bojan Cvjetićanin, Mark Pirc, Jure Maček\nProduction Manager: Nina Hauptman\nAssistant Producer: Ajda Samec\nProduction Assistant: Maks Guštin\nProduction Assistant: Janez Debeljak\nProduction Assistant: Maša Zupančič\nDriver: Niko Bogataj\n1st AD: Blaž Završnik\n2nd AD: Milena Sekulić\n1st AC: Alex Delay\n2nd AC: Kristjan Vatovec\nGaffer: Klemen Smolar\nBest boy: Bor Kiswarday\nLighting technician: Miha Skrt\nProduction designer: Nina Rojc\nArt director: Maja Šavc\nScenography assistant: Irenej Skubic\nScenography assistant: Jaka Kavčič\nStylist: Damir Raković Ponorelii\nStylist Assistant : Suzana Jursić\nMUA: Nina Burazor\nLocation Manager: Vasja Semolič,\nLocation Manager Back-Office: Barbara Imperl\nSpecial FX: Klemen Hren\nColorist: Nik Lavrič\nVFX: Žiga Radulj\nChoreography: Eva Mauricio\nCast: Dejan Kikec, Bojan Cvjetićanin, Kris Gustin, Jan Peteh, Jure Maček, Nace Jordan\nExtras:\nHana Biličič\nNina Brunskole\nNejc Frankovič\nDavid Hudak\nJan Hudelja\nVito Kajin\nSabina Miroslavič\nMojca Mravinec\nŽan Mravinec\nNik Rogina\nSimon Simčič\nIvona Spahić\nEma Stegne\nTia Stegne\nVito Stegne\nNeža Žalec\nSpecial Thanks:\nRTV Slovenija\nShagadelic Records\nGrand Hotel Union\nKUD Oto. Župančič Vinica\nMB Grip\nBright Visuals\nGospodična Ruby\nMatej Avanzo\nKatja Predan\nFrank\nMGL Ljubljana\nMladen Govedarica\nZoran Srdić Janežič\nNapihljivi grad - Andrej Sedaj\n\n~~~~~ Lyrics ~~~~~\n\nMi bomo celo noč plesali,\nljubili se in se igrali,\nkot da nas jutri več ne bo.\n\nVedno manj besed, tanek led pod nogami žge, mi pa bežimo s prepiha.\n810.000 let moraš delat' le, da duša malo zadiha.\n\nAn ban, pet podgan.\nTi loviš, če preživiš. \nJaz ti bom vzel vse, ti ničesar ne dobiš. \nSi tega res želiš? \n\nIgra sovraštva je za vas, hvala lepa, ne računajte na nas. \nNa nas.\n\nMi bomo celo noč plesali, \nljubili se in se igrali, \nkot da nas jutri več ne bo. \nNe bomo šteli ur do zore, \npreskakovali bomo gore,\nda nas objame nebo.\n\nPrvi dež odplaknil ves bo blišč, da ne bi kradel magije s plesišč, tema bo prižgala žar v očeh.\n\nIgra sovraštva je za vas, hvala lepa, ne računajte na nas. \nŠe bolj na glas.\n\nMi bomo celo noč plesali, \nljubili se in se igrali, \nkot da nas jutri več ne bo. \nNe bomo šteli ur do zore, \npreskakovali bomo gore, \nsprejeli, da smo večni samo in srečni samo, ko objema nas nebo. \n\nVso noč do jutra smo plesali. \nLjubili se in se igrali. \nŽiveli, kot da jutri nas mogoče več ne bo. \n\n-\nThe Eurovision Song Contest celebrates diversity through music. Please keep your comments respectful. We will not tolerate racism, sexism, ableism, homophobia, transphobia, body-shaming or any other derogatory or hostile language. Offensive users will be blocked and reported. Music first, always.\n\nSubscribe to the Official Eurovision Song Contest Podcast: https://pod.link/1617767675\nFollow us on TikTok: https://www.tiktok.com/@Eurovision \nFollow us on Instagram: https://www.instagram.com/eurovision \nFollow us on Twitter: https://twitter.com/Eurovision\nFollow us on Facebook: https://www.facebook.com/EurovisionSo...\n\nIf you want to know more about the Eurovision Song Contest, visit https://eurovision.tv\n\nShop for official Eurovision Song Contest merchandise: https://shop.eurovision.tv/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/zDBSIGITdY4/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/zDBSIGITdY4/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/zDBSIGITdY4/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/zDBSIGITdY4/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/zDBSIGITdY4/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Eurovision Song Contest",
+        "playlistId": "PLmWYEDTNOGUJtZe-O91QZjU6UbcrcyBDf",
+        "position": 9,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "zDBSIGITdY4"
+        },
+        "videoOwnerChannelTitle": "Eurovision Song Contest",
+        "videoOwnerChannelId": "UCRpjHHu8ivVWs73uxHlWwFA"
+      },
+      "contentDetails": {
+        "videoId": "zDBSIGITdY4",
+        "videoPublishedAt": "2023-02-04T19:45:11Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "TNPSf_yOHwvB4DNTg5n54eNG4gc",
+      "id": "UExtV1lFRFROT0dVSnRaZS1POTFRWmpVNlViY3JjeUJEZi4wMTcyMDhGQUE4NTIzM0Y5",
+      "snippet": {
+        "publishedAt": "2023-04-17T14:57:47Z",
+        "channelId": "UCRpjHHu8ivVWs73uxHlWwFA",
+        "title": "Iru - Echo | Georgia 🇬🇪 | Official Music Video | Eurovision 2023",
+        "description": "Subscribe and 🔔 to Eurovision 👉 https://www.youtube.com/user/eurovision?sub_confirmation=1\n\nIru will represent Georgia at the Eurovision Song Contest 2023 in Liverpool with the song Echo.\n\nThanks to participating broadcaster GPB: @GeorgianBroadcaster.\n\n~~~~~ Lyrics provided by GPB ~~~~~\n\nDays in a row\nI’m thinking, I know\nI’ve got a big faith\nMy love is my crown\nWill be better way\nWill be better day now\nIt is not a secret\n\nLife is love\nThing is known\nLike in dreams\n\nGoing through the life together\nGoing through the life together\nLike in dreams\n\nDays in a row\nI’m thinking, I know\nI’ve got a big faith\nMy love is my crown\nWill be better way\nWill be better day now\nIt is not a secret\n\nDays in a row\nI’m thinking, I know\nI’ve got a big faith\nMy love is my crown\nWill be better way\nWill be better day now\nIt is not a secret\n\nGoing through the life together \nGoing through the life together\n\nDays in a row\nI’m thinking, I know\nI’ve got a big faith\nMy love is my crown\nWill be better way\nWill be better day now\nIt is not a secret\n\nDays in a row\nI’m thinking, I know\nMy love is not a fake\nThis feeling is lord\nWill be better way\nWill be better day now\nIt is not a secret\n\nMy soul’s like a fortress\nI feel I’m progressed\nWords getting worthless\nLove is a wordless\n\nOoooooooohhhhhhhh\nWhen life is loved\nLoooooooooveeeed\n\nDays in a row\nI’m thinking, I know\nI’ve got a big faith\nMy love is my crown\nWill be better way`\nWill be better day now\nIt is not a secret\n\n~~~~~ Credits ~~~~~\n\nMusic: Giga Kukhianidze\nLyrics: Iru / Beni Kadagidze\nMixing:  Giga Kukhianidze / Koba Meskhia\nMastering: Giga Kukhianidze / Koba Meskhia\nRecording Studio: GIGAPRODUCTION\nProject managers: Natia Uznadze/ Natia Mshvenieradze\nDirector: Zaza Orashvili \nCamera: Levan Abuladze \nArt director: Shako popiashvili \nCostume: Shako Popiashvili, Marica Kurtubadze \nChoreographer: Giorgi Toriashvili \nMakeup: Tiko Gulbatashvili \nGaffer: Mamuka Tkeshelashvili, Gela Kobakhidze, Nika Diasamidze \nEditor: Giorgi Odzelashvili \nGraphics: Gogita Tsintsadze, Marlen Peikrishvili, David Peradze \nColour: Levan Kukhashvili\n\n-\n#UnitedByMusic - Liverpool 2023\n\nThe Eurovision Song Contest celebrates diversity through music. Please keep your comments respectful. We will not tolerate racism, sexism, ableism, homophobia, transphobia, body-shaming or any other derogatory or hostile language. Offensive users will be blocked and reported. Music first, always.\n\nSubscribe to the Official Eurovision Song Contest Podcast: https://pod.link/1617767675\nFollow us on TikTok: https://www.tiktok.com/@Eurovision \nFollow us on Instagram: https://www.instagram.com/eurovision \nFollow us on Twitter: https://twitter.com/Eurovision\nFollow us on Facebook: https://www.facebook.com/EurovisionSo...\n\nIf you want to know more about the Eurovision Song Contest, visit https://eurovision.tv\n\nShop for official Eurovision Song Contest merchandise: https://shop.eurovision.tv/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/E8kO-QPippo/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/E8kO-QPippo/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/E8kO-QPippo/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/E8kO-QPippo/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/E8kO-QPippo/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Eurovision Song Contest",
+        "playlistId": "PLmWYEDTNOGUJtZe-O91QZjU6UbcrcyBDf",
+        "position": 10,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "E8kO-QPippo"
+        },
+        "videoOwnerChannelTitle": "Eurovision Song Contest",
+        "videoOwnerChannelId": "UCRpjHHu8ivVWs73uxHlWwFA"
+      },
+      "contentDetails": {
+        "videoId": "E8kO-QPippo",
+        "videoPublishedAt": "2023-03-16T14:00:09Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "-u_WFTQf2QnJBFs-q8TywiBsFYc",
+      "id": "UExtV1lFRFROT0dVSnRaZS1POTFRWmpVNlViY3JjeUJEZi40NzZCMERDMjVEN0RFRThB",
+      "snippet": {
+        "publishedAt": "2023-04-17T14:58:20Z",
+        "channelId": "UCRpjHHu8ivVWs73uxHlWwFA",
+        "title": "Piqued Jacks - Like An Animal | San Marino 🇸🇲 | Official Music Video | Eurovision 2023",
+        "description": "Subscribe and 🔔 to Eurovision 👉 https://www.youtube.com/user/eurovision?sub_confirmation=1\n\nThe grand final of Una Voce Per San Marino has found its winner! Piqued Jacks will represent San Marino at the 67th Eurovision Song Contest, with the song Like An Animal. This performance of Like An Animal appears courtesy of @SanMarinoRTVOfficial \n\n~~~~~ Lyrics provided by RTV ~~~~~\n\nCome on baby, come and find me\nI can smell you like an animal\nBring the party, Aphrodite\nAnd I’ll chase you on the dance floor\n\nYou have snake eyes\nWith your hips, with your sexy look\nYou paralyze\nAnd I get butterflies\nIn my ears, in my stomach\nAll the time\n\nCome on baby, come and find me\nI can smell you like an animal\nBring the party, Aphrodite\nAnd I’ll chase you on the dance floor\n\nYou have a biting tongue\nAnd it gets me so unstrung\nYou have a biting tongue\nTo tie me up and deviate\nMy inner thoughts\nAnd it gets highly dangerous\nLike a drug in my veins\nYou are poison\n\nCome on baby, come and find me\nI can smell you like an animal\nBring the party, Aphrodite\nAnd I’ll chase you on the dance floor\n\nShe knows the way... \nThe way to turn me on\nShe knows the way...\nShe knows the way...\nThe way you turn me on\n\n-\n#UnitedByMusic - Liverpool 2023\n\nThe Eurovision Song Contest celebrates diversity through music. Please keep your comments respectful. We will not tolerate racism, sexism, ableism, homophobia, transphobia, body-shaming or any other derogatory or hostile language. Offensive users will be blocked and reported. Music first, always.\n\nSubscribe to the Official Eurovision Song Contest Podcast: https://pod.link/1617767675\nFollow us on TikTok: https://www.tiktok.com/@Eurovision \nFollow us on Instagram: https://www.instagram.com/eurovision \nFollow us on Twitter: https://twitter.com/Eurovision\nFollow us on Facebook: https://www.facebook.com/EurovisionSo...\n\nIf you want to know more about the Eurovision Song Contest, visit https://eurovision.tv\n\nShop for official Eurovision Song Contest merchandise: https://shop.eurovision.tv/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/Hjfq-T-8WHw/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/Hjfq-T-8WHw/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/Hjfq-T-8WHw/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/Hjfq-T-8WHw/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/Hjfq-T-8WHw/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Eurovision Song Contest",
+        "playlistId": "PLmWYEDTNOGUJtZe-O91QZjU6UbcrcyBDf",
+        "position": 11,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "Hjfq-T-8WHw"
+        },
+        "videoOwnerChannelTitle": "Eurovision Song Contest",
+        "videoOwnerChannelId": "UCRpjHHu8ivVWs73uxHlWwFA"
+      },
+      "contentDetails": {
+        "videoId": "Hjfq-T-8WHw",
+        "videoPublishedAt": "2023-02-26T12:04:01Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "Y71p_LJkLQqEzRLgtMtJ2xKr5Hg",
+      "id": "UExtV1lFRFROT0dVSnRaZS1POTFRWmpVNlViY3JjeUJEZi45ODRDNTg0QjA4NkFBNkQy",
+      "snippet": {
+        "publishedAt": "2023-04-17T14:58:20Z",
+        "channelId": "UCRpjHHu8ivVWs73uxHlWwFA",
+        "title": "Teya & Salena - Who The Hell Is Edgar? | Austria 🇦🇹 | Official Music Video | Eurovision 2023",
+        "description": "Subscribe and 🔔 to Eurovision 👉 https://www.youtube.com/user/eurovision?sub_confirmation=1\n\nTeya & Salena will represent Austria at the Eurovision Song Contest 2023 in Liverpool with the song Who The Hell Is Edgar?\n\nThanks to participating broadcaster ORF (@orfpresse).\n\n~~~~~ Lyrics ~~~~~\n\nThere’s a ghost in my body\nAnd he is a lyricist\nIt is Edgar Allan Poe\nAnd I think he can’t resist\nYeah his brain is in my hand \nAnd it’s moving really fast, mhm\nDon’t know how he possessed me \nBut I’m happy that he did\n’Cause this song is feeling special \nAnd is gonna make me rich\nYeah the words are spilling out \nWhat the heck is this about, mhm\n\nOh mio padre, there’s a ghost in my body\n\nPoe, Poe, Poe, Poe, Poe \nPoe, Poe, Poe, Poe, Poe \nPoe, Poe, Poe, Poe, Poe \nEdgar Allan, Edgar Allan Poe, \nPoe, Poe, Poe, Poe \nPoe, Poe, Poe, Poe, Poe \nPoe, Poe, Poe, Poe, Poe\nEdgar Allan Poe\n\nMaybe I should call a doctor\nOr an exorcist\nMaybe someone out there knows where Shakespeare is\nSo I can get a taste\nWhat’s your IPI, where’s the A&R?\nGirl call Universal, you’re about to be a star!\n\nPoe, Poe, Poe, Poe, Poe \nPoe, Poe, Poe, Poe, Poe \nPoe, Poe, Poe, Poe, Poe \nEdgar Allan, Edgar Allan Poe, \nPoe, Poe, Poe, Poe \nPoe, Poe, Poe, Poe, Poe \nPoe, Poe, Poe, Poe, Poe \nEdgar Allan\n*Who the hell is Edgar?* \nOh mio padre, there’s a ghost in my body \nPoe, Poe, Poe, Poe, Poe \nPoe, Poe, Poe, Poe, Poe \nPoe, Poe, Poe, Poe, Poe \nEdgar Allan, Edgar Allan \nOh mio padre, there’s a ghost in my body \nPoe, Poe, Poe, Poe, Poe \nPoe, Poe, Poe, Poe, Poe \nPoe, Poe, Poe, Poe, Poe \nEdgar Allan Poe\n\nZero dot zero zero three\nGive me two years and your dinner will be free \nGas station champagne is on me\nEdgar cannot pay rent for me\nZero dot zero zero\nZero dot zero zero\nZero dot zero zero three\nAt least it pays to be funny\n\nOh mio padre, there’s a ghost in my body\nPoe, Poe, Poe, Poe, Poe\nPoe, Poe, Poe, Poe, Poe\nPoe, Poe, Poe, Poe, Poe\nWho the hell is Edgar Allen?\nOh mio padre, there’s a ghost in my body\nPoe, Poe, Poe, Poe, Poe\nPoe, Poe, Poe, Poe, Poe\nPoe, Poe, Poe, Poe, Poe\nEdgar Allan, Edgar Allan\nOh mio padre, there’s a ghost in my body\nPoe, Poe, Poe, Poe, Poe\nPoe, Poe, Poe, Poe, Poe\nPoe, Poe, Poe, Poe, Poe\nWho the hell is Edgar Allen?\nOh mio padre, there’s a ghost in my body\nPoe, Poe, Poe, Poe, Poe\nPoe, Poe, Poe, Poe, Poe\nPoe, Poe, Poe, Poe, Poe\nEdgar Allan, Edgar Allan\nOh mio padre, there’s a ghost in my body, Ohhh\nWho the hell is Edgar?\n\n\n-\n#UnitedByMusic - Liverpool 2023\n\nThe Eurovision Song Contest celebrates diversity through music. Please keep your comments respectful. We will not tolerate racism, sexism, ableism, homophobia, transphobia, body-shaming or any other derogatory or hostile language. Offensive users will be blocked and reported. Music first, always.\n\nSubscribe to the Official Eurovision Song Contest Podcast: https://pod.link/1617767675\nFollow us on TikTok: https://www.tiktok.com/@Eurovision \nFollow us on Instagram: https://www.instagram.com/eurovision \nFollow us on Twitter: https://twitter.com/Eurovision\nFollow us on Facebook: https://www.facebook.com/EurovisionSo...\n\nIf you want to know more about the Eurovision Song Contest, visit https://eurovision.tv\n\nShop for official Eurovision Song Contest merchandise: https://shop.eurovision.tv/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/ZMmLeV47Au4/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/ZMmLeV47Au4/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/ZMmLeV47Au4/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/ZMmLeV47Au4/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/ZMmLeV47Au4/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Eurovision Song Contest",
+        "playlistId": "PLmWYEDTNOGUJtZe-O91QZjU6UbcrcyBDf",
+        "position": 12,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "ZMmLeV47Au4"
+        },
+        "videoOwnerChannelTitle": "Eurovision Song Contest",
+        "videoOwnerChannelId": "UCRpjHHu8ivVWs73uxHlWwFA"
+      },
+      "contentDetails": {
+        "videoId": "ZMmLeV47Au4",
+        "videoPublishedAt": "2023-03-08T06:40:07Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "I2P8nVtqck9JNartvvOFVk_WOCw",
+      "id": "UExtV1lFRFROT0dVSnRaZS1POTFRWmpVNlViY3JjeUJEZi4xMkVGQjNCMUM1N0RFNEUx",
+      "snippet": {
+        "publishedAt": "2023-04-17T14:57:47Z",
+        "channelId": "UCRpjHHu8ivVWs73uxHlWwFA",
+        "title": "Albina & Familja Kelmendi - Duje | Albania 🇦🇱 | Official Music Video | Eurovision 2023",
+        "description": "Subscribe and 🔔 to Eurovision 👉 https://www.youtube.com/user/eurovision?sub_confirmation=1\n\nAlbina & Familja Kelmendi will represent Albania at the Eurovision Song Contest 2023 in Liverpool with the song Duje.\n\nThanks to participating broadcaster RTSH: @RadioTelevizioniShqiptar \n\n-\n#UnitedByMusic - Liverpool 2023\n\nThe Eurovision Song Contest celebrates diversity through music. Please keep your comments respectful. We will not tolerate racism, sexism, ableism, homophobia, transphobia, body-shaming or any other derogatory or hostile language. Offensive users will be blocked and reported. Music first, always.\n\nSubscribe to the Official Eurovision Song Contest Podcast: https://pod.link/1617767675\nFollow us on TikTok: https://www.tiktok.com/@Eurovision \nFollow us on Instagram: https://www.instagram.com/eurovision \nFollow us on Twitter: https://twitter.com/Eurovision\nFollow us on Facebook: https://www.facebook.com/EurovisionSo...\n\nIf you want to know more about the Eurovision Song Contest, visit https://eurovision.tv\n\nShop for official Eurovision Song Contest merchandise: https://shop.eurovision.tv/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/mp8OG4ApocI/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/mp8OG4ApocI/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/mp8OG4ApocI/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/mp8OG4ApocI/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/mp8OG4ApocI/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Eurovision Song Contest",
+        "playlistId": "PLmWYEDTNOGUJtZe-O91QZjU6UbcrcyBDf",
+        "position": 13,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "mp8OG4ApocI"
+        },
+        "videoOwnerChannelTitle": "Eurovision Song Contest",
+        "videoOwnerChannelId": "UCRpjHHu8ivVWs73uxHlWwFA"
+      },
+      "contentDetails": {
+        "videoId": "mp8OG4ApocI",
+        "videoPublishedAt": "2023-03-10T06:50:07Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "fVEu7FzUvji3YKsMU9ddFuPm-zg",
+      "id": "UExtV1lFRFROT0dVSnRaZS1POTFRWmpVNlViY3JjeUJEZi5GNjNDRDREMDQxOThCMDQ2",
+      "snippet": {
+        "publishedAt": "2023-04-17T14:58:20Z",
+        "channelId": "UCRpjHHu8ivVWs73uxHlWwFA",
+        "title": "Monika Linkytė - Stay | Lithuania 🇱🇹 | Official Music Video | Eurovision 2023",
+        "description": "Subscribe and 🔔 to Eurovision 👉 https://www.youtube.com/user/eurovision?sub_confirmation=1\n\nMonika Linkytė has been voted as the winner of Pabandom Iš Naujo! 2023, and will be representing Lithuania at the Eurovision Song Contest in Liverpool, with the song Stay.\n\nThis performance from Pabandom Iš Naujo! appears courtesy of @LRTinklas \n\n~~~~~ Lyrics provided by LRT ~~~~~\n\nČiūto tūto\nČiūto tūto\n\nI’ve carried sadness with me\nI hid it well since sixteen\nAnd all the crying all the fighting\nIt kept putting out the fire\nThat burned so bright within me\n\nAs I look back to all these years\nTo broken dreams disguising fear\nBeing someone that I’m really not\n\nJust stay with me\nMy heart is bleeding\nI need your healing\nOh oh oh (oh oh)\nWait for me\nWell it ain’t easy\nTo love someone like me\n\nČiūto tūto\nČiūto tūto\nČiūto tūto\nFinally my heart is beating\n\nČiūto tūto\nČiūto tūto\nČiūto tūto\nFinally my heart is beating\n\nI took it all on myself\nI asked for nobody’s help\nHad to taste it\nAnd embrace it\nAll the bitterness of failure\nTo find myself within me\n\nJust stay with me\nMy heart is bleeding\nI need your healing\n\nWait for me\nWell it ain’t easy\nTo love someone like me\n\nČiūto tūto\nČiūto tūto\nČiūto tūto\nFinally my heart is beating\n\nČiūto tūto\nČiūto tūto\nČiūto tūto\nFinally...\n\nJust stay\nOh oh oh oh oh oh\nStay\nOh oh oh oh oh oh\n\nČiūto tūto, Čiūto tūto\nČiūto tūto\nČiūto tūto, Čiūto tūto\nČiūto tūto\n\n-\n#UnitedByMusic - Liverpool 2023\n\nThe Eurovision Song Contest celebrates diversity through music. Please keep your comments respectful. We will not tolerate racism, sexism, ableism, homophobia, transphobia, body-shaming or any other derogatory or hostile language. Offensive users will be blocked and reported. Music first, always.\n\nSubscribe to the Official Eurovision Song Contest Podcast: https://pod.link/1617767675\nFollow us on TikTok: https://www.tiktok.com/@Eurovision \nFollow us on Instagram: https://www.instagram.com/eurovision \nFollow us on Twitter: https://twitter.com/Eurovision\nFollow us on Facebook: https://www.facebook.com/EurovisionSo...\n\nIf you want to know more about the Eurovision Song Contest, visit https://eurovision.tv\n\nShop for official Eurovision Song Contest merchandise: https://shop.eurovision.tv/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/68lbEUDuWUQ/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/68lbEUDuWUQ/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/68lbEUDuWUQ/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/68lbEUDuWUQ/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/68lbEUDuWUQ/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Eurovision Song Contest",
+        "playlistId": "PLmWYEDTNOGUJtZe-O91QZjU6UbcrcyBDf",
+        "position": 14,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "68lbEUDuWUQ"
+        },
+        "videoOwnerChannelTitle": "Eurovision Song Contest",
+        "videoOwnerChannelId": "UCRpjHHu8ivVWs73uxHlWwFA"
+      },
+      "contentDetails": {
+        "videoId": "68lbEUDuWUQ",
+        "videoPublishedAt": "2023-02-19T18:00:07Z"
+      }
+    },
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "VYfPBMyqtDbLDoJdy23XO1Th4ws",
+      "id": "UExtV1lFRFROT0dVSnRaZS1POTFRWmpVNlViY3JjeUJEZi5EQUE1NTFDRjcwMDg0NEMz",
+      "snippet": {
+        "publishedAt": "2023-04-17T14:58:52Z",
+        "channelId": "UCRpjHHu8ivVWs73uxHlWwFA",
+        "title": "Voyager - Promise | Australia 🇦🇺 | Official Music Video | Eurovision 2023",
+        "description": "Subscribe and 🔔 to Eurovision 👉 https://www.youtube.com/user/eurovision?sub_confirmation=1\n\nVoyager will represent Australia at the Eurovision Song Contest 2023 with their song Promise.\n\nThis music video appears courtesy of @SBSAustralia \n\n~~~~~ Lyrics ~~~~~\n\nHave you ever done anything like this before?\nHave you ever done anything like this before?\nIf you’ve never done anything like this before, then you haven’t been alive\n\nHave you ever shut all the open doors\nHave you ever just walked on out on your own\nHave you ever just lost your mind when you try to unwind or are you coming right back for more?\n\nI’m here tonight\nPromise me you’ll hold me till I die\nI’m by your side\nPromise me it’s gonna, promise me it’s gonna be alright\n\nAh-oh, ah-oh, ah-oh, ah-oh-oh-oh\nPromise me it’s gonna be alright.\nAh-oh, ah-oh, ah-oh, ah-oh-oh-oh\nPromise me it’s gonna be alright.\n\nHave you ever been alone too much\nHave you ever prayed for human touch\nHave you ever just lost a little part of you to find a little something new?\n\nCross my heart\nTill the sky turns red in the sunrise\nSince you told me everything's alright.\nAh-oh, ah-oh, ah-oh, ah-oh-oh-oh\nSince you told me everything's alright.\nAh-oh, ah-oh, ah-oh, ah-oh-oh-oh\nPromise me it’s gonna be alright.\n\nI’m here tonight\nPromise me you’ll hold me till I die\nI’m by your side\nPromise me it’s gonna, promise me it's gonna, promise me it’s gonna be alright\n\nAh-oh, ah-oh, ah-oh, ah-oh-oh-oh\nAh-oh, ah-oh, ah-oh, ah-oh-oh-oh\n\nAlright!\n\nCross my heart\nTill the sky turns red in the sunrise\nPromise me it’s gonna be alright\nBe alright!\n\nAlright!\n\n-\n#UnitedByMusic - Liverpool 2023\n\nThe Eurovision Song Contest celebrates diversity through music. Please keep your comments respectful. We will not tolerate racism, sexism, ableism, homophobia, transphobia, body-shaming or any other derogatory or hostile language. Offensive users will be blocked and reported. Music first, always.\n\nSubscribe to the Official Eurovision Song Contest Podcast: https://pod.link/1617767675\nFollow us on TikTok: https://www.tiktok.com/@Eurovision \nFollow us on Instagram: https://www.instagram.com/eurovision \nFollow us on Twitter: https://twitter.com/Eurovision\nFollow us on Facebook: https://www.facebook.com/EurovisionSo...\n\nIf you want to know more about the Eurovision Song Contest, visit https://eurovision.tv\n\nShop for official Eurovision Song Contest merchandise: https://shop.eurovision.tv/",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/aqtu2GspT80/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/aqtu2GspT80/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/aqtu2GspT80/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/aqtu2GspT80/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/aqtu2GspT80/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "Eurovision Song Contest",
+        "playlistId": "PLmWYEDTNOGUJtZe-O91QZjU6UbcrcyBDf",
+        "position": 15,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": "aqtu2GspT80"
+        },
+        "videoOwnerChannelTitle": "Eurovision Song Contest",
+        "videoOwnerChannelId": "UCRpjHHu8ivVWs73uxHlWwFA"
+      },
+      "contentDetails": {
+        "videoId": "aqtu2GspT80",
+        "videoPublishedAt": "2023-02-21T18:30:10Z"
+      }
+    }
+  ],
+  "pageInfo": {
+    "totalResults": 16,
+    "resultsPerPage": 30
+  }
+}
