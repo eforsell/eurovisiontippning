@@ -1,0 +1,703 @@
+{
+    "event": {
+        "description": "",
+        "country": "SE",
+        "city_name": "Malmö",
+        "start_date": "2024-05-07"
+    },
+    "contests": [
+        {
+            "type": "final",
+            "start_time": {"time": "2024-05-11 21:00:00", "timezone": "CET"},
+            "youtube": {"id": "",
+                        "list": "PLmWYEDTNOGUIODqVxJEwAnivuBd8x099b"},
+            "spotify": "spotify:user:spotify:playlist:37i9dQZF1DWVCKO3xAlT1Q"
+        },
+        {
+            "type": "semi",
+            "order": 1,
+            "progression_count": 10,
+            "start_time": {"time": "2024-05-07 21:00:00", "timezone": "CET"},
+            "youtube": {"id": "",
+                        "list": "PLmWYEDTNOGULxyRtWHv_JOULtE3zztfti"},
+            "spotify": "spotify:user:spotify:playlist:37i9dQZF1DWVCKO3xAlT1Q"
+        },
+        {
+            "type": "semi",
+            "order": 2,
+            "progression_count": 10,
+            "start_time": {"time": "2024-05-09 21:00:00", "timezone": "CET"},
+            "youtube": {"id": "",
+                        "list": "PLmWYEDTNOGUKmtCHB5XcS-rtJ3SE7xTJ6"},
+            "spotify": "spotify:user:spotify:playlist:37i9dQZF1DWVCKO3xAlT1Q"
+        }
+    ],
+    "entries": [
+        {
+            "contest": "semi1",
+            "start_order": 1,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "Silia Kapsis"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGULxyRtWHv_JOULtE3zztfti",
+                        "id": "8q5QozrtEPA"
+                    },
+                    "spotify": "",
+                    "name": "Liar"
+                },
+                "country": "CY"
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 2,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "TEYA DORA"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGULxyRtWHv_JOULtE3zztfti",
+                        "id": "tJyBVRBiyKA"
+                    },
+                    "spotify": "",
+                    "name": "RAMONDA"
+                },
+                "country": "RS"
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 3,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "Silvester Belt"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGULxyRtWHv_JOULtE3zztfti",
+                        "id": "OrL668EQRu0"
+                    },
+                    "spotify": "",
+                    "name": "Luktelk"
+                },
+                "country": "LT"
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 4,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "Bambie Thug"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGULxyRtWHv_JOULtE3zztfti",
+                        "id": "ZGRXRrlIspY"
+                    },
+                    "spotify": "",
+                    "name": "Doomsday Blue"
+                },
+                "country": "IE"
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 5,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "alyona alyona & Jerry Heil"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGULxyRtWHv_JOULtE3zztfti",
+                        "id": "k_8cNbF8FLI"
+                    },
+                    "spotify": "",
+                    "name": "Teresa & Maria"
+                },
+                "country": "UA"
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 6,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "LUNA"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGULxyRtWHv_JOULtE3zztfti",
+                        "id": "IhvDkF9XZx0"
+                    },
+                    "spotify": "",
+                    "name": "The Tower"
+                },
+                "country": "PL"
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 7,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "Baby Lasagna"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGULxyRtWHv_JOULtE3zztfti",
+                        "id": "xTBrVNZtnys"
+                    },
+                    "spotify": "",
+                    "name": "Rim Tim Tagi Dim"
+                },
+                "country": "HR"
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 8,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "Hera Bj\u00f6rk"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGULxyRtWHv_JOULtE3zztfti",
+                        "id": "OouUsCZ3xkM"
+                    },
+                    "spotify": "",
+                    "name": "Scared of Heights"
+                },
+                "country": "IS"
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 9,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "Raiven"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGULxyRtWHv_JOULtE3zztfti",
+                        "id": "uWcSsi7SliI"
+                    },
+                    "spotify": "",
+                    "name": "Veronika"
+                },
+                "country": "SI"
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 10,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "Windows95man"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGULxyRtWHv_JOULtE3zztfti",
+                        "id": "8Wi7fhswoBA"
+                    },
+                    "spotify": "",
+                    "name": "No Rules!"
+                },
+                "country": "FI"
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 11,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "Natalia Barbu"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGULxyRtWHv_JOULtE3zztfti",
+                        "id": "Jom9sNL5whs"
+                    },
+                    "spotify": "",
+                    "name": "In The Middle"
+                },
+                "country": "MD"
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 12,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "FAHREE feat. Ilkin Dovlatov"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGULxyRtWHv_JOULtE3zztfti",
+                        "id": "NNhAk4rVgNc"
+                    },
+                    "spotify": "",
+                    "name": "\u00d6z\u00fcnl\u0259 Apar"
+                },
+                "country": "AZ"
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 13,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "Electric Fields"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGULxyRtWHv_JOULtE3zztfti",
+                        "id": "tJ2IaHxCvdw"
+                    },
+                    "spotify": "",
+                    "name": "One Milkali (One Blood)"
+                },
+                "country": "AU"
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 14,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "iolanda"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGULxyRtWHv_JOULtE3zztfti",
+                        "id": "K5wDGhcDSpQ"
+                    },
+                    "spotify": "",
+                    "name": "Grito"
+                },
+                "country": "PT"
+            }
+        },
+        {
+            "contest": "semi1",
+            "start_order": 15,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "TALI"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGULxyRtWHv_JOULtE3zztfti",
+                        "id": "6CNuXpdyYmE"
+                    },
+                    "spotify": "",
+                    "name": "Fighter"
+                },
+                "country": "LU"
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 1,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "Sarah Bonnici"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGUKmtCHB5XcS-rtJ3SE7xTJ6",
+                        "id": "l6eS60n4wg8"
+                    },
+                    "spotify": "",
+                    "name": "Loop"
+                },
+                "country": "MT"
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 2,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "BESA"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGUKmtCHB5XcS-rtJ3SE7xTJ6",
+                        "id": "nrjFhjpm7D8"
+                    },
+                    "spotify": "",
+                    "name": "TITAN"
+                },
+                "country": "AL"
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 3,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "Marina Satti"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGUKmtCHB5XcS-rtJ3SE7xTJ6",
+                        "id": "uTYalXf184A"
+                    },
+                    "spotify": "",
+                    "name": "ZARI"
+                },
+                "country": "GR"
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 4,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "Nemo"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGUKmtCHB5XcS-rtJ3SE7xTJ6",
+                        "id": "kiGDvM14Kwg"
+                    },
+                    "spotify": "",
+                    "name": "The Code"
+                },
+                "country": "CH"
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 5,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "Aiko"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGUKmtCHB5XcS-rtJ3SE7xTJ6",
+                        "id": "_iTcX6NlAqA"
+                    },
+                    "spotify": "",
+                    "name": "Pedestal"
+                },
+                "country": "CZ"
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 6,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "Kaleen"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGUKmtCHB5XcS-rtJ3SE7xTJ6",
+                        "id": "Kqda15G4T-4"
+                    },
+                    "spotify": "",
+                    "name": "We Will Rave"
+                },
+                "country": "AT"
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 7,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "SABA"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGUKmtCHB5XcS-rtJ3SE7xTJ6",
+                        "id": "3pCtdFnv9eQ"
+                    },
+                    "spotify": "",
+                    "name": "SAND"
+                },
+                "country": "DK"
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 8,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "LADANIVA"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGUKmtCHB5XcS-rtJ3SE7xTJ6",
+                        "id": "_6xfmW0Fc40"
+                    },
+                    "spotify": "",
+                    "name": "Jako"
+                },
+                "country": "AM"
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 9,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "Dons"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGUKmtCHB5XcS-rtJ3SE7xTJ6",
+                        "id": "p8FNO0DtBng"
+                    },
+                    "spotify": "",
+                    "name": "Hollow"
+                },
+                "country": "LV"
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 10,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "MEGARA"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGUKmtCHB5XcS-rtJ3SE7xTJ6",
+                        "id": "9NcAJtfhpWA"
+                    },
+                    "spotify": "",
+                    "name": "11:11"
+                },
+                "country": "SM"
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 11,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "Nutsa Buzaladze"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGUKmtCHB5XcS-rtJ3SE7xTJ6",
+                        "id": "blMwY8Jabyk"
+                    },
+                    "spotify": "",
+                    "name": "Firefighter"
+                },
+                "country": "GE"
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 12,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "Mustii"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGUKmtCHB5XcS-rtJ3SE7xTJ6",
+                        "id": "WCe9zrWEFNc"
+                    },
+                    "spotify": "",
+                    "name": "Before the Party\u2019s Over"
+                },
+                "country": "BE"
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 13,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "5MIINUST x Puuluup"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGUKmtCHB5XcS-rtJ3SE7xTJ6",
+                        "id": "zY6RbPaTNUc"
+                    },
+                    "spotify": "",
+                    "name": "(nendest) narkootikumidest ei tea me (k\u00fcll) midagi"
+                },
+                "country": "EE"
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 14,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "Eden Golan"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGUKmtCHB5XcS-rtJ3SE7xTJ6",
+                        "id": "lJYn09tuPw4"
+                    },
+                    "spotify": "",
+                    "name": "Hurricane"
+                },
+                "country": "IL"
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 15,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "G\u00e5te"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGUKmtCHB5XcS-rtJ3SE7xTJ6",
+                        "id": "UipzszlJwRQ"
+                    },
+                    "spotify": "",
+                    "name": "Ulveham"
+                },
+                "country": "NO"
+            }
+        },
+        {
+            "contest": "semi2",
+            "start_order": 16,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "Joost Klein"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGUKmtCHB5XcS-rtJ3SE7xTJ6",
+                        "id": "gT2wY0DjYGo"
+                    },
+                    "spotify": "",
+                    "name": "Europapa"
+                },
+                "country": "NL"
+            }
+        },
+        {
+            "contest": "final",
+            "start_order": null,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "Angelina Mango"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGUKmtCHB5XcS-rtJ3SE7xTJ6",
+                        "id": "TO85laH-ATY"
+                    },
+                    "spotify": "",
+                    "name": "La noia"
+                },
+                "country": "IT"
+            }
+        },
+        {
+            "contest": "final",
+            "start_order": null,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "Nebulossa"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGUKmtCHB5XcS-rtJ3SE7xTJ6",
+                        "id": "LJFpexlj9Bs"
+                    },
+                    "spotify": "",
+                    "name": "ZORRA"
+                },
+                "country": "ES"
+            }
+        },
+        {
+            "contest": "final",
+            "start_order": null,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "Slimane"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGUKmtCHB5XcS-rtJ3SE7xTJ6",
+                        "id": "tfoOop2HXxQ"
+                    },
+                    "spotify": "",
+                    "name": "Mon Amour"
+                },
+                "country": "FR"
+            }
+        },
+        {
+            "contest": "final",
+            "start_order": null,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "Olly Alexander"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGULxyRtWHv_JOULtE3zztfti",
+                        "id": "mvs92WfR8lM"
+                    },
+                    "spotify": "",
+                    "name": "Dizzy"
+                },
+                "country": "GB"
+            }
+        },
+        {
+            "contest": "final",
+            "start_order": null,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "ISAAK"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGULxyRtWHv_JOULtE3zztfti",
+                        "id": "8b5gcgXcWgk"
+                    },
+                    "spotify": "",
+                    "name": "Always On The Run"
+                },
+                "country": "DE"
+            }
+        },
+        {
+            "contest": "final",
+            "start_order": null,
+            "participant": {
+                "song": {
+                    "artist": {
+                        "name": "Marcus & Martinus"
+                    },
+                    "youtube": {
+                        "list": "PLmWYEDTNOGULxyRtWHv_JOULtE3zztfti",
+                        "id": "yekc8t0rJqA"
+                    },
+                    "spotify": "",
+                    "name": "Unforgettable"
+                },
+                "country": "SE"
+            }
+        }
+    ]
+}
