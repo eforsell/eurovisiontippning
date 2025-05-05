@@ -26,14 +26,14 @@ psycopg2==2.9.6
 psycopg2-binary==2.9.6
 pyasn1==0.4.5
 PyJWT==1.7.1
-python-dateutil==2.8.0
+python-dateutil==2.8.2
 python-social-auth==0.3.6
 python-utils==2.3.0
 python3-openid==3.1.0
-pytz==2019.1
+pytz>=2020.1
 PyYAML==5.4.1
 redis==3.2.1
-requests==2.27.1
+requests>=2.31
 requests-oauthlib==1.2.0
 rsa==4.7.2
 s3transfer==0.2.0
