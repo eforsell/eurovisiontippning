@@ -1,29 +1,29 @@
-from django.conf.urls import url
+from django.urls import re_path
 import tippning.views
 
 app_name = 'tippning'
 
 urlpatterns = [
-    url(r'^semifinal/(\d+)/?$',
+    re_path(r'^semifinal/(\d+)/?$',
         tippning.views.semifinal, name="semifinal"),
-    url(r'^update_semibet/?$',
+    re_path(r'^update_semibet/?$',
         tippning.views.update_semibet, name="update_semibet"),
-    url(r'^semifinal/lineup/(\d+)/(\d+)/?$',
+    re_path(r'^semifinal/lineup/(\d+)/(\d+)/?$',
         tippning.views.friend_semi_lineup, name="semifinal_lineup"),
-    url(r'^semifinal/lineup/$',
+    re_path(r'^semifinal/lineup/$',
         tippning.views.friend_semi_lineup, name="semifinal_lineup_helper"),
-    url(r'^final/?$',
+    re_path(r'^final/?$',
         tippning.views.final, name="final"),
-    url(r'^update_finalbet/?$',
+    re_path(r'^update_finalbet/?$',
         tippning.views.update_finalbet, name="update_finalbet"),
-    url(r'^final/lineup/(\d+)/?$',
+    re_path(r'^final/lineup/(\d+)/?$',
         tippning.views.friend_final_lineup, name="final_lineup"),
-    url(r'^final/lineup/$',
+    re_path(r'^final/lineup/$',
         tippning.views.friend_final_lineup, name="final_lineup_helper"),
-    url(r'^resultat/?$',
+    re_path(r'^resultat/?$',
         tippning.views.results, name="results"),
-    url(r'^tips/?$',
+    re_path(r'^tips/?$',
         tippning.views.tips, name="tips"),
-    url(r'^poang/?$',
+    re_path(r'^poang/?$',
         tippning.views.points, name="points"),
 ]

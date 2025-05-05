@@ -1,19 +1,19 @@
-from django.conf.urls import url
+from django.urls import re_path
 import sharing.views
 
 app_name = 'sharing'
 
 urlpatterns = [
-    url(r'^anvandare/?$',
+    re_path(r'^anvandare/?$',
         sharing.views.share_users, name="share_users"),
-    url(r'^deltavlingar/?$',
+    re_path(r'^deltavlingar/?$',
         sharing.views.share_contests, name="share_contests"),
-    url(r'^resultat/?$',
+    re_path(r'^resultat/?$',
         sharing.views.share_results, name="share_results"),
-    url(r'^update_betshares/?$',
+    re_path(r'^update_betshares/?$',
         sharing.views.update_betshares, name="update_betshares"),
-    url(r'^add_follow/?$',
+    re_path(r'^add_follow/?$',
         sharing.views.add_follow, name="add_follow"),
-    url(r'^remove_follow/?$',
+    re_path(r'^remove_follow/?$',
         sharing.views.remove_follow, name="remove_follow"),
 ]

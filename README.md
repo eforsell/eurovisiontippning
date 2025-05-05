@@ -14,3 +14,11 @@ Simply push the latest changes to Github as it's set up to auto-deploy to Heroku
 
 ### 3. Seed the database based on the new file
 Use the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) to enter the [Django shell](https://docs.djangoproject.com/en/5.2/ref/django-admin/): `heroku run python manage.py shell --app eurovisiontippning`.
+
+Then, run the following Python script:
+```python
+from events.setup import addYear
+addYear(2025)
+```
+
+After that, go to the [Django admin console](https://eurovisiontippning.se/admin), log in, and for each of the newly added contests check the "Published" box.

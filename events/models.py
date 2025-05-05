@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from django.db import models
-from django.utils.timezone import utc
+from django.utils import timezone
 from django_countries.fields import CountryField
 
 from media.models import Song, YoutubeMedia, SpotifyMedia
@@ -46,7 +46,7 @@ class Contest(models.Model):
         return incomplete_count == 0
 
     def has_started(self):
-        now = datetime.utcnow().replace(tzinfo=utc)
+        now = datetime.utcnow().replace(tzinfo=timezone.utc)
         return now > self.start_time
 
     def has_result(self, entries):
