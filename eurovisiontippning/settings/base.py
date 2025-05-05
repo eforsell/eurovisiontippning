@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'eurovisiontippning.herokuapp.com',
                  '.eurovisiontippning.se']
 CSRF_TRUSTED_ORIGINS = ['https://eurovisiontippning.herokuapp.com',
-                        'https://eurovisiontippning.se/']
+                        'https://eurovisiontippning.se']
 
 # Application definition
 
