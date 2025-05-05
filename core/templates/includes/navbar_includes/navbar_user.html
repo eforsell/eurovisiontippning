@@ -78,8 +78,8 @@
                     </div>
                 </form>
                 <form method="post" class="form-inline" action="{% url 'logout' %}">
+                    {% csrf_token %}
                     <div class="col-xs-12">
-                        {% csrf_token %}
                         <button style="float:right" class="btn btn-default btn-sm" type="submit">Logga ut <i class="fa fa-sign-out"></i></button>
                     </div>
                 </form>
