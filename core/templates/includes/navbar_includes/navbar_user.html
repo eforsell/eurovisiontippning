@@ -75,14 +75,12 @@
                         </div>
 
                         <hr>
-
-                        <a type="button"
-                           class="btn btn-default btn-sm"
-                           style="float:right"
-                           href="{% url 'logout' %}">
-                           Logga ut <i class="fa fa-sign-out"></i>
-                       </a>
-                       <br>
+                    </div>
+                </form>
+                <form method="post" class="form-inline" action="{% url 'logout' %}">
+                    <div class="col-xs-12">
+                        {% csrf_token %}
+                        <button style="float:right" class="btn btn-default btn-sm" type="submit">Logga ut <i class="fa fa-sign-out"></i></button>
                     </div>
                 </form>
             </ul>
