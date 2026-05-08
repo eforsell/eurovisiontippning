@@ -1,50 +1,58 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report:
+- Version change: 1.0.0 → 2.0.0
+- List of modified principles:
+  - I. Code Quality & Maintainability: Shifted from Django to React/Supabase architecture.
+  - II. Comprehensive Testing Standards: Replaced pytest with Vitest/Playwright context.
+- Added sections:
+  - II. Target Tech Stack & Architecture
+- Removed sections:
+  - None
+- Templates requiring updates:
+  - .specify/templates/plan-template.md (✅ updated)
+  - .specify/templates/spec-template.md (✅ updated)
+  - .specify/templates/tasks-template.md (✅ updated)
+- Follow-up TODOs:
+  - None
+-->
+
+# eurovisiontippning Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Code Quality & Maintainability
+All code must be modular, readable, and type-safe. We use TypeScript for all frontend and serverless logic. Components must be functional and follow React best practices, utilizing hooks for state management and Supabase client for data orchestration. We prioritize reusable UI components and consistent styling via Tailwind CSS.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Comprehensive Testing Standards
+Testing is a non-negotiable part of our development lifecycle. Every functional requirement must have a corresponding E2E or integration test. We use Vitest for unit/integration testing of logic and Playwright for E2E user journeys. Code without tests will not be merged.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Consistent User Experience (UX)
+The application must provide a consistent, responsive, and accessible experience. We use Tailwind CSS with dynamic CSS variables for year-specific themes. Interactive elements must provide immediate feedback (e.g., loading states, optimistic updates). Accessibility (a11y) is a core requirement (WCAG 2.1 AA).
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Performance & Scalability Requirements
+Performance is a feature. We utilize Vite for fast builds and optimized production bundles. Supabase provides the scalable backend and database, while Vercel handles global edge hosting. We prioritize minimizing bundle size and optimizing database queries/policies.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+## Target Tech Stack & Architecture
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+- **Frontend**: React (Vite) + TypeScript
+- **Styling**: Tailwind CSS with dynamic CSS variables for year-specific themes
+- **Drag & Drop**: @dnd-kit/core and @dnd-kit/sortable for ranking entries
+- **Backend/Database**: Supabase (PostgreSQL) with Row Level Security (RLS)
+- **Auth**: Supabase Auth (Google, Facebook providers)
+- **Hosting**: Vercel
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+## Governance & Technical Decision Making
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+### Amendment Procedure
+The Constitution is a living document. Any team member can propose an amendment by creating a Pull Request. Proposals must include a clear rationale and an assessment of the impact on existing code and workflows. Amendments require approval from the project lead.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### Technical Decision Making
+Technical decisions must be guided by these principles. When faced with architectural choices, the solution that best aligns with Code Quality, Testing, UX, and Performance must be prioritized. If a decision requires a trade-off between principles, it must be documented and justified in the implementation plan.
+
+### Compliance Review
+Every Pull Request must be reviewed against this Constitution. Reviewers are responsible for ensuring that the code adheres to our quality, testing, UX, and performance standards. Violations must be addressed before approval.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+This Constitution supersedes all other informal practices. All contributors must adhere to these principles. Use the project's implementation plans to document how these principles are applied to specific features.
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
-
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 2.0.0 | **Ratified**: 2026-05-08 | **Last Amended**: 2026-05-08

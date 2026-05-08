@@ -95,10 +95,11 @@
 - **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
 - **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
 
-### Key Entities *(include if feature involves data)*
+### Performance & UX Requirements
 
-- **[Entity 1]**: [What it represents, key attributes without implementation]
-- **[Entity 2]**: [What it represents, relationships to other entities]
+- **PR-001**: Page response time MUST be under 500ms for primary user actions.
+- **UX-001**: All interactive elements MUST provide visual feedback within 100ms.
+- **UX-002**: Feature MUST be navigable via keyboard and screen readers.
 
 ## Success Criteria *(mandatory)*
 
