@@ -10,6 +10,7 @@
 ### Session 2026-05-08
 - Q: How should the Supabase authentication flow be presented to the user? → A: OAuth Redirect (Standard Supabase `signInWithOAuth` redirect flow).
 - Q: What content and functionality should be available to an unauthorized user on the landing page? → A: Marketing & CTA (Hero section with contest info, "how it works," and Login buttons).
+- Q: How should the user be informed of their data rights and how should the account deletion be handled? → A: Self-Service (Dedicated "Data Protection" page + "Delete Account" button in user settings).
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -87,11 +88,27 @@ As an administrator, I want to import yearly contest data via a JSON blob so tha
 
 ---
 
+### User Story 5 - Privacy & Data Control (Priority: P3)
+
+As a user, I want to understand how my data is used and have the ability to delete my account so that I have control over my personal information.
+
+**Why this priority**: Required for legal compliance (GDPR) and user trust.
+
+**Independent Test**: Can be tested by navigating to the "Data Protection" page to read the policy and using the "Delete Account" button to verify all user-specific data is wiped from Supabase.
+
+**Acceptance Scenarios**:
+
+1. **Given** I am logged in, **When** I visit my settings, **Then** I see a "Delete Account" button.
+2. **Given** I click "Delete Account" and confirm, **When** the process completes, **Then** my profile and all associated predictions are permanently removed.
+
+---
+
 ### Edge Cases
 
 - **Tied Scores**: How does the leaderboard handle two users with the exact same point total? (Default: Alphabetical or shared rank).
 - **Withdrawals**: What happens if an entry is withdrawn after users have already predicted it? (System MUST handle missing IDs gracefully).
 - **Clock Drift**: Ensuring "Anti-Spoil" uses server time (Supabase `now()`) rather than client-side time.
+- **Deletion Confirmation**: Prevent accidental account deletion via a two-step confirmation modal.
 
 ## Requirements *(mandatory)*
 
@@ -105,6 +122,8 @@ As an administrator, I want to import yearly contest data via a JSON blob so tha
 - **FR-006**: System MUST calculate points for the final using the weighted rank distance formula.
 - **FR-007**: System MUST support dynamic theming (colors and logos) based on the current active year.
 - **FR-008**: Landing page for unauthorized users MUST include marketing content (hero, rules) and login entry points.
+- **FR-009**: System MUST provide a dedicated "Data Protection" page outlining data usage.
+- **FR-010**: System MUST provide a self-service "Delete Account" feature that removes all user-associated data.
 
 ### Performance & UX Requirements
 
@@ -120,6 +139,7 @@ As an administrator, I want to import yearly contest data via a JSON blob so tha
 - **SC-002**: 100% of friend predictions are blocked by RLS until the exact start time defined in the `years` table.
 - **SC-003**: Leaderboard calculates and updates for all users within 5 seconds of the admin entering the official results.
 - **SC-004**: System handles up to 5,000 concurrent users during the peak voting window without service degradation.
+- **SC-005**: 100% of user data is wiped from all tables within 10 seconds of an account deletion request.
 
 ## Assumptions
 
