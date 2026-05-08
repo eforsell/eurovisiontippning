@@ -1,0 +1,19 @@
+{
+  "year": 2025,
+  "semi1_start": "2025-05-13T19:00:00Z",
+  "semi2_start": "2025-05-15T19:00:00Z",
+  "final_start": "2025-05-17T19:00:00Z",
+  "primary_color": "#673ab7",
+  "secondary_color": "#ffc107",
+  "logo_url": "https://eurovision.tv/assets/logo-2025.png",
+  "entries": [
+    {
+      "country": "Sweden",
+      "artist": "Artist Name",
+      "song_title": "Song Title",
+      "start_position": 1,
+      "semi_final": 1,
+      "youtube_id": "xxxxxx"
+    }
+  ]
+}
