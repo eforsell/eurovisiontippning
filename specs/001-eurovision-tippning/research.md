@@ -21,8 +21,9 @@
 - Styled Components (added bundle size, less performant for rapid theme switching).
 - Material UI (harder to theme dynamically with pure CSS variables compared to Tailwind).
 
-## Decision: Playwright for E2E Testing
-**Rationale**: Playwright offers robust cross-browser testing and is particularly good at simulating mobile environments, which is essential for verifying the drag-and-drop functionality and RLS "Anti-Spoil" timing.
+## Decision: Chrome DevTools MCP for Agentic Verification
+**Rationale**: Chrome DevTools MCP allows the coding agent to directly interact with the browser, inspect the DOM, read console logs, and verify network requests in real-time during development. This provides a more immediate and agent-friendly feedback loop for verifying UI, authentication state, and connectivity without writing rigid E2E test scripts upfront.
 
 **Alternatives considered**:
-- Cypress (slower in CI, less native support for multi-tab/social flows).
+- Playwright (requires writing and maintaining separate test scripts; while great for CI, MCP is better for autonomous agent-driven development and immediate feedback).
+- Cypress (slower, less native support for multi-tab/social flows).

@@ -11,7 +11,7 @@ Build a mobile-first Eurovision prediction app using React, Supabase, and Tailwi
 **Language/Version**: TypeScript 5.x, React 18/19  
 **Primary Dependencies**: Supabase, Tailwind CSS, shadcn/ui, @dnd-kit  
 **Storage**: Supabase (PostgreSQL)  
-**Testing**: Vitest, Playwright  
+**Testing**: Vitest, Chrome DevTools MCP (Agentic Verification)  
 **Target Platform**: Vercel
 **Project Type**: Web Application  
 **Performance Goals**: <200ms TTFB, 90+ Lighthouse score  
@@ -23,7 +23,7 @@ Build a mobile-first Eurovision prediction app using React, Supabase, and Tailwi
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
 - [x] **I. Code Quality**: Does the design follow functional React patterns and use TypeScript?
-- [x] **II. Testing**: Are E2E (Playwright) or integration (Vitest) tests planned?
+- [x] **II. Testing**: Are agentic verifications (Chrome DevTools MCP) or integration (Vitest) tests planned?
 - [x] **III. UX**: Does it use Tailwind for themed styling and provide immediate feedback?
 - [x] **IV. Performance**: Is the Supabase query optimized and RLS handled?
 
@@ -58,7 +58,6 @@ src/
 └── styles/              # Tailwind + dynamic CSS variable definitions
 
 tests/
-├── e2e/                 # Playwright (Mobile simulation & RLS checks)
 └── unit/                # Vitest (Scoring logic & rank weighted distance)
 ```
 
@@ -75,13 +74,13 @@ To enable the coding agent to verify its own work without human oversight (espec
 
 2. **Authentication Verification (The Trickiest Part)**:
    - Since OAuth (Google/Facebook) is difficult for an autonomous agent to automate without human interaction, **Email/Password auth must be enabled in the local Supabase configuration specifically for automated testing.**
-   - The agent will write an automated script (e.g., `tests/verify-auth.ts` or a Playwright test) to programmatically create a test user, sign in, and verify session token retrieval.
+   - The agent will write an automated script (e.g., `tests/verify-auth.ts`) to programmatically create a test user, sign in, and verify session token retrieval.
    - This test user's session will be used to programmatically verify RLS policies.
 
 3. **UI and Connectivity Verification**:
    - The agent will run the Vite development server in the background.
-   - Using **Playwright** (or Chrome DevTools MCP), the agent will navigate the application, assert that no console errors are thrown, check network requests for failures, and verify DOM rendering.
-   - For authenticated UI states, the agent will inject the test user's session into the browser context (e.g., `localStorage`) before running tests.
+   - Using **Chrome DevTools MCP**, the agent will navigate the application, assert that no console errors are thrown, check network requests for failures, and verify DOM rendering.
+   - For authenticated UI states, the agent will inject the test user's session into the browser context (e.g., via localStorage manipulation using MCP evaluate commands) before verifying the UI.
 
 ## Phased Implementation Strategy
 
