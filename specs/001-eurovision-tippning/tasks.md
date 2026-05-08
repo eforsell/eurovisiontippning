@@ -21,12 +21,12 @@ description: "Task list for Eurovisiontippning App implementation"
 
 **Purpose**: Project initialization, testing framework, and base structural connectivity.
 
-- [ ] T001 Initialize Vite React + TypeScript project in root.
-- [ ] T002 [P] Install and configure Tailwind CSS in `tailwind.config.js` and `src/styles/index.css`.
-- [ ] T003 [P] Initialize shadcn/ui and configure base settings in `components.json`.
-- [ ] T004 Initialize local Supabase project (`supabase/`).
-- [ ] T005 [P] Setup Vitest testing framework in `vitest.config.ts`.
-- [ ] T006 Add `src/lib/supabase.ts` for the Supabase client initialization.
+- [X] T001 Initialize Vite React + TypeScript project in root.
+- [X] T002 [P] Install and configure Tailwind CSS in `tailwind.config.js` and `src/styles/index.css`.
+- [X] T003 [P] Initialize shadcn/ui and configure base settings in `components.json`.
+- [X] T004 Initialize local Supabase project (`supabase/`).
+- [X] T005 [P] Setup Vitest testing framework in `vitest.config.ts`.
+- [X] T006 Add `src/lib/supabase.ts` for the Supabase client initialization.
 
 ---
 
@@ -36,13 +36,13 @@ description: "Task list for Eurovisiontippning App implementation"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete.
 
-- [ ] T007 Create initial migration `supabase/migrations/00000000000000_schema.sql` for `years` and `entries` tables.
-- [ ] T008 [P] Configure local Supabase Email/Password Auth for agent testing in `supabase/config.toml`.
-- [ ] T009 Write autonomous verification script `tests/verify-auth.ts` to programmatically test auth login.
-- [ ] T010 [P] Generate TypeScript types from local schema to `src/types/database.types.ts`.
-- [ ] T011 Create `seed.sql` with mock 2025 Eurovision data (based on admin-import contract) in `supabase/seed.sql`.
-- [ ] T012 Implement `src/store/ThemeContext.tsx` to handle dynamic CSS variables based on the active year.
-- [ ] T013 Create base `src/components/Layout.tsx` providing the theme context to children.
+- [X] T007 Create initial migration `supabase/migrations/00000000000000_schema.sql` for `years` and `entries` tables.
+- [X] T008 [P] Configure local Supabase Email/Password Auth for agent testing in `supabase/config.toml`.
+- [X] T009 Write autonomous verification script `tests/verify-auth.ts` to programmatically test auth login.
+- [X] T010 [P] Generate TypeScript types from local schema to `src/types/database.types.ts`.
+- [X] T011 Create `seed.sql` with mock 2025 Eurovision data (based on admin-import contract) in `supabase/seed.sql`.
+- [X] T012 Implement `src/store/ThemeContext.tsx` to handle dynamic CSS variables based on the active year.
+- [X] T013 Create base `src/components/Layout.tsx` providing the theme context to children.
 
 **Checkpoint**: Foundation ready - UI development and stories can begin.
 
@@ -55,10 +55,10 @@ description: "Task list for Eurovisiontippning App implementation"
 
 ### Implementation for User Story 0
 
-- [ ] T014 [US0] Create `src/pages/LandingPage.tsx` with hero section and contest info.
-- [ ] T015 [US0] Create `src/components/Auth/LoginButton.tsx` linking to Supabase OAuth.
-- [ ] T016 [US0] Update `src/App.tsx` (or main router) to render LandingPage for unauthenticated users.
-- [ ] T017 [US0] Add Chrome DevTools MCP verification script `tests/verify-landing.ts` to assert CTA visibility.
+- [X] T014 [US0] Create `src/pages/LandingPage.tsx` with hero section and contest info.
+- [X] T015 [US0] Create `src/components/Auth/LoginButton.tsx` linking to Supabase OAuth.
+- [X] T016 [US0] Update `src/App.tsx` (or main router) to render LandingPage for unauthenticated users.
+- [X] T017 [US0] Add Chrome DevTools MCP verification script `tests/verify-landing.ts` to assert CTA visibility.
 
 **Checkpoint**: Unauthorized users can view the landing page and initiate login.
 
@@ -71,13 +71,13 @@ description: "Task list for Eurovisiontippning App implementation"
 
 ### Implementation for User Story 1
 
-- [ ] T018 [P] [US1] Create migration `supabase/migrations/..._predictions.sql` for `predictions` table and basic RLS.
-- [ ] T019 [P] [US1] Regenerate types `src/types/database.types.ts`.
-- [ ] T020 [US1] Create `src/hooks/useEntries.ts` to fetch entries for the active year.
-- [ ] T021 [US1] Create `src/hooks/usePredictions.ts` to fetch and mutate user predictions.
-- [ ] T022 [US1] Build `src/pages/SemifinalView.tsx` listing entries with selection toggles.
-- [ ] T023 [US1] Implement exactly-10 validation logic inside `SemifinalView.tsx` or its custom hook.
-- [ ] T024 [US1] Add Chrome DevTools MCP verification script `tests/verify-semifinal.ts` (injecting auth session).
+- [X] T018 [P] [US1] Create migration `supabase/migrations/..._predictions.sql` for `predictions` table and basic RLS.
+- [X] T019 [P] [US1] Regenerate types `src/types/database.types.ts`.
+- [X] T020 [US1] Create `src/hooks/useEntries.ts` to fetch entries for the active year.
+- [X] T021 [US1] Create `src/hooks/usePredictions.ts` to fetch and mutate user predictions.
+- [X] T022 [US1] Build `src/pages/SemifinalView.tsx` listing entries with selection toggles.
+- [X] T023 [US1] Implement exactly-10 validation logic inside `SemifinalView.tsx` or its custom hook.
+- [X] T024 [US1] Add Chrome DevTools MCP verification script `tests/verify-semifinal.ts` (injecting auth session).
 
 **Checkpoint**: Users can predict their 10 semifinal qualifiers.
 
@@ -90,11 +90,11 @@ description: "Task list for Eurovisiontippning App implementation"
 
 ### Implementation for User Story 2
 
-- [ ] T025 [P] [US2] Install `@dnd-kit/core`, `@dnd-kit/sortable`, and `@dnd-kit/utilities`.
-- [ ] T026 [US2] Create `src/components/Ranking/SortableItem.tsx` utilizing dnd-kit.
-- [ ] T027 [US2] Build `src/pages/FinalView.tsx` configuring `TouchSensor` and `PointerSensor` for dnd-kit.
-- [ ] T028 [US2] Connect `FinalView.tsx` to `usePredictions.ts` to persist rank changes (1-26).
-- [ ] T029 [US2] Add Chrome DevTools MCP verification script `tests/verify-ranking.ts`.
+- [X] T025 [P] [US2] Install `@dnd-kit/core`, `@dnd-kit/sortable`, and `@dnd-kit/utilities`.
+- [X] T026 [US2] Create `src/components/Ranking/SortableItem.tsx` utilizing dnd-kit.
+- [X] T027 [US2] Build `src/pages/FinalView.tsx` configuring `TouchSensor` and `PointerSensor` for dnd-kit.
+- [X] T028 [US2] Connect `FinalView.tsx` to `usePredictions.ts` to persist rank changes (1-26).
+- [X] T029 [US2] Add Chrome DevTools MCP verification script `tests/verify-ranking.ts`.
 
 **Checkpoint**: Users can rank the Grand Final entries.
 
@@ -107,13 +107,13 @@ description: "Task list for Eurovisiontippning App implementation"
 
 ### Implementation for User Story 3
 
-- [ ] T030 [P] [US3] Create migration `supabase/migrations/..._friends.sql` for `friends` table.
-- [ ] T031 [P] [US3] Update `predictions` RLS in SQL to enforce Anti-Spoil (friends + timestamp check).
-- [ ] T032 [P] [US3] Regenerate types `src/types/database.types.ts`.
-- [ ] T033 [US3] Create `src/hooks/useFriends.ts` for managing friend requests/status.
-- [ ] T034 [US3] Build `src/components/Social/FriendList.tsx` for searching and adding friends.
-- [ ] T035 [US3] Build `src/components/Social/FriendPredictionModal.tsx` to view un-spoiled predictions.
-- [ ] T036 [US3] Write script `tests/verify-rls.ts` to authenticate two mock users and assert RLS Anti-Spoil blocks.
+- [X] T030 [P] [US3] Create migration `supabase/migrations/..._friends.sql` for `friends` table.
+- [X] T031 [P] [US3] Update `predictions` RLS in SQL to enforce Anti-Spoil (friends + timestamp check).
+- [X] T032 [P] [US3] Regenerate types `src/types/database.types.ts`.
+- [X] T033 [US3] Create `src/hooks/useFriends.ts` for managing friend requests/status.
+- [X] T034 [US3] Build `src/components/Social/FriendList.tsx` for searching and adding friends.
+- [X] T035 [US3] Build `src/components/Social/FriendPredictionModal.tsx` to view un-spoiled predictions.
+- [X] T036 [US3] Write script `tests/verify-rls.ts` to authenticate two mock users and assert RLS Anti-Spoil blocks.
 
 **Checkpoint**: Friend predictions are visible only when the contest has started.
 
@@ -126,9 +126,9 @@ description: "Task list for Eurovisiontippning App implementation"
 
 ### Implementation for User Story 4
 
-- [ ] T037 [US4] Create `src/pages/AdminView.tsx` with a JSON textarea input.
-- [ ] T038 [US4] Implement `src/services/adminService.ts` to parse `admin-import.json` structure and upsert `years`/`entries`.
-- [ ] T039 [US4] Create `supabase/migrations/..._admin_rls.sql` ensuring only admins can insert to `years`/`entries`.
+- [X] T037 [US4] Create `src/pages/AdminView.tsx` with a JSON textarea input.
+- [X] T038 [US4] Implement `src/services/adminService.ts` to parse `admin-import.json` structure and upsert `years`/`entries`.
+- [X] T039 [US4] Create `supabase/migrations/..._admin_rls.sql` ensuring only admins can insert to `years`/`entries`.
 
 **Checkpoint**: Administrators can import new contest data.
 
@@ -141,10 +141,10 @@ description: "Task list for Eurovisiontippning App implementation"
 
 ### Implementation for User Story 5
 
-- [ ] T040 [P] [US5] Create `src/pages/DataProtectionPage.tsx` outlining GDPR compliance.
-- [ ] T041 [US5] Create migration `supabase/migrations/..._cascade.sql` ensuring user deletion cascades to `predictions`, `friends`, and `notes`.
-- [ ] T042 [US5] Build `src/components/Settings/DeleteAccountDialog.tsx` with two-step confirmation.
-- [ ] T043 [US5] Implement deletion logic calling Supabase `admin.deleteUser()` via an edge function or RPC.
+- [X] T040 [P] [US5] Create `src/pages/DataProtectionPage.tsx` outlining GDPR compliance.
+- [X] T041 [US5] Create migration `supabase/migrations/..._cascade.sql` ensuring user deletion cascades to `predictions`, `friends`, and `notes`.
+- [X] T042 [US5] Build `src/components/Settings/DeleteAccountDialog.tsx` with two-step confirmation.
+- [X] T043 [US5] Implement deletion logic calling Supabase `admin.deleteUser()` via an edge function or RPC.
 
 **Checkpoint**: Users can self-service delete their accounts.
 
@@ -154,10 +154,10 @@ description: "Task list for Eurovisiontippning App implementation"
 
 **Purpose**: Leaderboard calculations, unit testing, and cross-cutting UX improvements.
 
-- [ ] T044 [P] Create migration `supabase/migrations/..._results.sql` for the `results` table.
-- [ ] T045 [P] Regenerate types `src/types/database.types.ts`.
-- [ ] T046 Write Vitest unit tests in `tests/unit/scoring.test.ts` for the rank distance formula.
-- [ ] T047 Implement scoring calculation logic in `src/services/scoringService.ts`.
-- [ ] T048 Build `src/pages/LeaderboardView.tsx` to display aggregated points.
-- [ ] T049 Run accessibility (a11y) audit via Chrome DevTools MCP and fix violations.
-- [ ] T050 Verify responsive design for tab navigation and final rankings.
+- [X] T044 [P] Create migration `supabase/migrations/..._results.sql` for the `results` table.
+- [X] T045 [P] Regenerate types `src/types/database.types.ts`.
+- [X] T046 Write Vitest unit tests in `tests/unit/scoring.test.ts` for the rank distance formula.
+- [X] T047 Implement scoring calculation logic in `src/services/scoringService.ts`.
+- [X] T048 Build `src/pages/LeaderboardView.tsx` to display aggregated points.
+- [X] T049 Run accessibility (a11y) audit via Chrome DevTools MCP and fix violations.
+- [X] T050 Verify responsive design for tab navigation and final rankings.
