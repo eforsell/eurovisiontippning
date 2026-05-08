@@ -7,6 +7,7 @@ import { FinalView } from "./pages/FinalView";
 import { AdminView } from "./pages/AdminView";
 import { DataProtectionPage } from "./pages/DataProtectionPage";
 import { LeaderboardView } from "./pages/LeaderboardView";
+import { FriendList } from "./components/Social/FriendList";
 import { supabase } from "./lib/supabase";
 import { Session } from "@supabase/supabase-js";
 import "./styles/index.css";
@@ -15,7 +16,7 @@ function MainContent() {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<
-    "semi1" | "semi2" | "final" | "leaderboard" | "admin" | "privacy"
+    "semi1" | "semi2" | "final" | "leaderboard" | "friends" | "admin" | "privacy"
   >("semi1");
 
   useEffect(() => {
@@ -83,6 +84,12 @@ function MainContent() {
           Leaderboard
         </button>
         <button
+          className={`px-6 py-3 font-semibold whitespace-nowrap border-b-2 transition-colors ${activeTab === "friends" ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"}`}
+          onClick={() => setActiveTab("friends")}
+        >
+          Friends
+        </button>
+        <button
           className={`px-6 py-3 font-semibold whitespace-nowrap border-b-2 transition-colors ${activeTab === "privacy" ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"}`}
           onClick={() => setActiveTab("privacy")}
         >
@@ -102,6 +109,7 @@ function MainContent() {
       {activeTab === "semi2" && <SemifinalView semiFinal={2} />}
       {activeTab === "final" && <FinalView />}
       {activeTab === "leaderboard" && <LeaderboardView />}
+      {activeTab === "friends" && <div className="max-w-2xl mx-auto"><FriendList /></div>}
       {activeTab === "admin" && <AdminView />}
       {activeTab === "privacy" && <DataProtectionPage />}
     </div>
