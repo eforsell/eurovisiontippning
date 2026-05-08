@@ -64,6 +64,61 @@ tests/
 
 **Structure Decision**: Single project structure using Vite.
 
+## Autonomous Agent Verification Strategy
+
+To enable the coding agent to verify its own work without human oversight (especially regarding Auth, UI, and DB connectivity), the following workflows must be implemented:
+
+1. **Local Supabase Environment**: 
+   - The agent will use the Supabase CLI (`npx supabase start`) to run a local database instance.
+   - Migrations and seeds will be applied and verified via `npx supabase db reset`.
+   - **Type Generation**: The agent will automatically run `npx supabase gen types typescript --local > src/types/database.types.ts` to verify schema validity and ensure type safety.
+
+2. **Authentication Verification (The Trickiest Part)**:
+   - Since OAuth (Google/Facebook) is difficult for an autonomous agent to automate without human interaction, **Email/Password auth must be enabled in the local Supabase configuration specifically for automated testing.**
+   - The agent will write an automated script (e.g., `tests/verify-auth.ts` or a Playwright test) to programmatically create a test user, sign in, and verify session token retrieval.
+   - This test user's session will be used to programmatically verify RLS policies.
+
+3. **UI and Connectivity Verification**:
+   - The agent will run the Vite development server in the background.
+   - Using **Playwright** (or Chrome DevTools MCP), the agent will navigate the application, assert that no console errors are thrown, check network requests for failures, and verify DOM rendering.
+   - For authenticated UI states, the agent will inject the test user's session into the browser context (e.g., `localStorage`) before running tests.
+
+## Phased Implementation Strategy
+
+This strategy outlines the sequence of development, mapping each phase to the relevant implementation details.
+
+### Phase 1: Setup & Infrastructure
+**Goal**: Establish the base project and connectivity.
+- **Tasks**:
+  - Initialize Vite + React + TS project.
+  - Configure Tailwind CSS & shadcn/ui (see `research.md`).
+  - Initialize local Supabase project (`npx supabase init`) & local migrations folder (see `data-model.md`).
+  - Enable local Email/Password Auth for agent testing, alongside configuring Google/Facebook Auth for production.
+  - Create and run the initial autonomous verification scripts (Auth and UI connectivity).
+
+### Phase 2: Core Data & Admin
+**Goal**: Implement data ingestion and dynamic theming.
+- **Tasks**:
+  - Create `years` and `entries` tables with RLS (see `data-model.md`).
+  - Build Admin page for JSON import (see `contracts/admin-import.json`).
+  - Implement dynamic theme hook/store using CSS variables (see `research.md`).
+
+### Phase 3: Main UI & Prediction Logic
+**Goal**: Build the primary user experience.
+- **Tasks**:
+  - Build Landing page (Unauthorized vs Authorized).
+  - Implement Tabbed contest view (Semi 1, Semi 2, Final).
+  - Integrate @dnd-kit for Final ranking (see `research.md`).
+  - Setup `predictions` and `notes` tables with RLS (see `data-model.md`).
+
+### Phase 4: Social, Scoring & Polish
+**Goal**: Implement sharing, leaderboard, and compliance.
+- **Tasks**:
+  - Implement Friends system (see `data-model.md`).
+  - Build "Anti-Spoil" view for friend predictions (see `data-model.md` RLS).
+  - Implement scoring logic & Leaderboard (see `spec.md` for formulas).
+  - Add Data Protection & Account Deletion (see `spec.md`).
+
 ## Complexity Tracking
 
 | Violation | Why Needed | Simpler Alternative Rejected Because |
