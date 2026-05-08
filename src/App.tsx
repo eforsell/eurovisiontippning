@@ -95,7 +95,7 @@ function MainContent() {
         >
           Privacy
         </button>
-        {session.user.email === "admin@example.com" && (
+        {session.user.email === "eskil.forsell@gmail.com" && (
           <button
             className={`px-6 py-3 font-semibold whitespace-nowrap border-b-2 transition-colors ${activeTab === "admin" ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"}`}
             onClick={() => setActiveTab("admin")}

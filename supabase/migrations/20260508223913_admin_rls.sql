@@ -3,7 +3,7 @@ RETURNS BOOLEAN AS $$
 BEGIN
   RETURN EXISTS (
     SELECT 1 FROM auth.users
-    WHERE id = auth.uid() AND (email = 'admin@example.com' OR raw_user_meta_data->>'is_admin' = 'true')
+    WHERE id = auth.uid() AND (email = 'eskil.forsell@gmail.com' OR raw_user_meta_data->>'is_admin' = 'true')
   );
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
