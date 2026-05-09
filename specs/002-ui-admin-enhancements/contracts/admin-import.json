@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Admin Contest Import",
+  "description": "Schema for importing contest data (semifinals and final) along with participating entries.",
+  "type": "object",
+  "required": ["year", "contests", "entries"],
+  "properties": {
+    "year": {
+      "type": "integer",
+      "description": "The year of the Eurovision contest."
+    },
+    "contests": {
+      "type": "array",
+      "description": "The different events for the year (e.g., Semi 1, Semi 2, Final).",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "name", "start_time"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the contest (e.g., '2026-semi-1')."
+          },
+          "type": {
+            "type": "string",
+            "enum": ["semi", "final"],
+            "description": "Type of the contest."
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name (e.g., 'Semi-Final 1')."
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 UTC string for when the broadcast starts and voting closes."
+          }
+        }
+      }
+    },
+    "entries": {
+      "type": "array",
+      "description": "All competing songs in the contest.",
+      "items": {
+        "type": "object",
+        "required": ["id", "country", "artist", "song", "contest_id"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the entry."
+          },
+          "country": {
+            "type": "string",
+            "description": "Participating country name."
+          },
+          "artist": {
+            "type": "string",
+            "description": "Name of the artist."
+          },
+          "song": {
+            "type": "string",
+            "description": "Name of the song."
+          },
+          "contest_id": {
+            "type": "string",
+            "description": "The ID of the contest (from the contests array) this entry initially competes in."
+          },
+          "running_order": {
+            "type": "integer",
+            "description": "The starting position of the entry in its respective contest."
+          }
+        }
+      }
+    }
+  }
+}
