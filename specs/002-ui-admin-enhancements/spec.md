@@ -5,6 +5,12 @@
 **Status**: Draft
 **Input**: User description: "Det här fokuserar på design och funktionalitet..."
 
+## Clarifications
+
+### Session 2026-05-09
+- Q: How should friend search matching work considering privacy? → A: Partial matching on names and emails, combined with an option in account settings to make the account "private" (prevents requests, hides from search, removes current friend links).
+- Q: How should the leaderboard handle users with the exact same score? → A: Share the same rank number (e.g., 1, 1, 3, 4).
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Improved Mobile & Visual UX (Priority: P1)
@@ -35,6 +41,8 @@ As a user, I want a hamburger menu to navigate between pages (Tippning, Friends,
 2. **Given** I am an admin, **When** I open the menu, **Then** I also see the "Admin" link.
 3. **Given** I am on the Account page, **When** I click "Delete account", **Then** my account and associated data are removed.
 4. **Given** I am on any page, **When** I click the top header , **Then** I am returned to the home page.
+5. **Given** I am on the Account page, **When** I toggle "Private Account", **Then** my account is hidden from search, requests are blocked, and existing friends are removed.
+
 ---
 
 ### User Story 3 - Timezone-Aware Deadlines & Final Unlocking (Priority: P2)
@@ -62,8 +70,9 @@ As a user, I want to search for friends by email or name, and see a leaderboard 
 **Independent Test**: Can be tested by searching for a known friend's email/name and viewing the friends-only leaderboard.
 
 **Acceptance Scenarios**:
-1. **Given** I am on the friends page, **When** I type an email or name in the search bar, **Then** I see matching users to add as friends.
+1. **Given** I am on the friends page, **When** I type a partial email or name in the search bar, **Then** I see matching public users to add as friends.
 2. **Given** I have added friends, **When** I view the friend leaderboard, **Then** I see my friends and myself ranked by score.
+3. **Given** two users have the same score, **When** I view the leaderboard, **Then** they share the same rank number (e.g., 1, 1, 3).
 
 ---
 
@@ -87,6 +96,7 @@ As an admin, I want to safely import JSON data with validation, manually adjust 
 - How does system handle a user deleting their account while they are on a friend's leaderboard?
 - What happens if the admin marks more or fewer than 10 qualifiers for a semifinal?
 - How does the app handle a user trying to access the admin route without admin privileges via direct URL?
+- What happens if a user makes their account private while they have pending friend requests? (Requests are cancelled/removed).
 
 ## Requirements *(mandatory)*
 
@@ -95,7 +105,7 @@ As an admin, I want to safely import JSON data with validation, manually adjust 
 - **FR-001**: System MUST display a hamburger menu in the top right containing links to "Tippning", "Leaderboard/Vänner", "Privacy Policy", "Konto" (Account), and conditionally "Admin".
 - **FR-002**: System MUST provide an Account page with a "Delete account" action.
 - **FR-003**: System MUST explain on the Privacy page that account deletion is available via the Account settings.
-- **FR-004**: System MUST allow searching for friends by email or name, not just user ID.
+- **FR-004**: System MUST allow searching for public friends using partial matches on email or name.
 - **FR-005**: System MUST display a friend-specific leaderboard on the friends page.
 - **FR-006**: System MUST center text and remove checkboxes for songs on the semifinal pages.
 - **FR-007**: System MUST provide strong contrast (darker text) for all headings across the app.
@@ -110,6 +120,9 @@ As an admin, I want to safely import JSON data with validation, manually adjust 
 - **FR-016**: System MUST allow admins to set the final placement order for the final.
 - **FR-017**: System MUST only calculate points for a semifinal after 10 entries have been marked as qualified.
 - **FR-018**: System MUST only calculate points for the final after the final placement order has been set.
+- **FR-019**: System MUST allow users to set their account to "private" in Account settings.
+- **FR-020**: System MUST hide private accounts from search, block incoming friend requests, and bidirectionally remove all existing friend links.
+- **FR-021**: System MUST assign tied users the same rank on the leaderboard and increment subsequent ranks accordingly (e.g., 1, 1, 3).
 
 ### Performance & UX Requirements
 
@@ -122,7 +135,7 @@ As an admin, I want to safely import JSON data with validation, manually adjust 
 ### Measurable Outcomes
 
 - **SC-001**: Users can successfully reorder the final list on a mobile device without accidental scrolling.
-- **SC-002**: Users can find and add friends using email or name.
+- **SC-002**: Users can find and add friends using email or name (unless private).
 - **SC-003**: Points are only calculated and distributed when the exact required conditions are met (10 qualifiers for semi, final order for final).
 - **SC-004**: The final voting list becomes automatically unlocked only when both semifinals are completed.
 - **SC-005**: Admins receive immediate feedback if imported JSON does not match the required schema.
@@ -130,5 +143,5 @@ As an admin, I want to safely import JSON data with validation, manually adjust 
 ## Assumptions
 
 - We assume the existing UI framework (React) and drag-and-drop library can be configured to prevent mobile scroll interference.
-- We assume that user emails/names are searchable within the bounds of privacy configurations (e.g., only exact email matches or partial name matches).
+- We assume that user emails/names are searchable within the bounds of privacy configurations.
 - Timezone awareness will be handled using UTC for all internal logic and deadlines, converting to local time only for display.
