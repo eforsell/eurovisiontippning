@@ -1,9 +1,22 @@
 import React, { useState } from "react";
 import { useFriends } from "../../hooks/useFriends";
+import { supabase } from "../../lib/supabase";
 
 export const FriendList: React.FC = () => {
   const { friends, loading, sendRequest, acceptRequest, userId } = useFriends();
-  const [friendIdInput, setFriendIdInput] = useState("");
+  const [searchInput, setSearchInput] = useState("");
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [searching, setSearching] = useState(false);
+
+  const handleSearch = async () => {
+    if (!searchInput.trim()) return;
+    setSearching(true);
+    const { data, error } = await supabase.rpc('search_public_users', { query: searchInput });
+    if (!error && data) {
+      setSearchResults(data);
+    }
+    setSearching(false);
+  };
 
   if (loading) return <div>Loading friends...</div>;
 
@@ -11,24 +24,47 @@ export const FriendList: React.FC = () => {
     <div className="p-4 border rounded bg-card text-card-foreground shadow-sm">
       <h3 className="text-xl font-bold mb-4">Friends</h3>
 
-      <div className="flex gap-2 mb-6">
+      <div className="flex gap-2 mb-4">
         <input
           type="text"
-          value={friendIdInput}
-          onChange={(e) => setFriendIdInput(e.target.value)}
-          placeholder="Enter friend's User ID"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+          placeholder="Search by name or email"
           className="flex-1 px-3 py-2 border rounded text-foreground bg-background"
         />
         <button
-          onClick={() => {
-            sendRequest(friendIdInput);
-            setFriendIdInput("");
-          }}
-          className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90"
+          onClick={handleSearch}
+          disabled={searching}
+          className="px-4 py-2 bg-secondary text-secondary-foreground rounded hover:bg-secondary/90"
         >
-          Add
+          {searching ? "..." : "Search"}
         </button>
       </div>
+
+      {searchResults.length > 0 && (
+        <div className="mb-6 p-3 border rounded bg-muted/20">
+          <h4 className="font-semibold text-sm mb-2 text-muted-foreground">Search Results</h4>
+          <div className="space-y-2">
+            {searchResults.map((user) => (
+              <div key={user.id} className="flex justify-between items-center text-sm">
+                <div>
+                  <span className="font-medium">{user.name || "Unknown"}</span>
+                  <span className="text-muted-foreground ml-2">({user.email})</span>
+                </div>
+                <button
+                  onClick={() => {
+                    sendRequest(user.id);
+                    setSearchResults(searchResults.filter(u => u.id !== user.id));
+                  }}
+                  className="px-3 py-1 bg-primary text-primary-foreground rounded hover:bg-primary/90"
+                >
+                  Add
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="space-y-4">
         {friends.length === 0 && (

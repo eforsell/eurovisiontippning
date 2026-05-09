@@ -7,9 +7,9 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create Supabase migration file for profile fields (`is_private`, `is_admin`) in `supabase/migrations/`
-- [ ] T002 [P] Create `HamburgerMenu` shell component in `src/components/Navigation/HamburgerMenu.tsx`
-- [ ] T003 [P] Add generic high-contrast heading classes to `tailwind.config.js` or `src/styles/index.css`
+- [x] T001 Create Supabase migration file for profile fields (`is_private`, `is_admin`) in `supabase/migrations/`
+- [x] T002 [P] Create `HamburgerMenu` shell component in `src/components/Navigation/HamburgerMenu.tsx`
+- [x] T003 [P] Add generic high-contrast heading classes to `tailwind.config.js` or `src/styles/index.css`
 
 ---
 
@@ -17,11 +17,11 @@
 
 **Purpose**: Core infrastructure that MUST be complete before ANY user story can be implemented
 
-- [ ] T004 Apply database migration for `profiles` table to add `is_private` and `is_admin` columns.
-- [ ] T005 Update RLS policies on `profiles` to enforce read/write restrictions based on privacy and admin status.
-- [ ] T006 Update `contests` table RLS policies to restrict INSERT/UPDATE/DELETE to `is_admin = true` users.
-- [ ] T007 Implement the `set_account_private()` database trigger/RPC to wipe friend links when an account goes private.
-- [ ] T008 Update `@dnd-kit` touch sensors configuration in `src/components/Ranking/SortableItem.tsx` (or parent context) to prevent scroll interference.
+- [x] T004 Apply database migration for `profiles` table to add `is_private` and `is_admin` columns.
+- [x] T005 Update RLS policies on `profiles` to enforce read/write restrictions based on privacy and admin status.
+- [x] T006 Update `contests` table RLS policies to restrict INSERT/UPDATE/DELETE to `is_admin = true` users.
+- [x] T007 Implement the `set_account_private()` database trigger/RPC to wipe friend links when an account goes private.
+- [x] T008 Update `@dnd-kit` touch sensors configuration in `src/components/Ranking/SortableItem.tsx` (or parent context) to prevent scroll interference.
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel.
 
@@ -35,10 +35,10 @@
 
 ### Implementation for User Story 1
 
-- [ ] T009 [P] [US1] Apply high-contrast heading classes to all page components (`src/pages/*.tsx`).
-- [ ] T010 [P] [US1] Remove checkboxes from the semifinal song lists in `src/pages/SemifinalView.tsx`.
-- [ ] T011 [P] [US1] Center the song text in the semifinal lists in `src/pages/SemifinalView.tsx`.
-- [ ] T012 [US1] Verify `@dnd-kit` touch sensor changes (from T008) function correctly on mobile view.
+- [x] T009 [P] [US1] Apply high-contrast heading classes to all page components (`src/pages/*.tsx`).
+- [x] T010 [P] [US1] Remove checkboxes from the semifinal song lists in `src/pages/SemifinalView.tsx`.
+- [x] T011 [P] [US1] Center the song text in the semifinal lists in `src/pages/SemifinalView.tsx`.
+- [x] T012 [US1] Verify `@dnd-kit` touch sensor changes (from T008) function correctly on mobile view.
 
 **Checkpoint**: User Story 1 should be fully functional and testable independently.
 
@@ -52,12 +52,12 @@
 
 ### Implementation for User Story 2
 
-- [ ] T013 [P] [US2] Implement `HamburgerMenu` UI and routing logic in `src/components/Navigation/HamburgerMenu.tsx`.
-- [ ] T014 [US2] Create the `AccountView` page in `src/pages/AccountView.tsx`.
-- [ ] T015 [US2] Integrate Supabase Auth deletion logic into the `AccountView` "Delete account" button.
-- [ ] T016 [US2] Implement the "Private Account" toggle in `AccountView` to update the `is_private` profile flag.
-- [ ] T017 [US2] Update the Privacy Policy page (`src/pages/DataProtectionPage.tsx`) to explain account deletion via Account settings.
-- [ ] T018 [US2] Update the main application layout (`src/components/Layout.tsx` or similar) to include the `HamburgerMenu`.
+- [x] T013 [P] [US2] Implement `HamburgerMenu` UI and routing logic in `src/components/Navigation/HamburgerMenu.tsx`.
+- [x] T014 [US2] Create the `AccountView` page in `src/pages/AccountView.tsx`.
+- [x] T015 [US2] Integrate Supabase Auth deletion logic into the `AccountView` "Delete account" button.
+- [x] T016 [US2] Implement the "Private Account" toggle in `AccountView` to update the `is_private` profile flag.
+- [x] T017 [US2] Update the Privacy Policy page (`src/pages/DataProtectionPage.tsx`) to explain account deletion via Account settings.
+- [x] T018 [US2] Update the main application layout (`src/components/Layout.tsx` or similar) to include the `HamburgerMenu`.
 
 **Checkpoint**: Navigation and account management flows are complete.
 
@@ -71,12 +71,12 @@
 
 ### Implementation for User Story 5
 
-- [ ] T019 [P] [US5] Implement JSON schema validation in `src/pages/AdminView.tsx` against `specs/002-ui-admin-enhancements/contracts/admin-import.json`.
-- [ ] T020 [US5] Add a warning/confirmation dialog before processing the admin JSON import.
-- [ ] T021 [US5] Implement UI forms in `AdminView` to manually edit `contests` details (start time, name).
-- [ ] T022 [US5] Implement UI in `AdminView` to mark exactly 10 entries as "qualified" for a semifinal.
-- [ ] T023 [US5] Implement UI in `AdminView` to set the final placement order for the final.
-- [ ] T024 [US5] Update the backend scoring RPC to conditionally execute ONLY when 10 qualifiers are marked (semis) or `final_order` is full (finals).
+- [x] T019 [P] [US5] Implement JSON schema validation in `src/pages/AdminView.tsx` against `specs/002-ui-admin-enhancements/contracts/admin-import.json`.
+- [x] T020 [US5] Add a warning/confirmation dialog before processing the admin JSON import.
+- [x] T021 [US5] Implement UI forms in `AdminView` to manually edit `contests` details (start time, name).
+- [x] T022 [US5] Implement UI in `AdminView` to mark exactly 10 entries as "qualified" for a semifinal.
+- [x] T023 [US5] Implement UI in `AdminView` to set the final placement order for the final.
+- [x] T024 [US5] Update the backend scoring RPC to conditionally execute ONLY when 10 qualifiers are marked (semis) or `final_order` is full (finals).
 
 **Checkpoint**: Admin controls are fully secured and functional.
 
@@ -90,10 +90,10 @@
 
 ### Implementation for User Story 3
 
-- [ ] T025 [P] [US3] Implement a real-time, timezone-aware UTC countdown component.
-- [ ] T026 [US3] Integrate the countdown component into `src/pages/SemifinalView.tsx`.
-- [ ] T027 [US3] Add a Supabase RLS Insert/Update policy on the `predictions`/`bets` table to block submissions if `now() > contests.start_time`.
-- [ ] T028 [US3] Update `src/pages/FinalView.tsx` to check if both semifinals have 10 qualifiers; disable viewing/drag-and-drop if false.
+- [x] T025 [P] [US3] Implement a real-time, timezone-aware UTC countdown component.
+- [x] T026 [US3] Integrate the countdown component into `src/pages/SemifinalView.tsx`.
+- [x] T027 [US3] Add a Supabase RLS Insert/Update policy on the `predictions`/`bets` table to block submissions if `now() > contests.start_time`.
+- [x] T028 [US3] Update `src/pages/FinalView.tsx` to check if both semifinals have 10 qualifiers; disable viewing/drag-and-drop if false.
 
 **Checkpoint**: Deadlines are strictly enforced both client-side and server-side.
 
@@ -107,10 +107,10 @@
 
 ### Implementation for User Story 4
 
-- [ ] T029 [P] [US4] Create a Supabase RPC for friend search (`search_public_users`) implementing partial matching on name/email and filtering out `is_private = true`.
-- [ ] T030 [P] [US4] Update the leaderboard calculation RPC to use SQL `RANK() OVER (ORDER BY score DESC)` for tie-handling.
-- [ ] T031 [US4] Update the Friend Search UI in `src/pages/LeaderboardView.tsx` or `src/components/Social/FriendList.tsx` to use the new search RPC.
-- [ ] T032 [US4] Update the Leaderboard UI to display the new rank numbers properly.
+- [x] T029 [P] [US4] Create a Supabase RPC for friend search (`search_public_users`) implementing partial matching on name/email and filtering out `is_private = true`.
+- [x] T030 [P] [US4] Update the leaderboard calculation RPC to use SQL `RANK() OVER (ORDER BY score DESC)` for tie-handling.
+- [x] T031 [US4] Update the Friend Search UI in `src/pages/LeaderboardView.tsx` or `src/components/Social/FriendList.tsx` to use the new search RPC.
+- [x] T032 [US4] Update the Leaderboard UI to display the new rank numbers properly.
 
 **Checkpoint**: Social features are complete and privacy-respecting.
 
@@ -120,9 +120,9 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T033 [P] Verify heading contrasts against WCAG AA standards across all views.
-- [ ] T034 [P] Test drag-and-drop functionality on physical mobile devices (iOS/Android browsers).
-- [ ] T035 Review Admin RLS policies to ensure no metadata tampering is possible via direct API calls.
+- [x] T033 [P] Verify heading contrasts against WCAG AA standards across all views.
+- [x] T034 [P] Test drag-and-drop functionality on physical mobile devices (iOS/Android browsers).
+- [x] T035 Review Admin RLS policies to ensure no metadata tampering is possible via direct API calls.
 
 ---
 

@@ -5,7 +5,9 @@ import { useTheme } from "../store/ThemeContext";
 interface LeaderboardEntry {
   userId: string;
   email: string;
+  name: string;
   totalPoints: number;
+  rank: number;
 }
 
 export const LeaderboardView: React.FC = () => {
@@ -15,19 +17,23 @@ export const LeaderboardView: React.FC = () => {
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
-      if (!activeYear) return;
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
 
+      // Call the new RPC for friends leaderboard
       const { data: rpcData, error: rpcError } = await supabase.rpc(
-        "get_leaderboard",
-        { p_year_id: activeYear.id },
+        "get_friend_leaderboard",
+        { user_uid: user.id },
       );
 
       if (rpcData && !rpcError) {
         setLeaderboard(
           rpcData.map((row: any) => ({
-            userId: row.userid,
+            userId: row.id,
             email: row.email,
-            totalPoints: row.totalpoints,
+            name: row.name,
+            totalPoints: row.score,
+            rank: row.rank,
           })),
         );
       }
@@ -42,7 +48,7 @@ export const LeaderboardView: React.FC = () => {
 
   return (
     <div className="max-w-2xl mx-auto p-4 flex flex-col gap-4">
-      <h2 className="text-2xl font-bold">Leaderboard</h2>
+      <h2 className="text-2xl font-bold">Friend Leaderboard</h2>
 
       {leaderboard.length === 0 ? (
         <p className="text-muted-foreground">
@@ -50,17 +56,17 @@ export const LeaderboardView: React.FC = () => {
         </p>
       ) : (
         <div className="space-y-2">
-          {leaderboard.map((entry, index) => (
+          {leaderboard.map((entry) => (
             <div
               key={entry.userId}
               className="p-4 border rounded flex justify-between bg-card text-card-foreground"
             >
               <div>
                 <span className="font-bold mr-4 text-muted-foreground">
-                  #{index + 1}
+                  #{entry.rank}
                 </span>
                 <span className="font-semibold">
-                  {entry.email.split("@")[0]}
+                  {entry.name || entry.email.split("@")[0]}
                 </span>
               </div>
               <div className="font-bold text-primary">

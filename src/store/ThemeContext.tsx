@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { supabase } from "../lib/supabase";
 import { Database } from "../types/database.types";
 import hexToHsl from "hex-to-hsl";
 
@@ -12,31 +11,22 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType>({
   activeYear: null,
-  loading: true,
+  loading: false,
 });
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [activeYear, setActiveYear] = useState<Year | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchActiveYear = async () => {
-      const { data, error } = await supabase
-        .from("years")
-        .select("*")
-        .eq("year", 2025)
-        .single();
-
-      if (!error && data) {
-        setActiveYear(data);
-      }
-      setLoading(false);
-    };
-
-    fetchActiveYear();
-  }, []);
+  const [activeYear] = useState<Year>({
+    id: "static-year-id",
+    year: 2026,
+    semi1_start: "2026-05-12T19:00:00Z",
+    semi2_start: "2026-05-14T19:00:00Z",
+    final_start: "2026-05-16T19:00:00Z",
+    primary_color: "#673ab7",
+    secondary_color: "#ffc107",
+    logo_url: "https://eurovision.tv/assets/logo-2025.png"
+  } as Year);
 
   useEffect(() => {
     if (activeYear) {
@@ -55,7 +45,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [activeYear]);
 
   return (
-    <ThemeContext.Provider value={{ activeYear, loading }}>
+    <ThemeContext.Provider value={{ activeYear, loading: false }}>
       {children}
     </ThemeContext.Provider>
   );

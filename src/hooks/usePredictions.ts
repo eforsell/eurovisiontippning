@@ -73,6 +73,7 @@ export function usePredictions(type: PredictionType) {
 
     if (error) {
       console.error("Error toggling qualifier:", error);
+      alert(`Error saving prediction: ${error.message}`);
       // Revert optimistic update by re-fetching
       fetchPredictions();
     }

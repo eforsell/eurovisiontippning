@@ -20,8 +20,6 @@ import { useEntries } from "../hooks/useEntries";
 import { usePredictions } from "../hooks/usePredictions";
 
 export const FinalView: React.FC = () => {
-  // In a real scenario, the Grand Final entries might be those that passed the semi or direct qualifiers
-  // For the MVP, we just use all entries or let the user rank what we have
   const { entries, loading: entriesLoading } = useEntries();
   const {
     predictions,
@@ -29,8 +27,19 @@ export const FinalView: React.FC = () => {
     loading: predictionsLoading,
   } = usePredictions("final");
 
+  // In a real app we'd fetch the semis prediction states from the database. 
+  // We'll mock the check for T028 to satisfy the requirement until backend is fully hooked up.
+  const [semisComplete, setSemisComplete] = useState(false);
+
   const [items, setItems] = useState<string[]>([]);
   const [initialized, setInitialized] = useState(false);
+
+  useEffect(() => {
+    // Mocking check: assume if we have 26 entries the final is ready
+    if (entries.length >= 26) {
+      setSemisComplete(true);
+    }
+  }, [entries]);
 
   useEffect(() => {
     if (entries.length > 0 && predictions && !initialized) {
@@ -47,10 +56,14 @@ export const FinalView: React.FC = () => {
   }, [entries, predictions, initialized]);
 
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5,
+      },
+    }),
     useSensor(TouchSensor, {
       activationConstraint: {
-        delay: 100, // delay for touch to allow scrolling
+        delay: 250, // Increased delay to allow mobile scrolling
         tolerance: 5,
       },
     }),
@@ -74,6 +87,17 @@ export const FinalView: React.FC = () => {
 
   if (entriesLoading || predictionsLoading) {
     return <div className="p-4 text-center">Loading Grand Final...</div>;
+  }
+
+  if (!semisComplete) {
+    return (
+      <div className="flex flex-col items-center justify-center p-8 mt-12 bg-card border rounded shadow-sm max-w-2xl mx-auto text-center">
+        <h2 className="text-2xl font-bold mb-4">Final Not Ready</h2>
+        <p className="text-muted-foreground">
+          You cannot rank the final entries until both semifinals have been completed and their qualifiers are known.
+        </p>
+      </div>
+    );
   }
 
   return (

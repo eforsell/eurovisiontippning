@@ -73,4 +73,9 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Apply high contrast text to all headings per US1/UX requirements */
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-gray-900 dark:text-gray-100 font-semibold tracking-tight;
+  }
 }

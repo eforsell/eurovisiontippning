@@ -1,5 +1,4 @@
 import React from "react";
-import { DeleteAccountDialog } from "../components/Settings/DeleteAccountDialog";
 
 export const DataProtectionPage: React.FC = () => {
   return (
@@ -22,14 +21,12 @@ export const DataProtectionPage: React.FC = () => {
           <li>Your friend connections</li>
           <li>Your private notes</li>
         </ul>
-        <p className="text-muted-foreground font-bold">
+        <p className="text-muted-foreground font-bold mb-4">
           This action cannot be undone.
         </p>
-      </section>
-
-      <section className="bg-destructive/10 border-destructive border p-6 rounded shadow-sm">
-        <h3 className="text-xl font-bold text-destructive mb-4">Danger Zone</h3>
-        <DeleteAccountDialog />
+        <p className="text-muted-foreground">
+          To delete your account, or to set your profile to private, please navigate to the <strong>Account</strong> page from the main menu.
+        </p>
       </section>
     </div>
   );
