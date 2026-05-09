@@ -2,12 +2,14 @@ import React, { useMemo } from "react";
 import { useEntries } from "../hooks/useEntries";
 import { usePredictions } from "../hooks/usePredictions";
 import { Countdown } from "../components/Countdown";
+import { useTheme } from "../store/ThemeContext";
 
 interface SemifinalViewProps {
   semiFinal: 1 | 2;
 }
 
 export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
+  const { activeYear } = useTheme();
   const { entries, loading: entriesLoading } = useEntries(semiFinal);
   const predictionType = `semi${semiFinal}` as const;
   const {
@@ -20,11 +22,10 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
     return predictions.filter((p) => p.is_qualifier).length;
   }, [predictions]);
 
-  // Mock deadline for demonstration since we don't have contest loaded
-  const mockDeadline = `2026-05-1${semiFinal + 1}T19:00:00Z`;
+  const deadline = semiFinal === 1 ? activeYear?.semi1_start : activeYear?.semi2_start;
 
   const handleToggle = (entryId: string, currentStatus: boolean) => {
-    if (new Date(mockDeadline).getTime() <= new Date().getTime()) {
+    if (deadline && new Date(deadline).getTime() <= new Date().getTime()) {
       alert("Voting is closed!");
       return;
     }
@@ -50,7 +51,7 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
           <h2 className="text-2xl font-bold">Semifinal {semiFinal}</h2>
           <div className="flex items-center gap-4 mt-2">
             <p className="text-muted-foreground">Select your 10 qualifiers</p>
-            <Countdown targetDateIso={mockDeadline} />
+            {deadline && <Countdown targetDateIso={deadline} />}
           </div>
         </div>
         <div

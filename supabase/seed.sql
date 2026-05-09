@@ -1,12 +1,12 @@
--- Seed mock 2025 Eurovision data
+-- Seed mock 2026 Eurovision data
 WITH new_year AS (
   INSERT INTO public.years (id, year, semi1_start, semi2_start, final_start, primary_color, secondary_color, logo_url)
   VALUES (
-    gen_random_uuid(), 
-    2025, 
-    '2025-05-13T19:00:00Z', 
-    '2025-05-15T19:00:00Z', 
-    '2025-05-17T19:00:00Z', 
+    '00000000-0000-0000-0000-000000002026', 
+    2026, 
+    '2027-05-13T19:00:00Z', 
+    '2027-05-15T19:00:00Z', 
+    '2027-05-17T19:00:00Z', 
     '#673ab7', 
     '#ffc107', 
     'https://eurovision.tv/assets/logo-2025.png'

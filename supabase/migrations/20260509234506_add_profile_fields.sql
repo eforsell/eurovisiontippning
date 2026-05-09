@@ -23,6 +23,11 @@ CREATE OR REPLACE FUNCTION public.protect_admin_column()
 RETURNS TRIGGER AS $$
 BEGIN
   IF NEW.is_admin != OLD.is_admin THEN
+    -- Allow the Supabase UI (postgres/service_role) to bypass this check
+    IF current_user IN ('postgres', 'service_role', 'dashboard_user', 'supabase_admin') THEN
+      RETURN NEW;
+    END IF;
+
     IF NOT EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND is_admin = true) THEN
       RAISE EXCEPTION 'Only admins can change the is_admin flag.';
     END IF;

@@ -18,11 +18,11 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [activeYear] = useState<Year>({
-    id: "static-year-id",
+    id: "00000000-0000-0000-0000-000000002026",
     year: 2026,
-    semi1_start: "2026-05-12T19:00:00Z",
-    semi2_start: "2026-05-14T19:00:00Z",
-    final_start: "2026-05-16T19:00:00Z",
+    semi1_start: "2027-05-12T19:00:00Z",
+    semi2_start: "2027-05-14T19:00:00Z",
+    final_start: "2027-05-16T19:00:00Z",
     primary_color: "#673ab7",
     secondary_color: "#ffc107",
     logo_url: "https://eurovision.tv/assets/logo-2025.png"
