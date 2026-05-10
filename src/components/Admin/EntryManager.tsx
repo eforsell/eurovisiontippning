@@ -119,11 +119,6 @@ export const EntryManager: FC<EntryManagerProps> = ({ entries, onSave, onDelete,
     }
   };
 
-  const SortIcon = ({ field }: { field: SortField }) => {
-    if (sortField !== field) return <span className="ml-1 opacity-20">↕</span>;
-    return <span className="ml-1">{sortDirection === 'asc' ? '↑' : '↓'}</span>;
-  };
-
   return (
     <div>
       <div className="flex justify-between mb-4">
@@ -221,19 +216,19 @@ export const EntryManager: FC<EntryManagerProps> = ({ entries, onSave, onDelete,
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('start_position')}>
-                Start <SortIcon field="start_position" />
+                Start <SortIcon field="start_position" sortField={sortField} sortDirection={sortDirection} />
               </th>
               <th scope="col" className="px-6 py-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('country')}>
-                Country <SortIcon field="country" />
+                Country <SortIcon field="country" sortField={sortField} sortDirection={sortDirection} />
               </th>
               <th scope="col" className="px-6 py-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('artist')}>
-                Artist <SortIcon field="artist" />
+                Artist <SortIcon field="artist" sortField={sortField} sortDirection={sortDirection} />
               </th>
               <th scope="col" className="px-6 py-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('song_title')}>
-                Song <SortIcon field="song_title" />
+                Song <SortIcon field="song_title" sortField={sortField} sortDirection={sortDirection} />
               </th>
               <th scope="col" className="px-6 py-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('starting_contest')}>
-                Contest <SortIcon field="starting_contest" />
+                Contest <SortIcon field="starting_contest" sortField={sortField} sortDirection={sortDirection} />
               </th>
               <th scope="col" className="px-6 py-3">Actions</th>
             </tr>

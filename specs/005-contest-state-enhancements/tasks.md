@@ -23,7 +23,7 @@ description: "Task list for Contest State Enhancements"
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Verify active branch is `005-contest-state-enhancements` via `git branch --show-current`
+- [x] T001 Verify active branch is `005-contest-state-enhancements` via `git branch --show-current`
 
 ---
 
@@ -33,9 +33,9 @@ description: "Task list for Contest State Enhancements"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T002 Generate new Supabase migration for `final_start_position` in `supabase/migrations/`
-- [ ] T003 Generate new Supabase migration to update `get_friends_leaderboard` RPC to return score breakdowns in `supabase/migrations/`
-- [ ] T004 Update `src/types/database.types.ts` to include `final_start_position` on the `entries` table and the new RPC return type.
+- [x] T002 Generate new Supabase migration for `final_start_position` in `supabase/migrations/`
+- [x] T003 Generate new Supabase migration to update `get_friends_leaderboard` RPC to return score breakdowns in `supabase/migrations/`
+- [x] T004 Update `src/types/database.types.ts` to include `final_start_position` on the `entries` table and the new RPC return type.
 
 **Checkpoint**: Foundation ready - database schema updated, user story implementation can now begin.
 
@@ -49,11 +49,11 @@ description: "Task list for Contest State Enhancements"
 
 ### Implementation for User Story 1
 
-- [ ] T005 [P] [US1] Create Playwright E2E test `tests/e2e/betting-window-lock.spec.ts` verifying clicking is disabled but styles remain when a contest has started.
-- [ ] T006 [P] [US1] Create Playwright E2E test `tests/e2e/admin-progression-lock.spec.ts` verifying the progression button is disabled before a contest starts.
-- [ ] T007 [US1] Update `src/components/Admin/ProgressionManager.tsx` (or equivalent admin view component) to disable the progression action if the current time is before the contest start time.
-- [ ] T008 [US1] Update `src/components/Ranking/EntryList.tsx` (or equivalent component handling entry cards) to conditionally remove drag-and-drop handles and apply `pointer-events-none` via Tailwind if the contest has started.
-- [ ] T009 [US1] Update `src/components/Ranking/EntryItem.tsx` (or equivalent entry card component) to ensure visual styling is retained when locked.
+- [x] T005 [P] [US1] Create Playwright E2E test `tests/e2e/betting-window-lock.spec.ts` verifying clicking is disabled but styles remain when a contest has started.
+- [x] T006 [P] [US1] Create Playwright E2E test `tests/e2e/admin-progression-lock.spec.ts` verifying the progression button is disabled before a contest starts.
+- [x] T007 [US1] Update `src/components/Admin/ProgressionManager.tsx` (or equivalent admin view component) to disable the progression action if the current time is before the contest start time.
+- [x] T008 [US1] Update `src/components/Ranking/EntryList.tsx` (or equivalent component handling entry cards) to conditionally remove drag-and-drop handles and apply `pointer-events-none` via Tailwind if the contest has started.
+- [x] T009 [US1] Update `src/components/Ranking/EntryItem.tsx` (or equivalent entry card component) to ensure visual styling is retained when locked.
 
 **Checkpoint**: User predictions and admin actions are correctly locked based on contest start time. Tests passing.
 
@@ -67,12 +67,12 @@ description: "Task list for Contest State Enhancements"
 
 ### Implementation for User Story 2
 
-- [ ] T010 [P] [US2] Create Vitest component test `tests/components/EntryItemVisibility.test.tsx` for scoring and opacity/border styling.
-- [ ] T011 [P] [US2] Create Playwright E2E test `tests/e2e/sharing-view-filter.spec.ts` to verify only the relevant contest entries are shown.
-- [ ] T012 [US2] Update `src/pages/SemifinalView.tsx` (and relevant sharing views) to ensure entries are strictly filtered to the corresponding contest.
-- [ ] T013 [US2] Update `src/components/Ranking/EntryList.tsx` to conditionally pass down scores and progression status to `EntryItem.tsx` if the semifinal is marked as progressed.
-- [ ] T014 [US2] Update `src/components/Ranking/EntryItem.tsx` to display the score when available.
-- [ ] T015 [US2] Update `src/components/Ranking/EntryItem.tsx` to add Tailwind classes for reduced opacity and dashed borders when an entry has failed to progress.
+- [x] T010 [P] [US2] Create Vitest component test `tests/components/EntryItemVisibility.test.tsx` for scoring and opacity/border styling.
+- [x] T011 [P] [US2] Create Playwright E2E test `tests/e2e/sharing-view-filter.spec.ts` to verify only the relevant contest entries are shown.
+- [x] T012 [US2] Update `src/pages/SemifinalView.tsx` (and relevant sharing views) to ensure entries are strictly filtered to the corresponding contest.
+- [x] T013 [US2] Update `src/components/Ranking/EntryList.tsx` to conditionally pass down scores and progression status to `EntryItem.tsx` if the semifinal is marked as progressed.
+- [x] T014 [US2] Update `src/components/Ranking/EntryItem.tsx` to display the score when available.
+- [x] T015 [US2] Update `src/components/Ranking/EntryItem.tsx` to add Tailwind classes for reduced opacity and dashed borders when an entry has failed to progress.
 
 **Checkpoint**: Semifinal results are clearly visible and styling indicates progression status. Sharing views are correctly filtered. Tests passing.
 
@@ -86,13 +86,13 @@ description: "Task list for Contest State Enhancements"
 
 ### Implementation for User Story 3
 
-- [ ] T016 [P] [US3] Create Vitest unit test `tests/unit/finalSorting.test.ts` for the `final_start_position` vs final rank sorting logic.
-- [ ] T017 [P] [US3] Create Playwright E2E test `tests/e2e/final-results-display.spec.ts` verifying final rank and points are visible on the Grand Final page.
-- [ ] T018 [US3] Update frontend sorting logic in `src/pages/FinalView.tsx` (or the relevant hook like `useEntries.ts`) to sort by `final_start_position` (nulls at the end) instead of the original `start_position` for the Grand Final context.
-- [ ] T019 [US3] Update `src/components/Ranking/EntryItem.tsx` to display `final_start_position` instead of the original `start_position` when viewed in the Grand Final context.
-- [ ] T020 [US3] Update sorting logic in `src/pages/FinalView.tsx` to sort by final rank when finishing orders and points are available.
-- [ ] T021 [US3] Update `src/components/Ranking/EntryItem.tsx` to display final points and final ranking when available in the Grand Final context.
-- [ ] T022 [US3] Ensure the sharing view for the Grand Final uses the exact same sorting and display logic as `FinalView.tsx`.
+- [x] T016 [P] [US3] Create Vitest unit test `tests/unit/finalSorting.test.ts` for the `final_start_position` vs final rank sorting logic.
+- [x] T017 [P] [US3] Create Playwright E2E test `tests/e2e/final-results-display.spec.ts` verifying final rank and points are visible on the Grand Final page.
+- [x] T018 [US3] Update frontend sorting logic in `src/pages/FinalView.tsx` (or the relevant hook like `useEntries.ts`) to sort by `final_start_position` (nulls at the end) instead of the original `start_position` for the Grand Final context.
+- [x] T019 [US3] Update `src/components/Ranking/EntryItem.tsx` to display `final_start_position` instead of the original `start_position` when viewed in the Grand Final context.
+- [x] T020 [US3] Update sorting logic in `src/pages/FinalView.tsx` to sort by final rank when finishing orders and points are available.
+- [x] T021 [US3] Update `src/components/Ranking/EntryItem.tsx` to display final points and final ranking when available in the Grand Final context.
+- [x] T022 [US3] Ensure the sharing view for the Grand Final uses the exact same sorting and display logic as `FinalView.tsx`.
 
 **Checkpoint**: Grand Final correctly uses the new start position and displays final rankings and points. Tests passing.
 
@@ -106,10 +106,10 @@ description: "Task list for Contest State Enhancements"
 
 ### Implementation for User Story 4
 
-- [ ] T023 [P] [US4] Create Playwright E2E test `tests/e2e/leaderboard-breakdown.spec.ts` verifying expanding a row displays the correct sum of individual contest scores.
-- [ ] T024 [P] [US4] Update `supabase/seed.sql` to include mock users, friend relationships with `eskil.forsell@gmail.com` (both pending and accepted), and mock predictions spanning Semi 1, Semi 2, and Final for these users.
-- [ ] T025 [US4] Modify `src/components/Leaderboard/LeaderboardRow.tsx` (or equivalent leaderboard component) to be expandable.
-- [ ] T026 [US4] Implement logic in the expandable section of the leaderboard row to display the score breakdown fetched from the updated RPC.
+- [x] T023 [P] [US4] Create Playwright E2E test `tests/e2e/leaderboard-breakdown.spec.ts` verifying expanding a row displays the correct sum of individual contest scores.
+- [x] T024 [P] [US4] Update `supabase/seed.sql` to include mock users, friend relationships with `eskil.forsell@gmail.com` (both pending and accepted), and mock predictions spanning Semi 1, Semi 2, and Final for these users.
+- [x] T025 [US4] Modify `src/components/Leaderboard/LeaderboardRow.tsx` (or equivalent leaderboard component) to be expandable.
+- [x] T026 [US4] Implement logic in the expandable section of the leaderboard row to display the score breakdown fetched from the updated RPC.
 
 **Checkpoint**: Leaderboard supports score breakdown per contest, and seed data facilitates local testing. Tests passing.
 
@@ -119,9 +119,9 @@ description: "Task list for Contest State Enhancements"
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T027 Update Edge Case handling: Ensure `src/pages/SemifinalView.tsx` and `src/pages/FinalView.tsx` display an error toast and revert UI state if a prediction update is rejected by the backend due to deadline passing.
-- [ ] T028 Run `npm run typecheck` and fix any TypeScript errors introduced by the changes.
-- [ ] T029 Run `npm run lint` and fix any linter errors.
+- [x] T027 Update Edge Case handling: Ensure `src/pages/SemifinalView.tsx` and `src/pages/FinalView.tsx` display an error toast and revert UI state if a prediction update is rejected by the backend due to deadline passing.
+- [x] T028 Run `npm run typecheck` and fix any TypeScript errors introduced by the changes.
+- [x] T029 Run `npm run lint` and fix any linter errors.
 
 ---
 

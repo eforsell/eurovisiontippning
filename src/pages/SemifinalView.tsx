@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { useEntries } from "../hooks/useEntries";
 import { usePredictions } from "../hooks/usePredictions";
+import { useResults } from "../hooks/useResults";
 import { Countdown } from "../components/Countdown";
 import { useTheme } from "../store/ThemeContext";
 
@@ -12,28 +13,31 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
   const { activeYear } = useTheme();
   const predictionType = `semi${semiFinal}` as const;
   const { entries, loading: entriesLoading } = useEntries(predictionType);
+  const { results, loading: resultsLoading } = useResults();
   const {
     predictions,
     toggleQualifier,
     loading: predictionsLoading,
   } = usePredictions(predictionType);
 
+  const isCompleted = semiFinal === 1 ? activeYear?.semi1_completed : activeYear?.semi2_completed;
+
   const selectedCount = useMemo(() => {
     return predictions.filter((p) => p.is_qualifier).length;
   }, [predictions]);
 
   const deadline = semiFinal === 1 ? activeYear?.semi1_start : activeYear?.semi2_start;
+  const isLocked = deadline ? new Date(deadline).getTime() <= new Date().getTime() : false;
 
   const [shakeMax, setShakeMax] = useState(false);
   const [shakeEntryId, setShakeEntryId] = useState<string | null>(null);
 
   const handleToggle = (entryId: string, currentStatus: boolean) => {
+    if (isLocked) {
+      return; // Silently ignore clicks if betting window has closed
+    }
     if (!activeYear?.betting_started) {
       alert("Betting has not started yet. Please wait for the administrator to open the betting window.");
-      return;
-    }
-    if (deadline && new Date(deadline).getTime() <= new Date().getTime()) {
-      alert("Voting is closed!");
       return;
     }
     if (!currentStatus && selectedCount >= 10) {
@@ -48,7 +52,7 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
     toggleQualifier(entryId, !currentStatus);
   };
 
-  if (entriesLoading || predictionsLoading) {
+  if (entriesLoading || predictionsLoading || resultsLoading) {
     return (
       <div className="p-4 text-center">Loading semifinal {semiFinal}...</div>
     );
@@ -90,10 +94,38 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
             predictions.find((p) => p.entry_id === entry.id)?.is_qualifier ??
             false;
 
+          const result = results.find((r) => r.entry_id === entry.id);
+          const hasProgressed = semiFinal === 1 ? result?.is_semi1_qualifier : result?.is_semi2_qualifier;
+          
+          let scoreText = null;
+          let entryStyling = "hover:bg-muted/50";
+          let failedToProgress = false;
+
+          if (isCompleted) {
+            entryStyling = "";
+            if (hasProgressed) {
+              if (isSelected) {
+                 scoreText = "+3";
+              }
+            } else {
+              failedToProgress = true;
+            }
+          } else if (isSelected) {
+            entryStyling = "border-primary bg-primary/10 shadow-sm";
+          }
+
           return (
             <div
               key={entry.id}
-              className={`relative p-4 border rounded flex flex-col items-center justify-center cursor-pointer transition-colors text-center ${isSelected ? "border-primary bg-primary/10 shadow-sm" : "hover:bg-muted/50"} ${shakeEntryId === entry.id ? "animate-shake" : ""}`}
+              className={`relative p-4 border rounded flex flex-col items-center justify-center transition-all text-center ${
+                failedToProgress ? "opacity-50 border-dashed border-gray-400 dark:border-gray-600" : ""
+              } ${
+                (isSelected && isCompleted && hasProgressed) ? "border-green-500 bg-green-50 dark:bg-green-900/20 shadow-sm" : ""
+              } ${entryStyling} ${
+                isLocked 
+                  ? "pointer-events-none cursor-default" 
+                  : `cursor-pointer`
+              } ${shakeEntryId === entry.id ? "animate-shake" : ""}`}
               onClick={() => handleToggle(entry.id, isSelected)}
             >
               <div className="absolute left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-muted flex items-center justify-center font-bold text-sm">
@@ -103,6 +135,11 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
               <div className="text-muted-foreground">
                 {entry.artist} - {entry.song_title}
               </div>
+              {scoreText && (
+                <div className="absolute right-4 top-1/2 -translate-y-1/2 font-bold text-green-600 dark:text-green-400">
+                  {scoreText}
+                </div>
+              )}
             </div>
           );
         })}

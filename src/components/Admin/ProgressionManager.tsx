@@ -9,17 +9,21 @@ interface ProgressionManagerProps {
   entries: Entry[];
   targetCount: number;
   initialProgressedIds: string[];
+  contestStartTime: string;
   onSave: (progressedIds: string[]) => void;
 }
 
-export const ProgressionManager: FC<ProgressionManagerProps> = ({ contest, entries, targetCount, initialProgressedIds, onSave }) => {
+export const ProgressionManager: FC<ProgressionManagerProps> = ({ contest, entries, targetCount, initialProgressedIds, contestStartTime, onSave }) => {
   const [progressedIds, setProgressedIds] = useState<string[]>(initialProgressedIds);
   const validation = useProgressionValidation(targetCount, progressedIds.length);
 
   // Filter entries to only show those belonging to this contest
   const contestEntries = entries.filter(e => e.starting_contest === contest);
 
+  const hasStarted = new Date() >= new Date(contestStartTime);
+
   const handleToggle = (id: string) => {
+    if (!hasStarted) return;
     setProgressedIds(prev => 
       prev.includes(id) 
         ? prev.filter(pid => pid !== id)
@@ -28,7 +32,7 @@ export const ProgressionManager: FC<ProgressionManagerProps> = ({ contest, entri
   };
 
   const handleSave = () => {
-    if (validation.isValid) {
+    if (validation.isValid && hasStarted) {
       onSave(progressedIds);
     }
   };
@@ -37,6 +41,12 @@ export const ProgressionManager: FC<ProgressionManagerProps> = ({ contest, entri
   // Can be enhanced with dnd-kit later per technical plan.
   return (
     <div className="space-y-6">
+      {!hasStarted && (
+        <div className="p-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-400" role="alert">
+          Progression is locked because betting for this contest has not closed yet. (Starts: {new Date(contestStartTime).toLocaleString()})
+        </div>
+      )}
+
       <div className="flex justify-between items-center bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
         <div>
           <span className="text-sm text-gray-500 dark:text-gray-400">Selected: </span>
@@ -47,9 +57,9 @@ export const ProgressionManager: FC<ProgressionManagerProps> = ({ contest, entri
         
         <button
           onClick={handleSave}
-          disabled={!validation.isValid}
+          disabled={!validation.isValid || !hasStarted}
           className={`px-4 py-2 rounded-lg font-medium text-white ${
-            validation.isValid 
+            (validation.isValid && hasStarted)
               ? 'bg-primary hover:bg-primary-dark' 
               : 'bg-gray-400 cursor-not-allowed'
           }`}

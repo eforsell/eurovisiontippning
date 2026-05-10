@@ -18,13 +18,19 @@ import {
 import { SortableItem } from "../components/Ranking/SortableItem";
 import { useEntries } from "../hooks/useEntries";
 import { usePredictions } from "../hooks/usePredictions";
+import { useResults } from "../hooks/useResults";
 import { useTheme } from "../store/ThemeContext";
 import { Countdown } from "../components/Countdown";
+import { scoringService } from "../services/scoringService";
 
 export const FinalView: React.FC = () => {
   const { activeYear } = useTheme();
   const deadline = activeYear?.final_start;
+  const isLocked = deadline ? new Date(deadline).getTime() <= new Date().getTime() : false;
+  const isCompleted = activeYear?.final_completed ?? false;
+
   const { entries, loading: entriesLoading } = useEntries("final");
+  const { results, loading: resultsLoading } = useResults();
   const {
     predictions,
     updateRanks,
@@ -47,19 +53,36 @@ export const FinalView: React.FC = () => {
   }, [entries]);
 
   useEffect(() => {
-    if (entries.length > 0 && predictions && !initialized) {
+    if (entries.length > 0 && predictions && (!initialized || isCompleted)) {
       const rankedMap = new Map(predictions.map((p) => [p.entry_id, p.rank]));
+      const resultMap = new Map(results.map((r) => [r.entry_id, r.final_rank]));
+
       const sorted = [...entries].sort((a, b) => {
+        // If final is completed and we have results, sort by actual final_rank
+        if (isCompleted) {
+          const finalRankA = resultMap.get(a.id);
+          const finalRankB = resultMap.get(b.id);
+          if (finalRankA !== undefined && finalRankB !== undefined) {
+            return finalRankA - finalRankB;
+          }
+        }
+
+        // Otherwise sort by user prediction or final_start_position
         const rankA = rankedMap.get(a.id) || 999;
         const rankB = rankedMap.get(b.id) || 999;
         if (rankA !== rankB) return rankA - rankB;
-        return a.start_position - b.start_position;
+        
+        // Use final_start_position, placing nulls at the end
+        if (a.final_start_position === null && b.final_start_position === null) return 0;
+        if (a.final_start_position === null) return 1;
+        if (b.final_start_position === null) return -1;
+        return a.final_start_position - b.final_start_position;
       });
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setItems(sorted.map((e) => e.id));
       setInitialized(true);
     }
-  }, [entries, predictions, initialized]);
+  }, [entries, predictions, initialized, isCompleted, results]);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -79,6 +102,7 @@ export const FinalView: React.FC = () => {
   );
 
   const handleDragEnd = (event: DragEndEvent) => {
+    if (isLocked) return;
     const { active, over } = event;
 
     if (over && active.id !== over.id) {
@@ -91,7 +115,7 @@ export const FinalView: React.FC = () => {
     }
   };
 
-  if (entriesLoading || predictionsLoading) {
+  if (entriesLoading || predictionsLoading || resultsLoading) {
     return <div className="p-4 text-center">Loading Grand Final...</div>;
   }
 
@@ -124,7 +148,7 @@ export const FinalView: React.FC = () => {
           <h2 className="text-2xl font-bold">Grand Final</h2>
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 mt-2">
             <p className="text-muted-foreground text-sm sm:text-base">
-              Drag and drop to rank your favorites
+              {isLocked ? "Betting is closed. Results will appear below." : "Drag and drop to rank your favorites"}
             </p>
             {deadline && <Countdown targetDateIso={deadline} />}
           </div>
@@ -141,6 +165,20 @@ export const FinalView: React.FC = () => {
             {items.map((id, index) => {
               const entry = entries.find((e) => e.id === id);
               if (!entry) return null;
+              
+              let points: number | undefined;
+              let finalRank: number | undefined;
+
+              if (isCompleted) {
+                const result = results.find(r => r.entry_id === entry.id);
+                const prediction = predictions.find(p => p.entry_id === entry.id);
+                
+                if (result?.final_rank !== undefined && result?.final_rank !== null && prediction) {
+                  finalRank = result.final_rank;
+                  points = scoringService.calculateFinalPoints(prediction.rank, result.final_rank);
+                }
+              }
+
               return (
                 <SortableItem
                   key={id}
@@ -149,6 +187,10 @@ export const FinalView: React.FC = () => {
                   country={entry.country}
                   artist={entry.artist}
                   song_title={entry.song_title}
+                  isLocked={isLocked || isCompleted}
+                  points={points}
+                  finalRank={finalRank}
+                  startPosition={entry.final_start_position ?? 'TBD'}
                 />
               );
             })}

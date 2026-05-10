@@ -4,12 +4,19 @@ import { useTheme } from "../store/ThemeContext";
 import { useFriends } from "../hooks/useFriends";
 import { useEntries } from "../hooks/useEntries";
 
+interface ScoreBreakdown {
+  semi1: number;
+  semi2: number;
+  final: number;
+}
+
 interface LeaderboardEntry {
   userId: string;
   email: string;
   name: string;
   totalPoints: number;
   rank: number;
+  scoreBreakdown: ScoreBreakdown;
 }
 
 export const LeaderboardView: React.FC = () => {
@@ -24,6 +31,7 @@ export const LeaderboardView: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [predictions, setPredictions] = useState<any[]>([]);
   const [expandedEntry, setExpandedEntry] = useState<string | null>(null);
+  const [expandedOverallEntry, setExpandedOverallEntry] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
@@ -31,17 +39,18 @@ export const LeaderboardView: React.FC = () => {
 
       const { data: rpcData, error: rpcError } = await supabase.rpc(
         "get_friend_leaderboard",
-        { user_uid: userId },
+        { user_uid: userId, p_year_id: activeYear?.id },
       );
 
       if (rpcData && !rpcError) {
         setLeaderboard(
-          rpcData.map((row: { id: string; email: string; name: string; score: number; rank: number }) => ({
+          rpcData.map((row: { id: string; email: string; name: string; score: number; rank: number; score_breakdown: ScoreBreakdown }) => ({
             userId: row.id,
             email: row.email,
             name: row.name,
             totalPoints: row.score,
             rank: row.rank,
+            scoreBreakdown: row.score_breakdown,
           })),
         );
       }
@@ -95,24 +104,53 @@ export const LeaderboardView: React.FC = () => {
         </p>
       ) : (
         <div className="space-y-2">
-          {leaderboard.map((entry) => (
-            <div
-              key={entry.userId}
-              className="p-4 border rounded flex justify-between bg-card text-card-foreground"
-            >
-              <div>
-                <span className="font-bold mr-4 text-muted-foreground">
-                  #{entry.rank}
-                </span>
-                <span className="font-semibold">
-                  {entry.name || entry.email.split("@")[0]}
-                </span>
+          {leaderboard.map((entry) => {
+            const isExpanded = expandedOverallEntry === entry.userId;
+            return (
+              <div
+                key={entry.userId}
+                className="border rounded flex flex-col bg-card text-card-foreground overflow-hidden"
+              >
+                <div 
+                  className="p-4 flex justify-between items-center cursor-pointer hover:bg-muted/50 transition-colors"
+                  onClick={() => setExpandedOverallEntry(isExpanded ? null : entry.userId)}
+                >
+                  <div>
+                    <span className="font-bold mr-4 text-muted-foreground">
+                      #{entry.rank}
+                    </span>
+                    <span className="font-semibold">
+                      {entry.name || entry.email.split("@")[0]}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="font-bold text-primary">
+                      {entry.totalPoints} pts
+                    </span>
+                    <span className="text-muted-foreground text-sm">
+                      {isExpanded ? '▲' : '▼'}
+                    </span>
+                  </div>
+                </div>
+                {isExpanded && entry.scoreBreakdown && (
+                  <div className="p-4 bg-muted/20 border-t flex justify-around text-sm">
+                    <div className="flex flex-col items-center">
+                      <span className="text-muted-foreground">Semi 1</span>
+                      <span className="font-bold score-semi1">{entry.scoreBreakdown.semi1} pts</span>
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <span className="text-muted-foreground">Semi 2</span>
+                      <span className="font-bold">{entry.scoreBreakdown.semi2} pts</span>
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <span className="text-muted-foreground">Final</span>
+                      <span className="font-bold">{entry.scoreBreakdown.final} pts</span>
+                    </div>
+                  </div>
+                )}
               </div>
-              <div className="font-bold text-primary">
-                {entry.totalPoints} pts
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </>

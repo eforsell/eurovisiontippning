@@ -123,6 +123,7 @@ export function usePredictions(type: PredictionType) {
 
     if (error) {
       console.error("Error updating ranks:", error);
+      alert(`Error saving predictions: ${error.message}`);
       fetchPredictions();
     }
   };
