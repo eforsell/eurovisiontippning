@@ -23,14 +23,16 @@ export function SortableItem(props: SortableItemProps) {
     isDragging,
   } = useSortable({ id: props.id, disabled: props.isLocked });
 
-  const style = {
-    transform: CSS.Transform.toString(transform),
+  const style: React.CSSProperties = {
+    transform: CSS.Translate.toString(transform),
     transition,
     zIndex: isDragging ? 10 : 1,
+    touchAction: "pan-y",
+    WebkitTouchCallout: "none",
   };
 
-  const wrapperClasses = `p-4 mb-2 bg-card text-card-foreground border rounded shadow-sm flex items-center gap-4 transition-all ${
-    isDragging ? "opacity-50 border-primary relative" : ""
+  const wrapperClasses = `p-4 mb-2 bg-card text-card-foreground border rounded shadow-sm flex items-center gap-4 transition-colors select-none ${
+    isDragging ? "opacity-50 border-primary relative z-50" : ""
   } ${
     props.isLocked ? "cursor-default" : "hover:bg-muted/50 cursor-grab active:cursor-grabbing"
   }`;
@@ -39,8 +41,8 @@ export function SortableItem(props: SortableItemProps) {
     <div
       ref={setNodeRef}
       style={style}
-      {...attributes}
-      {...listeners}
+      {...(!props.isLocked ? attributes : {})}
+      {...(!props.isLocked ? listeners : {})}
       className={wrapperClasses}
     >
       <div className="flex flex-col items-center justify-center w-8 shrink-0">
@@ -61,15 +63,13 @@ export function SortableItem(props: SortableItemProps) {
         </div>
       </div>
       
-      {props.finalRank !== undefined && props.points !== undefined ? (
+      {props.finalRank !== undefined && props.points !== undefined && (
         <div className="flex items-center gap-3 shrink-0">
           <div className="flex flex-col items-end">
             <span className="text-sm text-muted-foreground font-medium">Rank {props.finalRank}</span>
             <span className="font-bold text-green-600 dark:text-green-400">+{props.points} pts</span>
           </div>
         </div>
-      ) : (
-        !props.isLocked && <div className="text-muted-foreground shrink-0 px-2 cursor-grab active:cursor-grabbing">☰</div>
       )}
     </div>
   );

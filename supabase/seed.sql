@@ -68,8 +68,8 @@ BEGIN
   -- We also need mock results to actually yield a score from these predictions
   INSERT INTO public.results (year_id, entry_id, is_semi1_qualifier, is_semi2_qualifier, final_rank)
   VALUES
-    (v_year_id, v_swe_id, true, false, 5),
+    (v_year_id, v_swe_id, true, false, null),
     (v_year_id, v_nor_id, false, false, null),
-    (v_year_id, v_fin_id, false, true, 2),
-    (v_year_id, v_fra_id, false, false, 1);
+    (v_year_id, v_fin_id, false, true, null),
+    (v_year_id, v_fra_id, false, false, null);
 END $$;

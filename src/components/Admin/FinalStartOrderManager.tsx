@@ -1,5 +1,23 @@
 import { FC, useState, useEffect, useRef } from 'react';
 import { Database } from '../../types/database.types';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { restrictToVerticalAxis, restrictToWindowEdges } from "@dnd-kit/modifiers";
+import { SortableItem } from "../Ranking/SortableItem";
 
 type Entry = Database['public']['Tables']['entries']['Row'];
 
@@ -16,7 +34,8 @@ export const FinalStartOrderManager: FC<FinalStartOrderManagerProps> = ({
   semi2ProgressedIds, 
   onSave 
 }) => {
-  const [orderedEntries, setOrderedEntries] = useState<Entry[]>([]);
+  const [items, setItems] = useState<string[]>([]);
+  const [finalists, setFinalists] = useState<Entry[]>([]);
   const hasInitialized = useRef(false);
 
   useEffect(() => {
@@ -43,78 +62,80 @@ export const FinalStartOrderManager: FC<FinalStartOrderManagerProps> = ({
     });
 
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setOrderedEntries(sorted);
+    setFinalists(sorted);
+    setItems(sorted.map(e => e.id));
     hasInitialized.current = true;
   }, [entries, semi1ProgressedIds, semi2ProgressedIds]);
 
-  const moveUp = (index: number) => {
-    if (index === 0) return;
-    const newOrder = [...orderedEntries];
-    const temp = newOrder[index];
-    newOrder[index] = newOrder[index - 1];
-    newOrder[index - 1] = temp;
-    setOrderedEntries(newOrder);
-  };
+  const sensors = useSensors(
+    useSensor(MouseSensor, {
+      activationConstraint: {
+        distance: 5,
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 150,
+        tolerance: 10,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
+  );
 
-  const moveDown = (index: number) => {
-    if (index === orderedEntries.length - 1) return;
-    const newOrder = [...orderedEntries];
-    const temp = newOrder[index];
-    newOrder[index] = newOrder[index + 1];
-    newOrder[index + 1] = temp;
-    setOrderedEntries(newOrder);
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (over && active.id !== over.id) {
+      const oldIndex = items.indexOf(active.id as string);
+      const newIndex = items.indexOf(over.id as string);
+
+      setItems(arrayMove(items, oldIndex, newIndex));
+    }
   };
 
   const handleSave = () => {
-    const startOrder = orderedEntries.map((entry, index) => ({
-      entryId: entry.id,
+    const startOrder = items.map((id, index) => ({
+      entryId: id,
       final_start_position: index + 1
     }));
     onSave(startOrder);
   };
 
-  if (orderedEntries.length === 0) {
+  if (items.length === 0) {
     return <div className="text-gray-500">No finalists available. Mark semi-finals as progressed first.</div>;
   }
 
   return (
     <div className="space-y-6">
-      <div className="bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-        <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-          {orderedEntries.map((entry, index) => (
-            <li key={entry.id} className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors">
-              <div className="flex items-center">
-                <span className="flex-shrink-0 w-8 text-lg font-bold text-gray-500 dark:text-gray-400">
-                  {index + 1}.
-                </span>
-                <span className="ml-4 font-medium text-gray-900 dark:text-white">
-                  {entry.country}
-                </span>
-                <span className="ml-2 text-sm text-gray-500 dark:text-gray-400">
-                  ({entry.artist} - {entry.song_title})
-                </span>
-              </div>
-              <div className="flex flex-col space-y-1">
-                <button 
-                  onClick={() => moveUp(index)}
-                  disabled={index === 0}
-                  className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-30 disabled:cursor-not-allowed"
-                  title="Move Up"
-                >
-                  ▲
-                </button>
-                <button 
-                  onClick={() => moveDown(index)}
-                  disabled={index === orderedEntries.length - 1}
-                  className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-30 disabled:cursor-not-allowed"
-                  title="Move Down"
-                >
-                  ▼
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
+      <div className="bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden p-4">
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+          modifiers={[restrictToVerticalAxis, restrictToWindowEdges]}
+        >
+          <SortableContext items={items} strategy={verticalListSortingStrategy}>
+            <div className="flex flex-col">
+              {items.map((id, index) => {
+                const entry = finalists.find(e => e.id === id);
+                if (!entry) return null;
+                
+                return (
+                  <SortableItem
+                    key={id}
+                    id={id}
+                    rank={index + 1}
+                    country={entry.country}
+                    artist={entry.artist}
+                    song_title={entry.song_title}
+                  />
+                );
+              })}
+            </div>
+          </SortableContext>
+        </DndContext>
       </div>
 
       <div className="flex justify-end">

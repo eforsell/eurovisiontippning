@@ -3,7 +3,7 @@ import {
   DndContext,
   closestCenter,
   KeyboardSensor,
-  PointerSensor,
+  MouseSensor,
   TouchSensor,
   useSensor,
   useSensors,
@@ -15,6 +15,7 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import { restrictToVerticalAxis, restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { SortableItem } from "../components/Ranking/SortableItem";
 import { useEntries } from "../hooks/useEntries";
 import { usePredictions } from "../hooks/usePredictions";
@@ -83,15 +84,15 @@ export const FinalView: React.FC = () => {
   }, [entries, predictions, initialized, isCompleted, results]);
 
   const sensors = useSensors(
-    useSensor(PointerSensor, {
+    useSensor(MouseSensor, {
       activationConstraint: {
         distance: 5,
       },
     }),
     useSensor(TouchSensor, {
       activationConstraint: {
-        delay: 250, // Increased delay to allow mobile scrolling
-        tolerance: 5,
+        delay: 150,
+        tolerance: 10,
       },
     }),
     useSensor(KeyboardSensor, {
@@ -164,6 +165,7 @@ export const FinalView: React.FC = () => {
         sensors={sensors}
         collisionDetection={closestCenter}
         onDragEnd={handleDragEnd}
+        modifiers={[restrictToVerticalAxis, restrictToWindowEdges]}
       >
         <SortableContext items={items} strategy={verticalListSortingStrategy}>
           <div className="flex flex-col pb-20">
