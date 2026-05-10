@@ -63,10 +63,7 @@ async function verifyRLS() {
   // 2. Login or create users
   console.log("Logging in/creating users...");
 
-  let u1Id: string;
-  let u2Id: string;
-
-  const { data: auth1, error: err1 } = await adminClient.auth.admin.createUser({
+  const { error: err1 } = await adminClient.auth.admin.createUser({
     email: "u1@test.com",
     password: "password123",
     email_confirm: true,
@@ -78,9 +75,9 @@ async function verifyRLS() {
     email: "u1@test.com",
     password: "password123",
   });
-  u1Id = login1.user!.id;
+  const u1Id = login1.user!.id;
 
-  const { data: auth2, error: err2 } = await adminClient.auth.admin.createUser({
+  const { error: err2 } = await adminClient.auth.admin.createUser({
     email: "u2@test.com",
     password: "password123",
     email_confirm: true,
@@ -92,7 +89,7 @@ async function verifyRLS() {
     email: "u2@test.com",
     password: "password123",
   });
-  u2Id = login2.user!.id;
+  const u2Id = login2.user!.id;
 
   // 3. User 1 makes a prediction on the future entry
   console.log("User 1 making prediction...");
@@ -118,7 +115,7 @@ async function verifyRLS() {
   console.log(
     "User 2 attempting to read User 1 prediction (should be blocked by RLS)...",
   );
-  const { data: spoofData, error: spoofError } = await user2Client
+  const { data: spoofData } = await user2Client
     .from("predictions")
     .select("*")
     .eq("user_id", u1Id)

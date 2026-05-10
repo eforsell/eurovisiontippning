@@ -8,6 +8,7 @@ type Entry = Database['public']['Tables']['entries']['Row'];
 describe('EntryManager', () => {
   const mockSave = vi.fn();
   const mockDelete = vi.fn();
+  const mockImport = vi.fn();
   
   const mockEntries: Entry[] = [
     { id: '1', year_id: '1', artist: 'Artist A', country: 'Country A', song_title: 'Song A', start_position: 1, starting_contest: 'semi1', youtube_id: null },
@@ -15,20 +16,20 @@ describe('EntryManager', () => {
   ];
 
   it('renders a list of entries', () => {
-    render(<EntryManager entries={mockEntries} onSave={mockSave} onDelete={mockDelete} />);
+    render(<EntryManager entries={mockEntries} onSave={mockSave} onDelete={mockDelete} onImport={mockImport} />);
     expect(screen.getByText('Country A')).toBeInTheDocument();
     expect(screen.getByText('Country B')).toBeInTheDocument();
   });
 
   it('displays the starting contest correctly', () => {
-    render(<EntryManager entries={mockEntries} onSave={mockSave} onDelete={mockDelete} />);
+    render(<EntryManager entries={mockEntries} onSave={mockSave} onDelete={mockDelete} onImport={mockImport} />);
     // Testing the display text of the dropdowns or badges
-    expect(screen.getAllByDisplayValue('Semi-final 1').length).toBeGreaterThan(0);
-    expect(screen.getAllByDisplayValue('Final').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Semi-final 1').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Final').length).toBeGreaterThan(0);
   });
 
   it('calls onSave when adding a new entry', () => {
-    render(<EntryManager entries={mockEntries} onSave={mockSave} onDelete={mockDelete} />);
+    render(<EntryManager entries={mockEntries} onSave={mockSave} onDelete={mockDelete} onImport={mockImport} />);
     
     // Open add modal/form
     fireEvent.click(screen.getByRole('button', { name: /add entry/i }));

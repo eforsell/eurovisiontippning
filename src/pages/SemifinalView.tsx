@@ -25,6 +25,10 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
   const deadline = semiFinal === 1 ? activeYear?.semi1_start : activeYear?.semi2_start;
 
   const handleToggle = (entryId: string, currentStatus: boolean) => {
+    if (!activeYear?.betting_started) {
+      alert("Betting has not started yet. Please wait for the administrator to open the betting window.");
+      return;
+    }
     if (deadline && new Date(deadline).getTime() <= new Date().getTime()) {
       alert("Voting is closed!");
       return;
@@ -40,6 +44,17 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
     return (
       <div className="p-4 text-center">Loading semifinal {semiFinal}...</div>
     );
+  }
+
+  if (!activeYear?.betting_started) {
+      return (
+        <div className="flex flex-col items-center justify-center p-8 mt-12 bg-card border rounded shadow-sm max-w-2xl mx-auto text-center">
+          <h2 className="text-2xl font-bold mb-4">Coming Soon</h2>
+          <p className="text-muted-foreground">
+            The betting window has not opened yet. Please check back later!
+          </p>
+        </div>
+      );
   }
 
   const isValid = selectedCount === 10;

@@ -33,8 +33,10 @@ export function usePredictions(type: PredictionType) {
 
   useEffect(() => {
     if (userId) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       fetchPredictions();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId, type]);
 
   const toggleQualifier = async (entryId: string, isQualifier: boolean) => {

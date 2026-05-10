@@ -47,6 +47,21 @@ export const MetadataForm: FC<MetadataFormProps> = ({ initialData, currentProgre
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="md:col-span-2">
+          <label className="flex items-center space-x-3 cursor-pointer">
+            <input
+              type="checkbox"
+              name="betting_started"
+              checked={formData.betting_started}
+              onChange={(e) => setFormData(prev => ({ ...prev, betting_started: e.target.checked }))}
+              className="w-5 h-5 text-primary bg-background border-input rounded focus:ring-primary focus:ring-2"
+            />
+            <span className="text-sm font-medium text-gray-900 dark:text-white">
+              Betting Started (Allow users to save predictions)
+            </span>
+          </label>
+        </div>
+
         <div>
           <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Location</label>
           <input

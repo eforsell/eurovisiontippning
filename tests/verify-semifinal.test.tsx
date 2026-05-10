@@ -31,6 +31,12 @@ vi.mock("../src/hooks/usePredictions", () => ({
   })),
 }));
 
+vi.mock("../src/store/ThemeContext", () => ({
+  useTheme: vi.fn(() => ({
+    activeYear: { betting_started: true },
+  })),
+}));
+
 describe("SemifinalView", () => {
   beforeEach(() => {
     vi.clearAllMocks();

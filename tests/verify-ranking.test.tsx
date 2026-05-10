@@ -12,22 +12,13 @@ const mockPredictions = [
 
 vi.mock("../src/hooks/useEntries", () => ({
   useEntries: vi.fn(() => ({
-    entries: [
-      {
-        id: "entry-0",
-        country: "Sweden",
-        artist: "Artist A",
-        song_title: "Song A",
-        start_position: 1,
-      },
-      {
-        id: "entry-1",
-        country: "Norway",
-        artist: "Artist B",
-        song_title: "Song B",
-        start_position: 2,
-      },
-    ],
+    entries: Array.from({ length: 26 }, (_, i) => ({
+      id: `entry-${i}`,
+      country: i === 0 ? "Sweden" : i === 1 ? "Norway" : `Country ${i}`,
+      artist: `Artist ${i}`,
+      song_title: `Song ${i}`,
+      start_position: i + 1,
+    })),
     loading: false,
   })),
 }));
@@ -40,12 +31,18 @@ vi.mock("../src/hooks/usePredictions", () => ({
   })),
 }));
 
+vi.mock("../src/store/ThemeContext", () => ({
+  useTheme: vi.fn(() => ({
+    activeYear: { betting_started: true },
+  })),
+}));
+
 // Mock DndContext to avoid complex event mocking
 vi.mock("@dnd-kit/core", async () => {
   const actual = await vi.importActual("@dnd-kit/core");
   return {
-    ...(actual as any),
-    DndContext: ({ children }: any) => (
+    ...(actual as Record<string, unknown>),
+    DndContext: ({ children }: { children: React.ReactNode }) => (
       <div data-testid="dnd-context">{children}</div>
     ),
   };

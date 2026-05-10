@@ -18,8 +18,10 @@ import {
 import { SortableItem } from "../components/Ranking/SortableItem";
 import { useEntries } from "../hooks/useEntries";
 import { usePredictions } from "../hooks/usePredictions";
+import { useTheme } from "../store/ThemeContext";
 
 export const FinalView: React.FC = () => {
+  const { activeYear } = useTheme();
   const { entries, loading: entriesLoading } = useEntries();
   const {
     predictions,
@@ -37,6 +39,7 @@ export const FinalView: React.FC = () => {
   useEffect(() => {
     // Mocking check: assume if we have 26 entries the final is ready
     if (entries.length >= 26) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSemisComplete(true);
     }
   }, [entries]);
@@ -50,6 +53,7 @@ export const FinalView: React.FC = () => {
         if (rankA !== rankB) return rankA - rankB;
         return a.start_position - b.start_position;
       });
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setItems(sorted.map((e) => e.id));
       setInitialized(true);
     }
@@ -87,6 +91,17 @@ export const FinalView: React.FC = () => {
 
   if (entriesLoading || predictionsLoading) {
     return <div className="p-4 text-center">Loading Grand Final...</div>;
+  }
+
+  if (!activeYear?.betting_started) {
+    return (
+      <div className="flex flex-col items-center justify-center p-8 mt-12 bg-card border rounded shadow-sm max-w-2xl mx-auto text-center">
+        <h2 className="text-2xl font-bold mb-4">Coming Soon</h2>
+        <p className="text-muted-foreground">
+          The betting window has not opened yet. Please check back later!
+        </p>
+      </div>
+    );
   }
 
   if (!semisComplete) {

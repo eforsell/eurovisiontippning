@@ -3,23 +3,29 @@ import { scoringService } from "../../src/services/scoringService";
 
 describe("Scoring Service", () => {
   describe("calculateSemiPoints", () => {
-    it("awards 3 points for each correct qualifier", () => {
+    it("awards 3 points for each correct qualifier when completed", () => {
       const predicted = [true, false, true, false];
       const actual = [true, true, false, false];
       // only index 0 is a match (true && true) -> 1 match * 3 points = 3 points
-      expect(scoringService.calculateSemiPoints(predicted, actual)).toBe(3);
+      expect(scoringService.calculateSemiPoints(predicted, actual, true)).toBe(3);
     });
 
-    it("awards 0 points if no matches", () => {
+    it("awards 0 points if no matches when completed", () => {
       const predicted = [true, true];
       const actual = [false, false];
-      expect(scoringService.calculateSemiPoints(predicted, actual)).toBe(0);
+      expect(scoringService.calculateSemiPoints(predicted, actual, true)).toBe(0);
     });
 
-    it("awards max points if all match", () => {
+    it("awards max points if all match when completed", () => {
       const predicted = [true, true, true];
       const actual = [true, true, true];
-      expect(scoringService.calculateSemiPoints(predicted, actual)).toBe(9);
+      expect(scoringService.calculateSemiPoints(predicted, actual, true)).toBe(9);
+    });
+
+    it("awards 0 points if semi is not completed", () => {
+      const predicted = [true, true, true];
+      const actual = [true, true, true];
+      expect(scoringService.calculateSemiPoints(predicted, actual, false)).toBe(0);
     });
   });
 

@@ -9,7 +9,6 @@ import { LeaderboardView } from "./pages/LeaderboardView";
 import { AccountView } from "./pages/AccountView";
 import { FriendList } from "./components/Social/FriendList";
 import { HamburgerMenu, Page } from "./components/Navigation/HamburgerMenu";
-import { LoginButton } from "./components/Auth/LoginButton";
 import { supabase } from "./lib/supabase";
 import { Session } from "@supabase/supabase-js";
 import "./styles/index.css";

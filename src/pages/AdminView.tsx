@@ -6,6 +6,7 @@ import { ProgressionManager } from '../components/Admin/ProgressionManager';
 import { FinalRankingManager } from '../components/Admin/FinalRankingManager';
 import { Database } from '../types/database.types';
 import { supabase } from '../lib/supabase';
+import { adminService } from '../services/adminService';
 
 type Year = Database['public']['Tables']['years']['Row'];
 type Entry = Database['public']['Tables']['entries']['Row'];
@@ -85,6 +86,18 @@ export const AdminView = () => {
   const handleEntryDelete = async (id: string) => {
     await supabase.from('entries').delete().eq('id', id);
     setEntries(prev => prev.filter(e => e.id !== id));
+  };
+
+  const handleImport = async (jsonData: Record<string, unknown>[]) => {
+    if (!yearData) return;
+    const { success, error } = await adminService.importEntriesFromJson(jsonData, yearData.id);
+    if (success) {
+      const { data: entriesRes } = await supabase.from('entries').select('*').eq('year_id', yearData.id).order('start_position', { ascending: true });
+      if (entriesRes) setEntries(entriesRes);
+      alert('Import successful!');
+    } else {
+      alert(`Import failed: ${error?.message}`);
+    }
   };
 
   const handleSemi1ProgressionSave = async (progressedIds: string[]) => {
@@ -174,6 +187,7 @@ export const AdminView = () => {
                 entries={entries} 
                 onSave={handleEntrySave} 
                 onDelete={handleEntryDelete} 
+                onImport={handleImport}
               />
             </div>
           )}

@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, useRef } from 'react';
 import { Database } from '../../types/database.types';
 
 type Entry = Database['public']['Tables']['entries']['Row'];
@@ -7,10 +7,16 @@ interface EntryManagerProps {
   entries: Entry[];
   onSave: (entry: Partial<Entry>) => void;
   onDelete: (id: string) => void;
+  onImport: (jsonData: Record<string, unknown>[]) => Promise<void>;
 }
 
-export const EntryManager: FC<EntryManagerProps> = ({ entries, onSave, onDelete }) => {
+export const EntryManager: FC<EntryManagerProps> = ({ entries, onSave, onDelete, onImport }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [showImport, setShowImport] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [importing, setImporting] = useState(false);
+  const [importError, setImportError] = useState('');
+
   const [editingEntry, setEditingEntry] = useState<Partial<Entry>>({
     country: '',
     artist: '',
@@ -22,6 +28,7 @@ export const EntryManager: FC<EntryManagerProps> = ({ entries, onSave, onDelete 
   const handleEdit = (entry: Entry) => {
     setEditingEntry(entry);
     setIsEditing(true);
+    setShowImport(false);
   };
 
   const handleAddNew = () => {
@@ -33,6 +40,7 @@ export const EntryManager: FC<EntryManagerProps> = ({ entries, onSave, onDelete 
       starting_contest: 'semi1'
     });
     setIsEditing(true);
+    setShowImport(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -49,17 +57,96 @@ export const EntryManager: FC<EntryManagerProps> = ({ entries, onSave, onDelete 
     setIsEditing(false);
   };
 
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setImportError('');
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const text = await file.text();
+      const json = JSON.parse(text);
+
+      if (!Array.isArray(json)) {
+        throw new Error("JSON must be an array of entries.");
+      }
+
+      // Basic validation against schema
+      for (let i = 0; i < json.length; i++) {
+        const item = json[i];
+        if (!item.country || !item.artist || !item.song_title || !item.starting_contest || typeof item.start_position !== 'number') {
+          throw new Error(`Entry at index ${i} is missing required fields.`);
+        }
+      }
+
+      if (window.confirm("WARNING: Importing from JSON will replace ALL existing entries and delete all user bets. This is destructive and cannot be undone. Are you sure?")) {
+        setImporting(true);
+        await onImport(json);
+        setImporting(false);
+        setShowImport(false);
+        if (fileInputRef.current) fileInputRef.current.value = '';
+      }
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : "Failed to parse JSON.";
+      setImportError(errorMessage);
+    }
+  };
+
   return (
     <div>
       <div className="flex justify-between mb-4">
         <h3 className="text-lg font-medium text-gray-900 dark:text-white">Entries</h3>
-        <button
-          onClick={handleAddNew}
-          className="text-white bg-primary hover:bg-primary-dark font-medium rounded-lg text-sm px-4 py-2"
-        >
-          Add Entry
-        </button>
+        <div>
+          <button
+            onClick={() => {
+              setShowImport(!showImport);
+              setIsEditing(false);
+            }}
+            className="text-white bg-secondary hover:bg-secondary/90 font-medium rounded-lg text-sm px-4 py-2 mr-2"
+          >
+            Import JSON
+          </button>
+          <button
+            onClick={handleAddNew}
+            className="text-white bg-primary hover:bg-primary-dark font-medium rounded-lg text-sm px-4 py-2"
+          >
+            Add Entry
+          </button>
+        </div>
       </div>
+
+      {showImport && (
+        <div className="bg-muted/20 p-4 rounded-lg mb-6 border border-border">
+          <h4 className="font-semibold mb-2">Import Entries from JSON</h4>
+          <p className="text-sm text-muted-foreground mb-4">
+            Upload a JSON file to batch import entries. <strong className="text-destructive">This will overwrite all existing entries and user bets.</strong>
+            <br/><br/>
+            <strong>Expected JSON Schema:</strong>
+            <br/>
+            <code>
+              {`[
+  {
+    "country": "string",
+    "artist": "string",
+    "song_title": "string",
+    "starting_contest": "semi1" | "semi2" | "final",
+    "start_position": number,
+    "youtube_id": "string" | null
+  }
+]`}
+            </code>
+          </p>
+          <input 
+            type="file" 
+            accept=".json" 
+            ref={fileInputRef}
+            onChange={handleFileChange} 
+            disabled={importing}
+            className="block w-full text-sm text-foreground border border-input rounded-md cursor-pointer bg-background focus:outline-none"
+          />
+          {importing && <p className="text-sm text-primary mt-2">Importing...</p>}
+          {importError && <p className="text-sm text-destructive mt-2">{importError}</p>}
+        </div>
+      )}
 
       {isEditing && (
         <form onSubmit={handleSubmit} className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-6 border border-gray-200 dark:border-gray-700">

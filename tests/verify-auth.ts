@@ -24,7 +24,7 @@ async function verifyAuth() {
   console.log("Testing authentication with test2@example.com...");
 
   // First attempt sign up
-  const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+  const { error: signUpError } = await supabase.auth.signUp({
     email: "test2@example.com",
     password: "password123",
   });

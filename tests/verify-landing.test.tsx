@@ -42,7 +42,7 @@ describe("LandingPage", () => {
     expect(loginButton).toBeInTheDocument();
 
     // Assert Hero text
-    const heading = screen.getByText(/Eurovision 2025 Predictions/i);
+    const heading = screen.getByText(/Eurovision 2026 Predictions/i);
     expect(heading).toBeInTheDocument();
   });
 });

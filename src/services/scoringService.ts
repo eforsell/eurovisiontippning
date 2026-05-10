@@ -3,7 +3,9 @@ export const scoringService = {
   calculateSemiPoints(
     predictedQualifiers: boolean[],
     actualQualifiers: boolean[],
+    isCompleted: boolean = false,
   ): number {
+    if (!isCompleted) return 0;
     let points = 0;
     for (let i = 0; i < predictedQualifiers.length; i++) {
       if (predictedQualifiers[i] && actualQualifiers[i]) {

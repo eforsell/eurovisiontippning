@@ -5,7 +5,7 @@ import { supabase } from "../../lib/supabase";
 export const FriendList: React.FC = () => {
   const { friends, loading, sendRequest, acceptRequest, userId } = useFriends();
   const [searchInput, setSearchInput] = useState("");
-  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [searchResults, setSearchResults] = useState<{ id: string; name?: string; email?: string }[]>([]);
   const [searching, setSearching] = useState(false);
 
   const handleSearch = async () => {

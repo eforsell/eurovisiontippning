@@ -13,7 +13,7 @@ description: "Task list for admin-import-scoring-visibility"
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Fix all existing linting and testing errors across the project to ensure a clean state before starting.
+- [x] T001 Fix all existing linting and testing errors across the project to ensure a clean state before starting.
 
 ---
 
@@ -25,7 +25,7 @@ description: "Task list for admin-import-scoring-visibility"
 - [ ] T003 Update migration file to add `betting_started` (BOOLEAN NOT NULL DEFAULT false) to `years` table.
 - [ ] T004 Update migration file to refine the `get_leaderboard` RPC logic (check `semi1_completed` / `semi2_completed` before trying to award points according to the entry's `progressed` status).
 - [ ] T005 [P] Run local database migration and regenerate TypeScript definitions in `src/types/database.types.ts`.
-- [ ] T006 [P] Update `scoringService.ts` to correctly mirror the RPC scoring logic updates for frontend display calculations.
+- [x] T006 [P] Update `scoringService.ts` to correctly mirror the RPC scoring logic updates for frontend display calculations.
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -39,15 +39,15 @@ description: "Task list for admin-import-scoring-visibility"
 
 ### Tests for User Story 1
 
-- [ ] T007 [P] [US1] Unit test for JSON parsing and validation logic in `tests/components/EntryManager.test.tsx` or new utility test file.
+- [x] T007 [P] [US1] Unit test for JSON parsing and validation logic in `tests/components/EntryManager.test.tsx` or new utility test file.
 
 ### Implementation for User Story 1
 
-- [ ] T008 [US1] Add JSON schema description text to the UI in `src/components/Admin/EntryManager.tsx`.
-- [ ] T009 [US1] Implement file upload and client-side JSON validation against schema in `src/components/Admin/EntryManager.tsx`.
-- [ ] T010 [US1] Implement destructive replace logic in `src/services/adminService.ts` (delete existing entries for the year, insert new ones).
-- [ ] T011 [US1] Add a prominent warning dialog before executing the destructive import in `src/components/Admin/EntryManager.tsx`.
-- [ ] T012 [P] [US1] Ensure no new lint/test errors have been introduced.
+- [x] T008 [US1] Add JSON schema description text to the UI in `src/components/Admin/EntryManager.tsx`.
+- [x] T009 [US1] Implement file upload and client-side JSON validation against schema in `src/components/Admin/EntryManager.tsx`.
+- [x] T010 [US1] Implement destructive replace logic in `src/services/adminService.ts` (delete existing entries for the year, insert new ones).
+- [x] T011 [US1] Add a prominent warning dialog before executing the destructive import in `src/components/Admin/EntryManager.tsx`.
+- [x] T012 [P] [US1] Ensure no new lint/test errors have been introduced.
 
 **Checkpoint**: Admin Batch Setup should be fully functional and testable independently
 
@@ -61,12 +61,12 @@ description: "Task list for admin-import-scoring-visibility"
 
 ### Tests for User Story 4
 
-- [ ] T013 [P] [US4] Update unit tests in `tests/unit/scoring.test.ts` to ensure points are 0 if the semi is not completed.
+- [x] T013 [P] [US4] Update unit tests in `tests/unit/scoring.test.ts` to ensure points are 0 if the semi is not completed.
 
 ### Implementation for User Story 4
 
-- [ ] T014 [US4] Verify the updated `get_leaderboard` RPC returns correct scores based on the `semi_completed` flags.
-- [ ] T015 [P] [US4] Ensure no new lint/test errors have been introduced.
+- [x] T014 [US4] Verify the updated `get_leaderboard` RPC returns correct scores based on the `semi_completed` flags.
+- [x] T015 [P] [US4] Ensure no new lint/test errors have been introduced.
 
 **Checkpoint**: Scoring should now be fully accurate and dependent on official results.
 
@@ -80,14 +80,14 @@ description: "Task list for admin-import-scoring-visibility"
 
 ### Tests for User Story 2
 
-- [ ] T016 [P] [US2] E2E test for betting window access control in `tests/e2e/betting-window.spec.ts`.
+- [x] T016 [P] [US2] E2E test for betting window access control in `tests/e2e/betting-window.spec.ts`.
 
 ### Implementation for User Story 2
 
-- [ ] T017 [US2] Add a switch/checkbox for `betting_started` in `src/components/Admin/MetadataForm.tsx`.
-- [ ] T018 [US2] Update `handleMetadataSave` to persist the new `betting_started` flag.
-- [ ] T019 [US2] Implement access control logic in `src/pages/SemifinalView.tsx` and `src/pages/FinalView.tsx` to block tipping (e.g., disable saves or show "Coming Soon") if `betting_started` is false.
-- [ ] T020 [P] [US2] Ensure no new lint/test errors have been introduced.
+- [x] T017 [US2] Add a switch/checkbox for `betting_started` in `src/components/Admin/MetadataForm.tsx`.
+- [x] T018 [US2] Update `handleMetadataSave` to persist the new `betting_started` flag.
+- [x] T019 [US2] Implement access control logic in `src/pages/SemifinalView.tsx` and `src/pages/FinalView.tsx` to block tipping (e.g., disable saves or show "Coming Soon") if `betting_started` is false.
+- [x] T020 [P] [US2] Ensure no new lint/test errors have been introduced.
 
 **Checkpoint**: Betting window can be actively managed by admins.
 
@@ -101,16 +101,16 @@ description: "Task list for admin-import-scoring-visibility"
 
 ### Tests for User Story 3
 
-- [ ] T021 [P] [US3] Unit/Integration test for expandable rows and friend data fetching in `tests/components/LeaderboardView.test.tsx`.
+- [x] T021 [P] [US3] Unit/Integration test for expandable rows and friend data fetching in `tests/components/LeaderboardView.test.tsx`.
 
 ### Implementation for User Story 3
 
-- [ ] T022 [US3] Update `src/pages/LeaderboardView.tsx` to include Tabs for "Semi 1", "Semi 2", and "Final".
-- [ ] T023 [US3] Filter and sort entries by `start_order` for the selected tab in `LeaderboardView.tsx`.
-- [ ] T024 [US3] Implement an expandable row component for entries in the Leaderboard.
-- [ ] T025 [US3] Fetch and display friends' specific bets (progression or rank) within the expanded entry view.
-- [ ] T026 [US3] Ensure that entry expansion is responsive, even with multiple friends and entries.
-- [ ] T027 [P] [US3] Ensure no new lint/test errors have been introduced.
+- [x] T022 [US3] Update `src/pages/LeaderboardView.tsx` to include Tabs for "Semi 1", "Semi 2", and "Final".
+- [x] T023 [US3] Filter and sort entries by `start_order` for the selected tab in `LeaderboardView.tsx`.
+- [x] T024 [US3] Implement an expandable row component for entries in the Leaderboard.
+- [x] T025 [US3] Fetch and display friends' specific bets (progression or rank) within the expanded entry view.
+- [x] T026 [US3] Ensure that entry expansion is responsive, even with multiple friends and entries.
+- [x] T027 [P] [US3] Ensure no new lint/test errors have been introduced.
 
 **Checkpoint**: Users can compare friends' bets per entry.
 
@@ -120,8 +120,8 @@ description: "Task list for admin-import-scoring-visibility"
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T028 [P] Run full accessibility (a11y) check on new admin and leaderboard UI components.
-- [ ] T029 Run final full suite of linting, type-checking, and tests to verify everything is green.
+- [x] T028 [P] Run full accessibility (a11y) check on new admin and leaderboard UI components.
+- [x] T029 Run final full suite of linting, type-checking, and tests to verify everything is green.
 
 ---
 
