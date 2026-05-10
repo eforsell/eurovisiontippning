@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { Database } from "../types/database.types";
 import hexToHsl from "hex-to-hsl";
+import { supabase } from "../lib/supabase";
 
 type Year = Database["public"]["Tables"]["years"]["Row"];
 
@@ -11,41 +12,52 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType>({
   activeYear: null,
-  loading: false,
+  loading: true,
 });
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [activeYear] = useState<Year>({
-    id: "00000000-0000-0000-0000-000000002026",
-    year: 2026,
-    semi1_start: "2027-05-12T19:00:00Z",
-    semi2_start: "2027-05-14T19:00:00Z",
-    final_start: "2027-05-16T19:00:00Z",
-    primary_color: "#673ab7",
-    secondary_color: "#ffc107",
-    logo_url: "/logo.png"
-  } as Year);
+  const [activeYear, setActiveYear] = useState<Year | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchYear = async () => {
+      setLoading(true);
+      const { data, error } = await supabase.from("years").select("*").limit(1).single();
+      if (data && !error) {
+        setActiveYear(data);
+      } else {
+        console.error("Failed to fetch active year:", error);
+      }
+      setLoading(false);
+    };
+
+    fetchYear();
+  }, []);
 
   useEffect(() => {
     if (activeYear) {
-      const p = hexToHsl(activeYear.primary_color);
-      const s = hexToHsl(activeYear.secondary_color);
+      try {
+        const p = hexToHsl(activeYear.primary_color);
+        const s = hexToHsl(activeYear.secondary_color);
 
-      document.documentElement.style.setProperty(
-        "--primary",
-        `${p[0]} ${p[1]}% ${p[2]}%`,
-      );
-      document.documentElement.style.setProperty(
-        "--secondary",
-        `${s[0]} ${s[1]}% ${s[2]}%`,
-      );
+        document.documentElement.style.setProperty(
+          "--primary",
+          `${p[0]} ${p[1]}% ${p[2]}%`,
+        );
+        document.documentElement.style.setProperty(
+          "--secondary",
+          `${s[0]} ${s[1]}% ${s[2]}%`,
+        );
+      } catch (err) {
+        console.warn("Failed to parse theme colors:", err);
+      }
     }
   }, [activeYear]);
 
   return (
-    <ThemeContext.Provider value={{ activeYear, loading: false }}>
+    <ThemeContext.Provider value={{ activeYear, loading }}>
       {children}
     </ThemeContext.Provider>
   );

@@ -9,10 +9,10 @@ vi.mock("../src/lib/supabase", () => ({
   supabase: {
     from: vi.fn(() => ({
       select: vi.fn(() => ({
-        eq: vi.fn(() => ({
+        limit: vi.fn(() => ({
           single: vi.fn().mockResolvedValue({
             data: {
-              year: 2025,
+              year: 2026,
               primary_color: "#000000",
               secondary_color: "#ffffff",
             },
