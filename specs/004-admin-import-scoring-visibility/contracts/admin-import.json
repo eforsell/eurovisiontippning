@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Entries Batch Import",
+  "description": "Schema for importing entries via JSON in the Admin interface",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "country",
+      "artist",
+      "song_title",
+      "starting_contest",
+      "start_position"
+    ],
+    "properties": {
+      "country": {
+        "type": "string",
+        "description": "Name of the participating country"
+      },
+      "artist": {
+        "type": "string",
+        "description": "Name of the artist/band"
+      },
+      "song_title": {
+        "type": "string",
+        "description": "Title of the song"
+      },
+      "starting_contest": {
+        "type": "string",
+        "enum": ["semi1", "semi2", "final"],
+        "description": "The contest where the entry makes its first appearance"
+      },
+      "start_position": {
+        "type": "integer",
+        "minimum": 1,
+        "description": "The running order position in the starting contest"
+      },
+      "youtube_id": {
+        "type": ["string", "null"],
+        "description": "Optional YouTube video ID for the official music video/performance"
+      }
+    }
+  }
+}

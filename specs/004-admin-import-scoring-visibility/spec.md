@@ -93,7 +93,6 @@ As a user, I want my score to reflect only the correct progression guesses after
 - **FR-008**: Expanded entry view MUST list all friends and their specific bet for that entry (True/False for semis, numeric rank for final).
 - **FR-009**: Scoring logic MUST award exactly 3 points for each correct semi-final progression bet.
 - **FR-010**: Scoring logic MUST be calculated at runtime (e.g., via RPC) and MUST NOT award progression points for an entry unless that entry's actual result (`progressed` status) is non-null.
-- **FR-011**: Admin UI SHOULD provide a way to trigger a full refresh of leaderboard data if needed.
 
 ### Performance & UX Requirements
 
