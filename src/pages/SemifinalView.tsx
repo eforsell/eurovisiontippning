@@ -10,8 +10,8 @@ interface SemifinalViewProps {
 
 export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
   const { activeYear } = useTheme();
-  const { entries, loading: entriesLoading } = useEntries(semiFinal);
   const predictionType = `semi${semiFinal}` as const;
+  const { entries, loading: entriesLoading } = useEntries(predictionType);
   const {
     predictions,
     toggleQualifier,

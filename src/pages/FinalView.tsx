@@ -22,7 +22,7 @@ import { useTheme } from "../store/ThemeContext";
 
 export const FinalView: React.FC = () => {
   const { activeYear } = useTheme();
-  const { entries, loading: entriesLoading } = useEntries();
+  const { entries, loading: entriesLoading } = useEntries("final");
   const {
     predictions,
     updateRanks,

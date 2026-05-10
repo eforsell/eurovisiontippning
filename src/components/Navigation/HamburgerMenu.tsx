@@ -55,8 +55,8 @@ export function HamburgerMenu({ currentPage, onNavigate, isAdmin, onLogout }: Ha
 
   return (
     <div className="relative" ref={menuRef}>
-      <button 
-        onClick={toggleMenu} 
+      <button
+        onClick={toggleMenu}
         className="p-2 text-white hover:bg-primary-foreground/20 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white transition-colors"
         aria-label="Toggle menu"
       >
@@ -65,20 +65,19 @@ export function HamburgerMenu({ currentPage, onNavigate, isAdmin, onLogout }: Ha
 
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-900 rounded-md shadow-lg py-1 z-50 border border-gray-200 dark:border-gray-700">
-            {navItem("home", "Home")}
-            {navItem("tippning", "Tippning")}
-            {navItem("sharing", "Sharing")}
-            {navItem("account", "Account")}
-            {navItem("privacy", "Privacy Policy")}
-            {isAdmin && navItem("admin", "Admin")}
-            <hr className="my-1 border-gray-200 dark:border-gray-700" />
-            <button
-              onClick={handleLogout}
-              className="w-full flex items-center justify-end px-4 py-2 text-sm text-destructive hover:bg-destructive/10 transition-colors"
-            >
-              <span>Sign Out</span>
-              <LogOut className="h-4 w-4 ml-2" />
-            </button>
+          {navItem("home", "Home")}
+          {navItem("tippning", "Tippning")}
+          {navItem("sharing", "Sharing")}
+          {navItem("account", "Account")}
+          {isAdmin && navItem("admin", "Admin")}
+          <hr className="my-1 border-gray-200 dark:border-gray-700" />
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center justify-end px-4 py-2 text-sm text-destructive hover:bg-destructive/10 transition-colors"
+          >
+            <span>Sign Out</span>
+            <LogOut className="h-4 w-4 ml-2" />
+          </button>
         </div>
       )}
     </div>

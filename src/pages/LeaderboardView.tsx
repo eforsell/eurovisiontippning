@@ -71,6 +71,22 @@ export const LeaderboardView: React.FC = () => {
   if (loading)
     return <div className="p-4 text-center">Loading leaderboard...</div>;
 
+  if (!activeYear?.betting_started) {
+    return (
+      <div className="flex flex-col items-center justify-center p-8 mt-12 bg-card border rounded shadow-sm max-w-2xl mx-auto text-center">
+        <h2 className="text-2xl font-bold mb-4">Coming Soon</h2>
+        <p className="text-muted-foreground">
+          The betting window has not opened yet. Please check back later!
+        </p>
+      </div>
+    );
+  }
+
+  const now = new Date().getTime();
+  const showSemi1 = activeYear && activeYear.semi1_start && new Date(activeYear.semi1_start).getTime() <= now;
+  const showSemi2 = activeYear && activeYear.semi2_start && new Date(activeYear.semi2_start).getTime() <= now;
+  const showFinal = activeYear && activeYear.final_start && new Date(activeYear.final_start).getTime() <= now;
+
   const renderOverall = () => (
     <>
       {leaderboard.length === 0 ? (
@@ -103,11 +119,7 @@ export const LeaderboardView: React.FC = () => {
   );
 
   const renderContest = () => {
-    let displayEntries = entries;
-    if (activeTab === 'semi1' || activeTab === 'semi2') {
-      displayEntries = entries.filter(e => e.starting_contest === activeTab);
-    }
-    displayEntries = [...displayEntries].sort((a, b) => a.start_position - b.start_position);
+    const displayEntries = [...entries].sort((a, b) => a.start_position - b.start_position);
 
     return (
       <div className="space-y-2 pb-12">
@@ -166,24 +178,30 @@ export const LeaderboardView: React.FC = () => {
         >
           Overall
         </button>
-        <button
-          className={`px-4 py-2 font-semibold whitespace-nowrap border-b-2 transition-colors ${activeTab === "semi1" ? "border-primary text-primary" : "border-transparent text-muted-foreground"}`}
-          onClick={() => setActiveTab("semi1")}
-        >
-          Semi 1
-        </button>
-        <button
-          className={`px-4 py-2 font-semibold whitespace-nowrap border-b-2 transition-colors ${activeTab === "semi2" ? "border-primary text-primary" : "border-transparent text-muted-foreground"}`}
-          onClick={() => setActiveTab("semi2")}
-        >
-          Semi 2
-        </button>
-        <button
-          className={`px-4 py-2 font-semibold whitespace-nowrap border-b-2 transition-colors ${activeTab === "final" ? "border-primary text-primary" : "border-transparent text-muted-foreground"}`}
-          onClick={() => setActiveTab("final")}
-        >
-          Final
-        </button>
+        {showSemi1 && (
+          <button
+            className={`px-4 py-2 font-semibold whitespace-nowrap border-b-2 transition-colors ${activeTab === "semi1" ? "border-primary text-primary" : "border-transparent text-muted-foreground"}`}
+            onClick={() => setActiveTab("semi1")}
+          >
+            Semi 1
+          </button>
+        )}
+        {showSemi2 && (
+          <button
+            className={`px-4 py-2 font-semibold whitespace-nowrap border-b-2 transition-colors ${activeTab === "semi2" ? "border-primary text-primary" : "border-transparent text-muted-foreground"}`}
+            onClick={() => setActiveTab("semi2")}
+          >
+            Semi 2
+          </button>
+        )}
+        {showFinal && (
+          <button
+            className={`px-4 py-2 font-semibold whitespace-nowrap border-b-2 transition-colors ${activeTab === "final" ? "border-primary text-primary" : "border-transparent text-muted-foreground"}`}
+            onClick={() => setActiveTab("final")}
+          >
+            Final
+          </button>
+        )}
       </div>
 
       {activeTab === 'overall' ? renderOverall() : renderContest()}
