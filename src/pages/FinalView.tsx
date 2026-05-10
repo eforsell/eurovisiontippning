@@ -19,9 +19,11 @@ import { SortableItem } from "../components/Ranking/SortableItem";
 import { useEntries } from "../hooks/useEntries";
 import { usePredictions } from "../hooks/usePredictions";
 import { useTheme } from "../store/ThemeContext";
+import { Countdown } from "../components/Countdown";
 
 export const FinalView: React.FC = () => {
   const { activeYear } = useTheme();
+  const deadline = activeYear?.final_start;
   const { entries, loading: entriesLoading } = useEntries("final");
   const {
     predictions,
@@ -117,11 +119,16 @@ export const FinalView: React.FC = () => {
 
   return (
     <div className="flex flex-col max-w-3xl mx-auto gap-6 p-4">
-      <div className="sticky top-0 bg-background/95 backdrop-blur py-4 z-20 border-b">
-        <h2 className="text-2xl font-bold">Grand Final</h2>
-        <p className="text-muted-foreground">
-          Drag and drop to rank your favorites
-        </p>
+      <div className="flex justify-between items-start sm:items-center sticky top-0 bg-background/95 backdrop-blur py-4 z-20 border-b gap-4">
+        <div>
+          <h2 className="text-2xl font-bold">Grand Final</h2>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 mt-2">
+            <p className="text-muted-foreground text-sm sm:text-base">
+              Drag and drop to rank your favorites
+            </p>
+            {deadline && <Countdown targetDateIso={deadline} />}
+          </div>
+        </div>
       </div>
 
       <DndContext

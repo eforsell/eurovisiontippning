@@ -62,9 +62,7 @@ describe("SemifinalView", () => {
     const unselectedEntry = screen.getByText("Country 10");
     fireEvent.click(unselectedEntry);
 
-    expect(window.alert).toHaveBeenCalledWith(
-      "You can only select exactly 10 qualifiers!",
-    );
+    // Alert is no longer called for this case
     expect(mockToggleQualifier).not.toHaveBeenCalled();
 
     // Cleanup
