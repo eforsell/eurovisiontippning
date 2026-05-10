@@ -1,129 +1,220 @@
-import React, { useState } from "react";
-import { adminService } from "../services/adminService";
-import { supabase } from "../lib/supabase";
+import { useState, useEffect } from 'react';
+import { TabNavigation } from '../components/Admin/TabNavigation';
+import { MetadataForm } from '../components/Admin/MetadataForm';
+import { EntryManager } from '../components/Admin/EntryManager';
+import { ProgressionManager } from '../components/Admin/ProgressionManager';
+import { FinalRankingManager } from '../components/Admin/FinalRankingManager';
+import { Database } from '../types/database.types';
+import { supabase } from '../lib/supabase';
 
-export const AdminView: React.FC = () => {
-  const [jsonInput, setJsonInput] = useState("");
-  const [status, setStatus] = useState("");
-  const [contestId, setContestId] = useState("");
-  const [contestName, setContestName] = useState("");
-  const [startTime, setStartTime] = useState("");
+type Year = Database['public']['Tables']['years']['Row'];
+type Entry = Database['public']['Tables']['entries']['Row'];
 
-  const validateJSON = (data: any) => {
-    if (!data.year || typeof data.year !== "number") throw new Error("Missing or invalid 'year'");
-    if (!data.contests || !Array.isArray(data.contests)) throw new Error("Missing or invalid 'contests' array");
-    if (!data.entries || !Array.isArray(data.entries)) throw new Error("Missing or invalid 'entries' array");
-    
-    for (const c of data.contests) {
-      if (!c.id || !c.type || !c.name || !c.start_time) {
-        throw new Error("Contests must have id, type, name, and start_time");
+export const AdminView = () => {
+  const [activeTab, setActiveTab] = useState('metadata');
+  
+  const [yearData, setYearData] = useState<Year | null>(null);
+  const [entries, setEntries] = useState<Entry[]>([]);
+  const [semi1Progressed, setSemi1Progressed] = useState<string[]>([]);
+  const [semi2Progressed, setSemi2Progressed] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      // For simplicity in this demo, fetch the first year found
+      const { data: yearRes } = await supabase.from('years').select('*').limit(1).single();
+      if (yearRes) {
+        setYearData(yearRes);
+        
+        const { data: entriesRes } = await supabase.from('entries').select('*').eq('year_id', yearRes.id).order('start_position', { ascending: true });
+        if (entriesRes) setEntries(entriesRes);
+        
+        const { data: resultsRes } = await supabase.from('results').select('*').eq('year_id', yearRes.id);
+        if (resultsRes) {
+          setSemi1Progressed(resultsRes.filter(r => r.is_semi1_qualifier).map(r => r.entry_id));
+          setSemi2Progressed(resultsRes.filter(r => r.is_semi2_qualifier).map(r => r.entry_id));
+        }
       }
-    }
-    
-    for (const e of data.entries) {
-      if (!e.id || !e.country || !e.artist || !e.song || !e.contest_id) {
-        throw new Error("Entries must have id, country, artist, song, and contest_id");
-      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+
+  const handleMetadataSave = async (data: Partial<Year>) => {
+    if (!yearData) return;
+    const { data: updated, error } = await supabase.from('years').update(data).eq('id', yearData.id).select().single();
+    if (updated) {
+      setYearData(updated);
+      alert('Metadata saved!');
+    } else if (error) {
+      alert(`Error saving metadata: ${error.message}`);
     }
   };
 
-  const handleImport = async () => {
-    try {
-      setStatus("Parsing...");
-      const data = JSON.parse(jsonInput);
-      validateJSON(data);
+  const handleEntrySave = async (entry: Partial<Entry>) => {
+    if (!yearData) return;
+    if (entry.id) {
+      const oldEntry = entries.find(e => e.id === entry.id);
       
-      // T020: Warning confirmation dialog
-      if (!window.confirm("WARNING: This will overwrite existing metadata and entries for the contest. Are you sure you want to proceed?")) {
-        setStatus("Import cancelled.");
-        return;
+      if (oldEntry && oldEntry.starting_contest !== entry.starting_contest) {
+        if (oldEntry.starting_contest === 'semi1' && semi1Progressed.includes(entry.id)) {
+           setSemi1Progressed(prev => prev.filter(id => id !== entry.id));
+           const newTarget = Math.max(1, yearData.semi1_progression_target - 1);
+           setYearData(prev => prev ? { ...prev, semi1_progression_target: newTarget } : null);
+           await supabase.from('years').update({ semi1_progression_target: newTarget }).eq('id', yearData.id);
+           await supabase.from('results').update({ is_semi1_qualifier: false }).eq('entry_id', entry.id);
+        }
+        if (oldEntry.starting_contest === 'semi2' && semi2Progressed.includes(entry.id)) {
+           setSemi2Progressed(prev => prev.filter(id => id !== entry.id));
+           const newTarget = Math.max(1, yearData.semi2_progression_target - 1);
+           setYearData(prev => prev ? { ...prev, semi2_progression_target: newTarget } : null);
+           await supabase.from('years').update({ semi2_progression_target: newTarget }).eq('id', yearData.id);
+           await supabase.from('results').update({ is_semi2_qualifier: false }).eq('entry_id', entry.id);
+        }
       }
       
-      setStatus("Importing to database...");
-      await adminService.importData(data);
-      setStatus("Import successful!");
-    } catch (err: any) {
-      setStatus(`Error: ${err.message}`);
+      const { data: updated } = await supabase.from('entries').update(entry).eq('id', entry.id).select().single();
+      if (updated) setEntries(prev => prev.map(e => e.id === updated.id ? updated : e));
+    } else {
+      const { data: inserted } = await supabase.from('entries').insert({ ...entry, year_id: yearData.id } as Entry).select().single();
+      if (inserted) setEntries(prev => [...prev, inserted]);
     }
   };
 
-  const handleUpdateContest = async () => {
-    if (!contestId) return;
-    try {
-      const { error } = await supabase
-        .from('contests')
-        .update({ name: contestName, start_time: startTime })
-        .eq('id', contestId);
-      if (error) throw error;
-      alert("Contest updated!");
-    } catch (err: any) {
-      alert(`Failed to update contest: ${err.message}`);
+  const handleEntryDelete = async (id: string) => {
+    await supabase.from('entries').delete().eq('id', id);
+    setEntries(prev => prev.filter(e => e.id !== id));
+  };
+
+  const handleSemi1ProgressionSave = async (progressedIds: string[]) => {
+    if (!yearData) return;
+    setSemi1Progressed(progressedIds);
+    setYearData(prev => prev ? { ...prev, semi1_completed: true } : null);
+    
+    await supabase.from('years').update({ semi1_completed: true }).eq('id', yearData.id);
+    
+    // Reset all semi1 entries first
+    const semi1Entries = entries.filter(e => e.starting_contest === 'semi1').map(e => e.id);
+    for (const entryId of semi1Entries) {
+      await supabase.from('results').upsert({ year_id: yearData.id, entry_id: entryId, is_semi1_qualifier: progressedIds.includes(entryId) }, { onConflict: 'year_id, entry_id' });
     }
+    
+    alert('Semi 1 progression saved!');
   };
 
-  // Simplified UI for T022, T023 marking qualifiers and final order
-  const handleMarkQualifiers = async () => {
-    // In a real app, this would be a list selection. For now, it's an alert to satisfy the task.
-    alert("UI to select 10 qualifiers. When saved, pushes array to 'qualifiers' JSONB column in 'contests'.");
+  const handleSemi2ProgressionSave = async (progressedIds: string[]) => {
+    if (!yearData) return;
+    setSemi2Progressed(progressedIds);
+    setYearData(prev => prev ? { ...prev, semi2_completed: true } : null);
+    
+    await supabase.from('years').update({ semi2_completed: true }).eq('id', yearData.id);
+    
+    // Reset all semi2 entries first
+    const semi2Entries = entries.filter(e => e.starting_contest === 'semi2').map(e => e.id);
+    for (const entryId of semi2Entries) {
+      await supabase.from('results').upsert({ year_id: yearData.id, entry_id: entryId, is_semi2_qualifier: progressedIds.includes(entryId) }, { onConflict: 'year_id, entry_id' });
+    }
+    
+    alert('Semi 2 progression saved!');
   };
 
-  const handleSetFinalOrder = async () => {
-    alert("UI to drag-and-drop final placement. When saved, pushes array to 'final_order' JSONB column in 'contests'.");
+  const handleFinalRankingSave = async (ranking: { entryId: string; rank: number }[]) => {
+     if (!yearData) return;
+     for (const r of ranking) {
+       await supabase.from('results').upsert({ year_id: yearData.id, entry_id: r.entryId, final_rank: r.rank }, { onConflict: 'year_id, entry_id' });
+     }
+     alert('Final ranking saved!');
   };
+
+  if (loading || !yearData) return <div className="p-8 text-center">Loading admin data...</div>;
+
+  const tabs = [
+    { id: 'metadata', label: 'Event Metadata' },
+    { id: 'entries', label: 'Manage Entries' },
+    { id: 'semi1', label: 'Semi-final 1 Progression' },
+    { id: 'semi2', label: 'Semi-final 2 Progression' },
+    { 
+      id: 'final', 
+      label: 'Final Ranking', 
+      locked: !(yearData.semi1_completed && yearData.semi2_completed),
+      lockedMessage: 'Both semi-finals must be completed to unlock the final ranking.'
+    }
+  ];
 
   return (
-    <div className="max-w-4xl mx-auto p-4 flex flex-col gap-8">
-      <div>
-        <h2 className="text-2xl font-bold mb-4">Admin Data Import</h2>
-        <p className="text-muted-foreground mb-4">
-          Paste the JSON configuration for the contest year here.
-        </p>
-
-        <textarea
-          value={jsonInput}
-          onChange={(e) => setJsonInput(e.target.value)}
-          className="w-full h-64 p-4 font-mono text-sm border rounded bg-background text-foreground mb-4"
-          placeholder='{ "year": 2026, "contests": [...], "entries": [...] }'
-        />
-
-        <div className="flex gap-4 items-center">
-          <button
-            onClick={handleImport}
-            className="px-6 py-2 bg-primary text-primary-foreground font-bold rounded hover:bg-primary/90"
-          >
-            Import
-          </button>
-          {status && (
-            <span className="font-semibold text-muted-foreground">{status}</span>
-          )}
-        </div>
+    <div className="container mx-auto p-4 max-w-6xl">
+      <div className="mb-6 flex justify-between items-center">
+        <h1 className="text-3xl font-bold">Event Administration</h1>
       </div>
 
-      <div className="border-t pt-8">
-        <h2 className="text-2xl font-bold mb-4">Manual Overrides</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          
-          {/* T021: Edit contest details */}
-          <div className="p-4 border rounded shadow-sm bg-card">
-            <h3 className="text-lg font-bold mb-4">Edit Contest Details</h3>
-            <div className="flex flex-col gap-3">
-              <input type="text" placeholder="Contest ID (e.g. '2026-semi-1')" className="p-2 border rounded" value={contestId} onChange={e => setContestId(e.target.value)} />
-              <input type="text" placeholder="New Name" className="p-2 border rounded" value={contestName} onChange={e => setContestName(e.target.value)} />
-              <input type="text" placeholder="New Start Time (UTC ISO)" className="p-2 border rounded" value={startTime} onChange={e => setStartTime(e.target.value)} />
-              <button onClick={handleUpdateContest} className="px-4 py-2 bg-secondary text-secondary-foreground rounded mt-2">Update</button>
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+        <TabNavigation 
+          tabs={tabs} 
+          activeTab={activeTab} 
+          onTabChange={setActiveTab} 
+        />
+        
+        <div className="p-6">
+          {activeTab === 'metadata' && (
+            <div className="animate-fade-in">
+              <h2 className="text-xl font-semibold mb-4">Event Configuration</h2>
+              <MetadataForm 
+                initialData={yearData} 
+                onSave={handleMetadataSave} 
+                currentProgressed={{ semi1: semi1Progressed.length, semi2: semi2Progressed.length }}
+              />
             </div>
-          </div>
-
-          {/* T022 & T023: Mark results */}
-          <div className="p-4 border rounded shadow-sm bg-card flex flex-col gap-4">
-            <h3 className="text-lg font-bold mb-2">Contest Results</h3>
-            <button onClick={handleMarkQualifiers} className="w-full px-4 py-2 bg-accent text-accent-foreground rounded">
-              Mark Semifinal Qualifiers
-            </button>
-            <button onClick={handleSetFinalOrder} className="w-full px-4 py-2 bg-accent text-accent-foreground rounded">
-              Set Final Placement Order
-            </button>
-          </div>
+          )}
+          
+          {activeTab === 'entries' && (
+            <div className="animate-fade-in">
+              <h2 className="text-xl font-semibold mb-4">Manage Entries</h2>
+              <EntryManager 
+                entries={entries} 
+                onSave={handleEntrySave} 
+                onDelete={handleEntryDelete} 
+              />
+            </div>
+          )}
+          
+          {activeTab === 'semi1' && (
+            <div className="animate-fade-in">
+              <h2 className="text-xl font-semibold mb-4">Semi-final 1 Progression</h2>
+              <ProgressionManager
+                contest="semi1"
+                entries={entries}
+                targetCount={yearData.semi1_progression_target}
+                initialProgressedIds={semi1Progressed}
+                onSave={handleSemi1ProgressionSave}
+              />
+            </div>
+          )}
+          
+          {activeTab === 'semi2' && (
+            <div className="animate-fade-in">
+              <h2 className="text-xl font-semibold mb-4">Semi-final 2 Progression</h2>
+              <ProgressionManager
+                contest="semi2"
+                entries={entries}
+                targetCount={yearData.semi2_progression_target}
+                initialProgressedIds={semi2Progressed}
+                onSave={handleSemi2ProgressionSave}
+              />
+            </div>
+          )}
+          
+          {activeTab === 'final' && (
+            <div className="animate-fade-in">
+              <h2 className="text-xl font-semibold mb-4">Grand Final Ranking</h2>
+              <FinalRankingManager
+                entries={entries}
+                semi1ProgressedIds={semi1Progressed}
+                semi2ProgressedIds={semi2Progressed}
+                onSave={handleFinalRankingSave}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -39,7 +39,7 @@ export type Database = {
           artist: string;
           country: string;
           id: string;
-          semi_final: number | null;
+          starting_contest: 'semi1' | 'semi2' | 'final';
           song_title: string;
           start_position: number;
           year_id: string;
@@ -49,7 +49,7 @@ export type Database = {
           artist: string;
           country: string;
           id?: string;
-          semi_final?: number | null;
+          starting_contest: 'semi1' | 'semi2' | 'final';
           song_title: string;
           start_position: number;
           year_id: string;
@@ -59,7 +59,7 @@ export type Database = {
           artist?: string;
           country?: string;
           id?: string;
-          semi_final?: number | null;
+          starting_contest?: 'semi1' | 'semi2' | 'final';
           song_title?: string;
           start_position?: number;
           year_id?: string;
@@ -203,31 +203,46 @@ export type Database = {
         Row: {
           final_start: string;
           id: string;
+          location: string;
           logo_url: string | null;
           primary_color: string;
           secondary_color: string;
           semi1_start: string;
           semi2_start: string;
+          semi1_progression_target: number;
+          semi2_progression_target: number;
+          semi1_completed: boolean;
+          semi2_completed: boolean;
           year: number;
         };
         Insert: {
           final_start: string;
           id?: string;
+          location: string;
           logo_url?: string | null;
           primary_color: string;
           secondary_color: string;
           semi1_start: string;
           semi2_start: string;
+          semi1_progression_target?: number;
+          semi2_progression_target?: number;
+          semi1_completed?: boolean;
+          semi2_completed?: boolean;
           year: number;
         };
         Update: {
           final_start?: string;
           id?: string;
+          location?: string;
           logo_url?: string | null;
           primary_color?: string;
           secondary_color?: string;
           semi1_start?: string;
           semi2_start?: string;
+          semi1_progression_target?: number;
+          semi2_progression_target?: number;
+          semi1_completed?: boolean;
+          semi2_completed?: boolean;
           year?: number;
         };
         Relationships: [];

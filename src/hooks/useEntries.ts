@@ -22,7 +22,7 @@ export function useEntries(semiFinal?: 1 | 2) {
         .order("start_position", { ascending: true });
 
       if (semiFinal) {
-        query = query.eq("semi_final", semiFinal);
+        query = query.eq("starting_contest", semiFinal === 1 ? 'semi1' : 'semi2');
       }
 
       const { data, error } = await query;

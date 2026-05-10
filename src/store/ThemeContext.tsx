@@ -25,7 +25,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
     final_start: "2027-05-16T19:00:00Z",
     primary_color: "#673ab7",
     secondary_color: "#ffc107",
-    logo_url: "https://eurovision.tv/assets/logo-2025.png"
+    logo_url: "/logo.png"
   } as Year);
 
   useEffect(() => {
