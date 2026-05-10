@@ -2,7 +2,7 @@ import { FC, useState, useRef, useMemo } from 'react';
 import { Database } from '../../types/database.types';
 
 type Entry = Database['public']['Tables']['entries']['Row'];
-type SortField = 'start_position' | 'country' | 'artist' | 'song_title' | 'starting_contest';
+type SortField = 'start_position' | 'final_start_position' | 'country' | 'artist' | 'song_title' | 'starting_contest';
 
 interface EntryManagerProps {
   entries: Entry[];
@@ -45,8 +45,8 @@ export const EntryManager: FC<EntryManagerProps> = ({ entries, onSave, onDelete,
 
   const sortedEntries = useMemo(() => {
     return [...entries].sort((a, b) => {
-      let aValue: any = a[sortField];
-      let bValue: any = b[sortField];
+      let aValue = a[sortField] as string | number | null;
+      let bValue = b[sortField] as string | number | null;
       
       // Handle null values in start_position
       if (aValue === null) aValue = sortDirection === 'asc' ? Infinity : -Infinity;
@@ -221,7 +221,10 @@ export const EntryManager: FC<EntryManagerProps> = ({ entries, onSave, onDelete,
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('start_position')}>
-                Start <SortIcon field="start_position" sortField={sortField} sortDirection={sortDirection} />
+                Semi Start <SortIcon field="start_position" sortField={sortField} sortDirection={sortDirection} />
+              </th>
+              <th scope="col" className="px-6 py-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('final_start_position')}>
+                Final Start <SortIcon field="final_start_position" sortField={sortField} sortDirection={sortDirection} />
               </th>
               <th scope="col" className="px-6 py-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('country')}>
                 Country <SortIcon field="country" sortField={sortField} sortDirection={sortDirection} />
@@ -242,6 +245,7 @@ export const EntryManager: FC<EntryManagerProps> = ({ entries, onSave, onDelete,
             {sortedEntries.map((entry) => (
               <tr key={entry.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <td className="px-6 py-4">{entry.start_position !== null ? entry.start_position : '-'}</td>
+                <td className="px-6 py-4">{entry.final_start_position !== null ? entry.final_start_position : '-'}</td>
                 <td className="px-6 py-4 font-medium text-gray-900 dark:text-white">{entry.country}</td>
                 <td className="px-6 py-4">{entry.artist}</td>
                 <td className="px-6 py-4">{entry.song_title}</td>

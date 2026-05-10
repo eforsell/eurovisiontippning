@@ -74,10 +74,10 @@ export const FinalView: React.FC = () => {
         if (rankA !== rankB) return rankA - rankB;
         
         // Use final_start_position, placing nulls at the end
-        if ((a as any).final_start_position == null && (b as any).final_start_position == null) return 0;
-        if ((a as any).final_start_position == null) return 1;
-        if ((b as any).final_start_position == null) return -1;
-        return ((a as any).final_start_position as number) - ((b as any).final_start_position as number);
+        if (a.final_start_position == null && b.final_start_position == null) return 0;
+        if (a.final_start_position == null) return 1;
+        if (b.final_start_position == null) return -1;
+        return (a.final_start_position as number) - (b.final_start_position as number);
       });
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setItems(sorted.map((e) => e.id));
@@ -193,7 +193,7 @@ export const FinalView: React.FC = () => {
                   isLocked={isLocked || hasFinalResults}
                   points={points}
                   finalRank={finalRank}
-                  startPosition={(entry as any).final_start_position ?? 'TBD'}
+                  startPosition={entry.final_start_position ?? 'TBD'}
                 />
               );
             })}

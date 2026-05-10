@@ -3,6 +3,7 @@ import { TabNavigation } from '../components/Admin/TabNavigation';
 import { MetadataForm } from '../components/Admin/MetadataForm';
 import { EntryManager } from '../components/Admin/EntryManager';
 import { ProgressionManager } from '../components/Admin/ProgressionManager';
+import { FinalStartOrderManager } from '../components/Admin/FinalStartOrderManager';
 import { FinalRankingManager } from '../components/Admin/FinalRankingManager';
 import { Database } from '../types/database.types';
 import { supabase } from '../lib/supabase';
@@ -145,6 +146,15 @@ export const AdminView = () => {
     alert('Semi 2 progression saved!');
   };
 
+  const handleFinalStartOrderSave = async (startOrder: { entryId: string; final_start_position: number }[]) => {
+    if (!yearData) return;
+    for (const order of startOrder) {
+      await supabase.from('entries').update({ final_start_position: order.final_start_position }).eq('id', order.entryId);
+      setEntries(prev => prev.map(e => e.id === order.entryId ? { ...e, final_start_position: order.final_start_position } : e));
+    }
+    alert('Final start order saved!');
+  };
+
   const handleFinalRankingSave = async (ranking: { entryId: string; rank: number }[]) => {
      if (!yearData) return;
      for (const r of ranking) {
@@ -155,15 +165,23 @@ export const AdminView = () => {
 
   if (loading || !yearData) return <div className="p-8 text-center">Loading admin data...</div>;
 
+  const bothSemisProgressed = semi1Progressed.length === yearData.semi1_progression_target && semi2Progressed.length === yearData.semi2_progression_target;
+
   const tabs = [
     { id: 'metadata', label: 'Event Metadata' },
     { id: 'entries', label: 'Manage Entries' },
     { id: 'semi1', label: 'Semi-final 1 Progression' },
     { id: 'semi2', label: 'Semi-final 2 Progression' },
     { 
+      id: 'final-order', 
+      label: 'Final Start Order', 
+      locked: !bothSemisProgressed,
+      lockedMessage: 'Both semi-finals must be completed to unlock the final start order.'
+    },
+    { 
       id: 'final', 
       label: 'Final Ranking', 
-      locked: !(yearData.semi1_completed && yearData.semi2_completed),
+      locked: !bothSemisProgressed,
       lockedMessage: 'Both semi-finals must be completed to unlock the final ranking.'
     }
   ];
@@ -229,6 +247,18 @@ export const AdminView = () => {
                 initialProgressedIds={semi2Progressed}
                 contestStartTime={yearData.semi2_start}
                 onSave={handleSemi2ProgressionSave}
+              />
+            </div>
+          )}
+
+          {activeTab === 'final-order' && (
+            <div className="animate-fade-in">
+              <h2 className="text-xl font-semibold mb-4">Grand Final Start Order</h2>
+              <FinalStartOrderManager
+                entries={entries}
+                semi1ProgressedIds={semi1Progressed}
+                semi2ProgressedIds={semi2Progressed}
+                onSave={handleFinalStartOrderSave}
               />
             </div>
           )}

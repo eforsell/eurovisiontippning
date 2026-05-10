@@ -123,7 +123,7 @@ export const MetadataForm: FC<MetadataFormProps> = ({ initialData, currentProgre
             name="semi1_start"
             value={formatToLocalDatetime(formData.semi1_start)}
             onChange={handleChange}
-            onClick={(e) => 'showPicker' in e.currentTarget && (e.currentTarget as any).showPicker()}
+            onClick={(e) => { if ('showPicker' in e.currentTarget) (e.currentTarget as HTMLInputElement & { showPicker: () => void }).showPicker(); }}
             className="flex h-10 w-full rounded-md border border-input bg-background text-foreground px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
             required
           />
@@ -137,7 +137,7 @@ export const MetadataForm: FC<MetadataFormProps> = ({ initialData, currentProgre
             name="semi2_start"
             value={formatToLocalDatetime(formData.semi2_start)}
             onChange={handleChange}
-            onClick={(e) => 'showPicker' in e.currentTarget && (e.currentTarget as any).showPicker()}
+            onClick={(e) => { if ('showPicker' in e.currentTarget) (e.currentTarget as HTMLInputElement & { showPicker: () => void }).showPicker(); }}
             className="flex h-10 w-full rounded-md border border-input bg-background text-foreground px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
             required
           />
@@ -151,7 +151,7 @@ export const MetadataForm: FC<MetadataFormProps> = ({ initialData, currentProgre
             name="final_start"
             value={formatToLocalDatetime(formData.final_start)}
             onChange={handleChange}
-            onClick={(e) => 'showPicker' in e.currentTarget && (e.currentTarget as any).showPicker()}
+            onClick={(e) => { if ('showPicker' in e.currentTarget) (e.currentTarget as HTMLInputElement & { showPicker: () => void }).showPicker(); }}
             className="flex h-10 w-full rounded-md border border-input bg-background text-foreground px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
             required
           />

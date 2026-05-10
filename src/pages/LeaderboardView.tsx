@@ -44,13 +44,13 @@ export const LeaderboardView: React.FC = () => {
 
       if (rpcData && !rpcError) {
         setLeaderboard(
-          (rpcData as any[]).map((row) => ({
+          (rpcData as unknown as { id: string; email: string; name: string; score: number; rank: number; score_breakdown: ScoreBreakdown }[]).map((row) => ({
             userId: row.id,
             email: row.email,
             name: row.name,
             totalPoints: row.score,
             rank: row.rank,
-            scoreBreakdown: row.score_breakdown as ScoreBreakdown,
+            scoreBreakdown: row.score_breakdown,
           })),
         );
       }
