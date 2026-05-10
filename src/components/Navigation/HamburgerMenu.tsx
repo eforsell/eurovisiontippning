@@ -1,18 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Menu, X, LogOut } from 'lucide-react';
-
-export type Page = "home" | "tippning" | "sharing" | "account" | "admin" | "privacy";
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 interface HamburgerMenuProps {
-  currentPage: Page;
-  onNavigate: (page: Page) => void;
   isAdmin: boolean;
   onLogout: () => void;
 }
 
-export function HamburgerMenu({ currentPage, onNavigate, isAdmin, onLogout }: HamburgerMenuProps) {
+export function HamburgerMenu({ isAdmin, onLogout }: HamburgerMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -34,24 +33,24 @@ export function HamburgerMenu({ currentPage, onNavigate, isAdmin, onLogout }: Ha
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  const handleNav = (page: Page) => {
-    onNavigate(page);
-    setIsOpen(false);
-  };
-
   const handleLogout = () => {
     onLogout();
     setIsOpen(false);
+    navigate('/');
   };
 
-  const navItem = (page: Page, label: string) => (
-    <button
-      onClick={() => handleNav(page)}
-      className={`block w-full text-left px-4 py-2 text-sm ${currentPage === page ? "bg-primary text-primary-foreground" : "text-gray-700 hover:bg-gray-100"}`}
-    >
-      {label}
-    </button>
-  );
+  const navItem = (path: string, label: string) => {
+    const isActive = location.pathname.startsWith(path) && (path !== '/' || location.pathname === '/');
+    return (
+      <Link
+        to={path}
+        onClick={() => setIsOpen(false)}
+        className={`block w-full text-left px-4 py-2 text-sm ${isActive ? "bg-primary text-primary-foreground" : "text-gray-700 hover:bg-gray-100"}`}
+      >
+        {label}
+      </Link>
+    );
+  };
 
   return (
     <div className="relative" ref={menuRef}>
@@ -65,11 +64,11 @@ export function HamburgerMenu({ currentPage, onNavigate, isAdmin, onLogout }: Ha
 
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-900 rounded-md shadow-lg py-1 z-50 border border-gray-200 dark:border-gray-700">
-          {navItem("home", "Home")}
-          {navItem("tippning", "Tippning")}
-          {navItem("sharing", "Sharing")}
-          {navItem("account", "Account")}
-          {isAdmin && navItem("admin", "Admin")}
+          {navItem("/", "Home")}
+          {navItem("/tippning", "Tippning")}
+          {navItem("/sharing", "Sharing")}
+          {navItem("/account", "Account")}
+          {isAdmin && navItem("/admin", "Admin")}
           <hr className="my-1 border-gray-200 dark:border-gray-700" />
           <button
             onClick={handleLogout}

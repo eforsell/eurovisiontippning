@@ -8,18 +8,82 @@ import { DataProtectionPage } from "./pages/DataProtectionPage";
 import { LeaderboardView } from "./pages/LeaderboardView";
 import { AccountView } from "./pages/AccountView";
 import { FriendList } from "./components/Social/FriendList";
-import { HamburgerMenu, Page } from "./components/Navigation/HamburgerMenu";
+import { HamburgerMenu } from "./components/Navigation/HamburgerMenu";
 import { supabase } from "./lib/supabase";
 import { Session } from "@supabase/supabase-js";
+import { Routes, Route, Navigate, Link, useLocation, useNavigate } from "react-router-dom";
 import "./styles/index.css";
+
+function TippningLayout() {
+  const location = useLocation();
+  const currentTab = location.pathname.split('/').pop() || 'semi1';
+
+  return (
+    <div>
+      <div className="flex border-b mb-6 overflow-x-auto">
+        <Link
+          to="/tippning/semi1"
+          className={`px-6 py-3 font-semibold whitespace-nowrap border-b-2 transition-colors ${currentTab === "semi1" ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"}`}
+        >
+          Semifinal 1
+        </Link>
+        <Link
+          to="/tippning/semi2"
+          className={`px-6 py-3 font-semibold whitespace-nowrap border-b-2 transition-colors ${currentTab === "semi2" ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"}`}
+        >
+          Semifinal 2
+        </Link>
+        <Link
+          to="/tippning/final"
+          className={`px-6 py-3 font-semibold whitespace-nowrap border-b-2 transition-colors ${currentTab === "final" ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"}`}
+        >
+          Grand Final
+        </Link>
+      </div>
+      <Routes>
+        <Route path="semi1" element={<SemifinalView semiFinal={1} />} />
+        <Route path="semi2" element={<SemifinalView semiFinal={2} />} />
+        <Route path="final" element={<FinalView />} />
+        <Route path="*" element={<Navigate to="semi1" replace />} />
+      </Routes>
+    </div>
+  );
+}
+
+function SharingLayout() {
+  const location = useLocation();
+  const currentTab = location.pathname.split('/').pop() || 'leaderboard';
+
+  return (
+    <div>
+      <div className="flex border-b mb-6 overflow-x-auto">
+        <Link
+          to="/sharing/leaderboard"
+          className={`px-6 py-3 font-semibold whitespace-nowrap border-b-2 transition-colors ${currentTab === "leaderboard" ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"}`}
+        >
+          Leaderboard
+        </Link>
+        <Link
+          to="/sharing/friends"
+          className={`px-6 py-3 font-semibold whitespace-nowrap border-b-2 transition-colors ${currentTab === "friends" ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"}`}
+        >
+          Friends
+        </Link>
+      </div>
+      <Routes>
+        <Route path="leaderboard" element={<LeaderboardView />} />
+        <Route path="friends" element={<div className="max-w-2xl mx-auto"><FriendList /></div>} />
+        <Route path="*" element={<Navigate to="leaderboard" replace />} />
+      </Routes>
+    </div>
+  );
+}
 
 function MainContent() {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
-  const [activePage, setActivePage] = useState<Page>("home");
-  const [tippningTab, setTippningTab] = useState<"semi1" | "semi2" | "final">("semi1");
-  const [sharingTab, setSharingTab] = useState<"leaderboard" | "friends">("leaderboard");
   const [isAdmin, setIsAdmin] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     let mounted = true;
@@ -33,7 +97,6 @@ function MainContent() {
           const { data } = await supabase.from('profiles').select('is_admin').eq('id', currentSession.user.id).single();
           if (mounted) {
             setIsAdmin(data?.is_admin || false);
-            setActivePage((prev) => prev === "home" ? "tippning" : prev);
           }
         } catch (err) {
           console.error("Error fetching admin status:", err);
@@ -41,7 +104,6 @@ function MainContent() {
       } else {
         if (mounted) {
           setIsAdmin(false);
-          setActivePage("home");
         }
       }
       
@@ -55,17 +117,24 @@ function MainContent() {
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, newSession) => {
+    } = supabase.auth.onAuthStateChange((event, newSession) => {
       // Skip INITIAL_SESSION if we already handled it via getSession
-      if (_event === 'INITIAL_SESSION') return;
+      if (event === 'INITIAL_SESSION') return;
       initializeSession(newSession);
+      
+      // Navigate on login only if we're on the landing page
+      if (event === 'SIGNED_IN') {
+        if (window.location.pathname === '/') {
+          navigate('/tippning/semi1');
+        }
+      }
     });
 
     return () => {
       mounted = false;
       subscription.unsubscribe();
     };
-  }, []);
+  }, [navigate]);
 
   if (loading) {
     return (
@@ -79,17 +148,12 @@ function MainContent() {
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       {/* App bar */}
       <header className="bg-primary text-primary-foreground p-4 shadow-md flex justify-between items-center">
-        <h1 
-          className="text-xl font-bold cursor-pointer text-white" 
-          onClick={() => setActivePage("home")}
-        >
+        <Link to="/" className="text-xl font-bold cursor-pointer text-white">
           Eurovisiontippning
-        </h1>
+        </Link>
         <div className="flex items-center gap-4">
           {session && (
             <HamburgerMenu 
-              currentPage={activePage} 
-              onNavigate={setActivePage} 
               isAdmin={isAdmin} 
               onLogout={() => supabase.auth.signOut()} 
             />
@@ -99,73 +163,31 @@ function MainContent() {
 
       {/* Main Content Area */}
       <main className="flex-1 container mx-auto p-4 md:p-8">
-        {!session && activePage !== "home" && activePage !== "privacy" ? (
-          <LandingPage session={session} />
-        ) : (
-          <>
-            {activePage === "home" && <LandingPage session={session} />}
-            
-            {activePage === "tippning" && (
-              <div>
-                <div className="flex border-b mb-6 overflow-x-auto">
-                  <button
-                    className={`px-6 py-3 font-semibold whitespace-nowrap border-b-2 transition-colors ${tippningTab === "semi1" ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"}`}
-                    onClick={() => setTippningTab("semi1")}
-                  >
-                    Semifinal 1
-                  </button>
-                  <button
-                    className={`px-6 py-3 font-semibold whitespace-nowrap border-b-2 transition-colors ${tippningTab === "semi2" ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"}`}
-                    onClick={() => setTippningTab("semi2")}
-                  >
-                    Semifinal 2
-                  </button>
-                  <button
-                    className={`px-6 py-3 font-semibold whitespace-nowrap border-b-2 transition-colors ${tippningTab === "final" ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"}`}
-                    onClick={() => setTippningTab("final")}
-                  >
-                    Grand Final
-                  </button>
-                </div>
-                {tippningTab === "semi1" && <SemifinalView semiFinal={1} />}
-                {tippningTab === "semi2" && <SemifinalView semiFinal={2} />}
-                {tippningTab === "final" && <FinalView />}
-              </div>
-            )}
+        <Routes>
+          <Route path="/" element={<LandingPage session={session} />} />
+          
+          {session ? (
+            <>
+              <Route path="/tippning/*" element={<TippningLayout />} />
+              <Route path="/sharing/*" element={<SharingLayout />} />
+              <Route path="/account" element={<AccountView />} />
+              {isAdmin && <Route path="/admin" element={<AdminView />} />}
+            </>
+          ) : (
+            <Route path="*" element={<Navigate to="/" replace />} />
+          )}
 
-            {activePage === "sharing" && (
-              <div>
-                <div className="flex border-b mb-6 overflow-x-auto">
-                  <button
-                    className={`px-6 py-3 font-semibold whitespace-nowrap border-b-2 transition-colors ${sharingTab === "leaderboard" ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"}`}
-                    onClick={() => setSharingTab("leaderboard")}
-                  >
-                    Leaderboard
-                  </button>
-                  <button
-                    className={`px-6 py-3 font-semibold whitespace-nowrap border-b-2 transition-colors ${sharingTab === "friends" ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"}`}
-                    onClick={() => setSharingTab("friends")}
-                  >
-                    Friends
-                  </button>
-                </div>
-                {sharingTab === "leaderboard" && <LeaderboardView />}
-                {sharingTab === "friends" && <div className="max-w-2xl mx-auto"><FriendList /></div>}
-              </div>
-            )}
-
-            {activePage === "account" && <AccountView />}
-            {activePage === "admin" && <AdminView />}
-            {activePage === "privacy" && <DataProtectionPage />}
-          </>
-        )}
+          <Route path="/privacy" element={<DataProtectionPage />} />
+          {/* Catch all for authenticated users */}
+          {session && <Route path="*" element={<Navigate to="/tippning/semi1" replace />} />}
+        </Routes>
       </main>
 
       {/* Footer */}
       <footer className="p-4 text-center text-sm text-muted-foreground border-t mt-auto">
-        <button onClick={() => setActivePage("privacy")} className="hover:underline">
+        <Link to="/privacy" className="hover:underline">
           Privacy Policy
-        </button>
+        </Link>
       </footer>
     </div>
   );
