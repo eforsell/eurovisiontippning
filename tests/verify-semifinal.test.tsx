@@ -31,6 +31,13 @@ vi.mock("../src/hooks/usePredictions", () => ({
   })),
 }));
 
+vi.mock("../src/hooks/useResults", () => ({
+  useResults: vi.fn(() => ({
+    results: [],
+    loading: false,
+  })),
+}));
+
 vi.mock("../src/store/ThemeContext", () => ({
   useTheme: vi.fn(() => ({
     activeYear: { betting_started: true },

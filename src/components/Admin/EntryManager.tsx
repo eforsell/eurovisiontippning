@@ -162,7 +162,8 @@ export const EntryManager: FC<EntryManagerProps> = ({ entries, onSave, onDelete,
     "artist": "string",
     "song_title": "string",
     "starting_contest": "semi1" | "semi2" | "final",
-    "start_position": number,
+    "start_position": number | null,
+    "final_start_position": number | null,
     "youtube_id": "string" | null
   }
 ]`}
@@ -185,8 +186,12 @@ export const EntryManager: FC<EntryManagerProps> = ({ entries, onSave, onDelete,
         <form onSubmit={handleSubmit} className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-6 border border-gray-200 dark:border-gray-700">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="start_position" className="block text-sm font-medium">Start Position</label>
+              <label htmlFor="start_position" className="block text-sm font-medium">Semi Start Position</label>
               <input type="number" id="start_position" name="start_position" value={editingEntry.start_position ?? ''} onChange={handleChange} className="mt-1 block w-full rounded-md border border-input bg-background text-foreground shadow-sm focus:border-primary focus:ring-primary sm:text-sm" placeholder="Leave empty for unassigned" />
+            </div>
+            <div>
+              <label htmlFor="final_start_position" className="block text-sm font-medium">Final Start Position</label>
+              <input type="number" id="final_start_position" name="final_start_position" value={editingEntry.final_start_position ?? ''} onChange={handleChange} className="mt-1 block w-full rounded-md border border-input bg-background text-foreground shadow-sm focus:border-primary focus:ring-primary sm:text-sm" placeholder="Leave empty for unassigned" />
             </div>
             <div>
               <label htmlFor="country" className="block text-sm font-medium">Country</label>

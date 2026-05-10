@@ -16,6 +16,7 @@ describe('ProgressionManager De-progression', () => {
         entries={mockEntries} 
         targetCount={1} 
         initialProgressedIds={['1']} 
+        contestStartTime="2020-01-01T00:00:00Z"
         onSave={mockSave} 
       />
     );
