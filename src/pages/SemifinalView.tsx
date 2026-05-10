@@ -77,15 +77,17 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
         <div>
           <h2 className="text-2xl font-bold">Semifinal {semiFinal}</h2>
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 mt-2">
-            <p className="text-muted-foreground text-sm sm:text-base">Select your 10 qualifiers</p>
+            <p className="text-muted-foreground text-sm sm:text-base">{isLocked ? "Betting is closed" : "Select your 10 qualifiers"}</p>
             {deadline && <Countdown targetDateIso={deadline} />}
           </div>
         </div>
-        <div
-          className={`mt-1 sm:mt-0 px-3 py-1 rounded font-bold text-sm shrink-0 ${isValid ? "bg-green-100 text-green-800" : "bg-secondary text-secondary-foreground"} ${shakeMax ? "animate-shake" : ""}`}
-        >
-          {selectedCount} / 10
-        </div>
+        {!isLocked && (
+          <div
+            className={`mt-1 sm:mt-0 px-3 py-1 rounded font-bold text-sm shrink-0 ${isValid ? "bg-green-100 text-green-800" : "bg-secondary text-secondary-foreground"} ${shakeMax ? "animate-shake" : ""}`}
+          >
+            {selectedCount} / 10
+          </div>
+        )}
       </div>
 
       <div className="grid gap-3">
@@ -98,45 +100,47 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
           const hasProgressed = semiFinal === 1 ? result?.is_semi1_qualifier : result?.is_semi2_qualifier;
           
           let scoreText = null;
-          let entryStyling = "hover:bg-muted/50";
-          let failedToProgress = false;
+          let entryStyling = "hover:bg-muted/50 text-foreground bg-card border-border";
 
           if (isCompleted) {
-            entryStyling = "";
-            if (hasProgressed) {
-              if (isSelected) {
-                 scoreText = "+3";
-              }
+            if (hasProgressed && isSelected) {
+              // Bet & Progress: solid green
+              scoreText = "+3";
+              entryStyling = "border-green-600 bg-green-600 text-white shadow-sm";
+            } else if (hasProgressed && !isSelected) {
+              // No bet & Progress: see-through green
+              scoreText = "+0";
+              entryStyling = "border-green-500 bg-green-500/20 text-foreground shadow-sm";
+            } else if (!hasProgressed && isSelected) {
+              // Bet & No progress: see-through red
+              entryStyling = "border-red-500 bg-red-500/20 text-foreground shadow-sm";
             } else {
-              failedToProgress = true;
+              // No bet & No progress: gray
+              entryStyling = "opacity-50 border-dashed border-gray-400 dark:border-gray-600 bg-muted/30 text-foreground";
             }
           } else if (isSelected) {
-            entryStyling = "border-primary bg-primary/10 shadow-sm";
+            entryStyling = "border-primary bg-primary/10 text-foreground shadow-sm";
           }
 
           return (
             <div
               key={entry.id}
-              className={`relative p-4 border rounded flex flex-col items-center justify-center transition-all text-center ${
-                failedToProgress ? "opacity-50 border-dashed border-gray-400 dark:border-gray-600" : ""
-              } ${
-                (isSelected && isCompleted && hasProgressed) ? "border-green-500 bg-green-50 dark:bg-green-900/20 shadow-sm" : ""
-              } ${entryStyling} ${
+              className={`relative p-4 border rounded flex flex-col items-center justify-center transition-all text-center ${entryStyling} ${
                 isLocked 
                   ? "pointer-events-none cursor-default" 
                   : `cursor-pointer`
               } ${shakeEntryId === entry.id ? "animate-shake" : ""}`}
               onClick={() => handleToggle(entry.id, isSelected)}
             >
-              <div className="absolute left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-muted flex items-center justify-center font-bold text-sm">
+              <div className={`absolute left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${isCompleted && hasProgressed && isSelected ? 'bg-green-700 text-white' : 'bg-muted text-foreground'}`}>
                 {entry.start_position}
               </div>
               <div className="font-bold text-lg">{entry.country}</div>
-              <div className="text-muted-foreground">
+              <div className={isCompleted && hasProgressed && isSelected ? "text-green-100" : "text-muted-foreground"}>
                 {entry.artist} - {entry.song_title}
               </div>
               {scoreText && (
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 font-bold text-green-600 dark:text-green-400">
+                <div className={`absolute right-4 top-1/2 -translate-y-1/2 font-bold ${isCompleted && hasProgressed && isSelected ? 'text-white' : 'text-green-600 dark:text-green-400'}`}>
                   {scoreText}
                 </div>
               )}

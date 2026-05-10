@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { Database } from "../types/database.types";
 
-type Friend = Database["public"]["Tables"]["friends"]["Row"];
+type FriendRow = Database["public"]["Tables"]["friends"]["Row"];
+export type Friend = FriendRow & {
+  profile?: { id: string; name: string | null; email: string };
+};
 
 export function useFriends() {
   const [friends, setFriends] = useState<Friend[]>([]);
@@ -24,7 +27,27 @@ export function useFriends() {
       .or(`user_id.eq.${userId},friend_id.eq.${userId}`);
 
     if (!error && data) {
-      setFriends(data);
+      const otherIds = data.map((f) => (f.user_id === userId ? f.friend_id : f.user_id));
+      
+      let profilesData: { id: string; name: string | null; email: string }[] = [];
+      if (otherIds.length > 0) {
+        const { data: pData } = await supabase
+          .from("profiles")
+          .select("id, name, email")
+          .in("id", otherIds);
+        if (pData) profilesData = pData;
+      }
+      
+      const friendsWithProfiles = data.map((f) => {
+        const otherId = f.user_id === userId ? f.friend_id : f.user_id;
+        const profile = profilesData.find((p) => p.id === otherId);
+        return {
+          ...f,
+          profile,
+        };
+      });
+      
+      setFriends(friendsWithProfiles);
     }
     setLoading(false);
   };
@@ -55,5 +78,14 @@ export function useFriends() {
     if (!error) fetchFriends();
   };
 
-  return { friends, loading, sendRequest, acceptRequest, userId };
+  const removeFriend = async (otherId: string) => {
+    if (!userId) return;
+    const { error } = await supabase
+      .from("friends")
+      .delete()
+      .or(`and(user_id.eq.${userId},friend_id.eq.${otherId}),and(user_id.eq.${otherId},friend_id.eq.${userId})`);
+    if (!error) fetchFriends();
+  };
+
+  return { friends, loading, sendRequest, acceptRequest, removeFriend, userId };
 }

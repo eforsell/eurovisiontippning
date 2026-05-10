@@ -1,22 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useFriends } from "../../hooks/useFriends";
 import { supabase } from "../../lib/supabase";
 
 export const FriendList: React.FC = () => {
-  const { friends, loading, sendRequest, acceptRequest, userId } = useFriends();
+  const { friends, loading, sendRequest, acceptRequest, removeFriend, userId } = useFriends();
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState<{ id: string; name?: string; email?: string }[]>([]);
   const [searching, setSearching] = useState(false);
 
-  const handleSearch = async () => {
-    if (!searchInput.trim()) return;
-    setSearching(true);
-    const { data, error } = await supabase.rpc('search_public_users', { query: searchInput });
-    if (!error && data) {
-      setSearchResults(data);
-    }
-    setSearching(false);
-  };
+  useEffect(() => {
+    const timer = setTimeout(async () => {
+      if (!searchInput.trim()) {
+        setSearchResults([]);
+        setSearching(false);
+        return;
+      }
+      setSearching(true);
+      const { data, error } = await supabase.rpc('search_public_users', { query: searchInput });
+      if (!error && data) {
+        setSearchResults(data);
+      }
+      setSearching(false);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchInput]);
 
   if (loading) return <div>Loading friends...</div>;
 
@@ -24,21 +32,19 @@ export const FriendList: React.FC = () => {
     <div className="p-4 border rounded bg-card text-card-foreground shadow-sm">
       <h3 className="text-xl font-bold mb-4">Friends</h3>
 
-      <div className="flex gap-2 mb-4">
+      <div className="relative mb-4">
         <input
           type="text"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
           placeholder="Search by name or email"
-          className="flex-1 px-3 py-2 border rounded text-foreground bg-background"
+          className="w-full px-3 py-2 border rounded text-foreground bg-background"
         />
-        <button
-          onClick={handleSearch}
-          disabled={searching}
-          className="px-4 py-2 bg-secondary text-secondary-foreground rounded hover:bg-secondary/90"
-        >
-          {searching ? "..." : "Search"}
-        </button>
+        {searching && (
+          <div className="absolute right-3 top-1/2 -translate-y-1/2">
+            <div className="animate-spin h-4 w-4 border-2 border-primary border-t-transparent rounded-full"></div>
+          </div>
+        )}
       </div>
 
       {searchResults.length > 0 && (
@@ -73,29 +79,40 @@ export const FriendList: React.FC = () => {
         {friends.map((friend) => {
           const isSender = friend.user_id === userId;
           const otherId = isSender ? friend.friend_id : friend.user_id;
+          const displayName = friend.profile?.name || friend.profile?.email?.split('@')[0] || "Unknown";
 
           return (
             <div
               key={`${friend.user_id}-${friend.friend_id}`}
-              className="flex justify-between items-center p-3 border rounded"
+              className="flex justify-between items-center p-3 border rounded bg-background"
             >
               <div>
-                <span className="font-mono text-sm">
-                  {otherId.slice(0, 8)}...
+                <span className="font-semibold text-sm">
+                  {displayName}
                 </span>
-                <span className="ml-2 text-xs px-2 py-1 rounded bg-muted">
-                  {friend.status}
+                <span className="ml-2 text-[10px] uppercase font-bold px-2 py-1 rounded bg-muted text-muted-foreground">
+                  {friend.status === "pending" ? (isSender ? "Sent" : "Pending") : "Friend"}
                 </span>
               </div>
 
-              {!isSender && friend.status === "pending" && (
+              <div className="flex gap-2">
+                {!isSender && friend.status === "pending" && (
+                  <button
+                    onClick={() => acceptRequest(otherId)}
+                    title="Accept"
+                    className="flex items-center justify-center w-8 h-8 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 rounded-full hover:bg-green-200 dark:hover:bg-green-900/50 transition-colors"
+                  >
+                    ✓
+                  </button>
+                )}
                 <button
-                  onClick={() => acceptRequest(otherId)}
-                  className="px-3 py-1 bg-secondary text-secondary-foreground rounded text-sm hover:bg-secondary/90"
+                  onClick={() => removeFriend(otherId)}
+                  title={friend.status === 'accepted' ? 'Remove friend' : (isSender ? 'Rescind request' : 'Decline request')}
+                  className="flex items-center justify-center w-8 h-8 bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 rounded-full hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors font-bold"
                 >
-                  Accept
+                  ✕
                 </button>
-              )}
+              </div>
             </div>
           );
         })}

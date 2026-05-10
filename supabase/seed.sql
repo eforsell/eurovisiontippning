@@ -26,25 +26,16 @@ VALUES
 ((SELECT id FROM new_year), 'France', 'Fourth Artist', 'Fourth Song', 4, 'final', 'wwwwww');
 
 -- Mock users for testing friend flow and leaderboard
-INSERT INTO auth.users (id, email)
+INSERT INTO auth.users (id, email, aud, role)
 VALUES 
-  ('11111111-1111-1111-1111-111111111111', 'mockfriend1@example.com'),
-  ('22222222-2222-2222-2222-222222222222', 'mockfriend2@example.com');
+  ('11111111-1111-1111-1111-111111111111', 'mockfriend1@example.com', 'authenticated', 'authenticated'),
+  ('22222222-2222-2222-2222-222222222222', 'mockfriend2@example.com', 'authenticated', 'authenticated');
 
 INSERT INTO public.profiles (id, name, email, is_private)
 VALUES
   ('11111111-1111-1111-1111-111111111111', 'Mock Friend 1', 'mockfriend1@example.com', false),
-  ('22222222-2222-2222-2222-222222222222', 'Mock Friend 2', 'mockfriend2@example.com', false);
-
--- Set up friendships with eskil.forsell@gmail.com (we assume Eskil's user will be created manually, but we can seed the relationships by email lookup if possible, or wait until Eskil exists. Let's just insert with a placeholder ID or try to lookup by email if possible. Since we can't reliably know Eskil's ID, we might need a DO block or just insert the friend rows using an email subquery if profiles exists. But profiles might not have Eskil yet. Let's create Eskil's auth.user & profile as well so we can link them).
-INSERT INTO auth.users (id, email) VALUES ('33333333-3333-3333-3333-333333333333', 'eskil.forsell@gmail.com');
-INSERT INTO public.profiles (id, name, email, is_private) VALUES ('33333333-3333-3333-3333-333333333333', 'Eskil Forsell', 'eskil.forsell@gmail.com', false);
-
--- Friend 1 is accepted, Friend 2 is pending
-INSERT INTO public.friends (user_id, friend_id, status)
-VALUES
-  ('33333333-3333-3333-3333-333333333333', '11111111-1111-1111-1111-111111111111', 'accepted'),
-  ('22222222-2222-2222-2222-222222222222', '33333333-3333-3333-3333-333333333333', 'pending');
+  ('22222222-2222-2222-2222-222222222222', 'Mock Friend 2', 'mockfriend2@example.com', false)
+ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, is_private = EXCLUDED.is_private;
 
 -- Mock predictions to test partitioned scores
 -- We need the entry IDs. Since we don't have static IDs for entries in the insert, we'll look them up.

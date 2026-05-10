@@ -27,7 +27,7 @@ export const LeaderboardView: React.FC = () => {
 
   // For specific tabs
   const { friends, userId } = useFriends();
-  const { entries } = useEntries();
+  const { entries } = useEntries(activeTab === 'overall' ? undefined : activeTab);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [predictions, setPredictions] = useState<any[]>([]);
   const [expandedEntry, setExpandedEntry] = useState<string | null>(null);
@@ -66,7 +66,7 @@ export const LeaderboardView: React.FC = () => {
       const userIds = [userId, ...friends.map(f => f.user_id === userId ? f.friend_id : f.user_id)];
       const { data, error } = await supabase
         .from('predictions')
-        .select('*, profiles!inner(name, email)')
+        .select('*')
         .in('user_id', userIds)
         .eq('type', activeTab);
       
@@ -186,14 +186,18 @@ export const LeaderboardView: React.FC = () => {
                     <p className="text-sm text-muted-foreground">No friends have bet on this yet.</p>
                   ) : (
                     <ul className="space-y-2">
-                      {entryPredictions.map(p => (
-                        <li key={p.id} className="flex justify-between text-sm">
-                          <span>{p.profiles?.name || p.profiles?.email?.split('@')[0] || 'Unknown'}</span>
-                          <span className="font-semibold">
-                            {activeTab === 'final' ? `Rank ${p.rank}` : (p.is_qualifier ? 'Qualifies' : 'Does not qualify')}
-                          </span>
-                        </li>
-                      ))}
+                      {entryPredictions.map(p => {
+                        const user = leaderboard.find(l => l.userId === p.user_id);
+                        const displayName = user ? (user.name || user.email.split('@')[0]) : 'Unknown';
+                        return (
+                          <li key={p.id} className="flex justify-between text-sm">
+                            <span>{displayName}</span>
+                            <span className="font-semibold">
+                              {activeTab === 'final' ? `Rank ${p.rank}` : (p.is_qualifier ? 'Qualifies' : 'Does not qualify')}
+                            </span>
+                          </li>
+                        );
+                      })}
                     </ul>
                   )}
                 </div>
