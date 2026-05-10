@@ -81,6 +81,7 @@ export const ProgressionManager: FC<ProgressionManagerProps> = ({ contest, entri
                   onClick={() => handleToggle(entry.id)}
                 >
                   <div>
+                    <span className="font-bold text-gray-400 dark:text-gray-500 mr-3 w-4 inline-block text-center">{entry.start_position !== null ? entry.start_position : '-'}</span>
                     <span className="font-bold">{entry.country}</span>
                     <span className="text-sm text-gray-500 ml-2">{entry.artist}</span>
                   </div>

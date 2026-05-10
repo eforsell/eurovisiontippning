@@ -1,7 +1,8 @@
-import { FC, useState, useRef } from 'react';
+import { FC, useState, useRef, useMemo } from 'react';
 import { Database } from '../../types/database.types';
 
 type Entry = Database['public']['Tables']['entries']['Row'];
+type SortField = 'start_position' | 'country' | 'artist' | 'song_title' | 'starting_contest';
 
 interface EntryManagerProps {
   entries: Entry[];
@@ -17,6 +18,9 @@ export const EntryManager: FC<EntryManagerProps> = ({ entries, onSave, onDelete,
   const [importing, setImporting] = useState(false);
   const [importError, setImportError] = useState('');
 
+  const [sortField, setSortField] = useState<SortField>('country');
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+
   const [editingEntry, setEditingEntry] = useState<Partial<Entry>>({
     country: '',
     artist: '',
@@ -24,6 +28,30 @@ export const EntryManager: FC<EntryManagerProps> = ({ entries, onSave, onDelete,
     start_position: 1,
     starting_contest: 'semi1'
   });
+
+  const handleSort = (field: SortField) => {
+    if (sortField === field) {
+      setSortDirection(prev => prev === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortField(field);
+      setSortDirection('asc');
+    }
+  };
+
+  const sortedEntries = useMemo(() => {
+    return [...entries].sort((a, b) => {
+      let aValue: any = a[sortField];
+      let bValue: any = b[sortField];
+      
+      // Handle null values in start_position
+      if (aValue === null) aValue = sortDirection === 'asc' ? Infinity : -Infinity;
+      if (bValue === null) bValue = sortDirection === 'asc' ? Infinity : -Infinity;
+
+      if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1;
+      if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1;
+      return 0;
+    });
+  }, [entries, sortField, sortDirection]);
 
   const handleEdit = (entry: Entry) => {
     setEditingEntry(entry);
@@ -89,6 +117,11 @@ export const EntryManager: FC<EntryManagerProps> = ({ entries, onSave, onDelete,
       const errorMessage = err instanceof Error ? err.message : "Failed to parse JSON.";
       setImportError(errorMessage);
     }
+  };
+
+  const SortIcon = ({ field }: { field: SortField }) => {
+    if (sortField !== field) return <span className="ml-1 opacity-20">↕</span>;
+    return <span className="ml-1">{sortDirection === 'asc' ? '↑' : '↓'}</span>;
   };
 
   return (
@@ -187,16 +220,28 @@ export const EntryManager: FC<EntryManagerProps> = ({ entries, onSave, onDelete,
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th scope="col" className="px-6 py-3">Country</th>
-              <th scope="col" className="px-6 py-3">Artist</th>
-              <th scope="col" className="px-6 py-3">Song</th>
-              <th scope="col" className="px-6 py-3">Contest</th>
+              <th scope="col" className="px-6 py-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('start_position')}>
+                Start <SortIcon field="start_position" />
+              </th>
+              <th scope="col" className="px-6 py-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('country')}>
+                Country <SortIcon field="country" />
+              </th>
+              <th scope="col" className="px-6 py-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('artist')}>
+                Artist <SortIcon field="artist" />
+              </th>
+              <th scope="col" className="px-6 py-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('song_title')}>
+                Song <SortIcon field="song_title" />
+              </th>
+              <th scope="col" className="px-6 py-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('starting_contest')}>
+                Contest <SortIcon field="starting_contest" />
+              </th>
               <th scope="col" className="px-6 py-3">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {entries.map((entry) => (
+            {sortedEntries.map((entry) => (
               <tr key={entry.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td className="px-6 py-4">{entry.start_position !== null ? entry.start_position : '-'}</td>
                 <td className="px-6 py-4 font-medium text-gray-900 dark:text-white">{entry.country}</td>
                 <td className="px-6 py-4">{entry.artist}</td>
                 <td className="px-6 py-4">{entry.song_title}</td>
