@@ -110,6 +110,7 @@ export const FinalRankingManager: FC<FinalRankingManagerProps> = ({
               <div className="flex items-center space-x-4">
                 <span className="font-bold text-xl text-gray-400 w-8 text-center">{index + 1}</span>
                 <div>
+                  <span className="font-bold text-gray-400 dark:text-gray-500 mr-3 w-4 inline-block text-center">{entry.start_position !== null ? entry.start_position : '-'}</span>
                   <span className="font-bold">{entry.country}</span>
                   <span className="text-sm text-gray-500 ml-2">{entry.artist}</span>
                   <span className="text-xs ml-2 px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400">

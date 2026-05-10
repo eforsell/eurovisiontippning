@@ -13,12 +13,39 @@ export const MetadataForm: FC<MetadataFormProps> = ({ initialData, currentProgre
   const [formData, setFormData] = useState<Year>(initialData);
   const [error, setError] = useState<string | null>(null);
 
+  const formatToLocalDatetime = (utcString: string) => {
+    if (!utcString) return '';
+    const date = new Date(utcString);
+    if (isNaN(date.getTime())) return '';
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  };
+
+  const formatToUTC = (localString: string) => {
+    if (!localString) return '';
+    const date = new Date(localString);
+    if (isNaN(date.getTime())) return '';
+    return date.toISOString();
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'number' ? Number(value) : value
-    }));
+    
+    if (type === 'datetime-local') {
+      setFormData(prev => ({
+        ...prev,
+        [name]: formatToUTC(value)
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: type === 'number' ? Number(value) : value
+      }));
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -94,7 +121,7 @@ export const MetadataForm: FC<MetadataFormProps> = ({ initialData, currentProgre
             type="datetime-local"
             id="semi1_start"
             name="semi1_start"
-            value={formData.semi1_start.slice(0, 16)} // Simplified for input
+            value={formatToLocalDatetime(formData.semi1_start)}
             onChange={handleChange}
             className="flex h-10 w-full rounded-md border border-input bg-background text-foreground px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
             required
@@ -107,7 +134,7 @@ export const MetadataForm: FC<MetadataFormProps> = ({ initialData, currentProgre
             type="datetime-local"
             id="semi2_start"
             name="semi2_start"
-            value={formData.semi2_start.slice(0, 16)}
+            value={formatToLocalDatetime(formData.semi2_start)}
             onChange={handleChange}
             className="flex h-10 w-full rounded-md border border-input bg-background text-foreground px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
             required
@@ -120,7 +147,7 @@ export const MetadataForm: FC<MetadataFormProps> = ({ initialData, currentProgre
             type="datetime-local"
             id="final_start"
             name="final_start"
-            value={formData.final_start.slice(0, 16)}
+            value={formatToLocalDatetime(formData.final_start)}
             onChange={handleChange}
             className="flex h-10 w-full rounded-md border border-input bg-background text-foreground px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
             required

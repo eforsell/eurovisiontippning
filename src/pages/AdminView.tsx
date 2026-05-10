@@ -55,6 +55,19 @@ export const AdminView = () => {
 
   const handleEntrySave = async (entry: Partial<Entry>) => {
     if (!yearData) return;
+
+    if (entry.start_position !== null) {
+      const isDuplicate = entries.some(
+        (e) => e.starting_contest === entry.starting_contest &&
+               e.start_position === entry.start_position &&
+               e.id !== entry.id
+      );
+      if (isDuplicate) {
+        alert(`Start order ${entry.start_position} is already in use for ${entry.starting_contest}. Start orders must be unique.`);
+        return;
+      }
+    }
+
     if (entry.id) {
       const oldEntry = entries.find(e => e.id === entry.id);
       

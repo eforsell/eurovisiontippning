@@ -73,8 +73,8 @@ export const EntryManager: FC<EntryManagerProps> = ({ entries, onSave, onDelete,
       // Basic validation against schema
       for (let i = 0; i < json.length; i++) {
         const item = json[i];
-        if (!item.country || !item.artist || !item.song_title || !item.starting_contest || typeof item.start_position !== 'number') {
-          throw new Error(`Entry at index ${i} is missing required fields.`);
+        if (!item.country || !item.artist || !item.song_title || !item.starting_contest || (item.start_position !== null && typeof item.start_position !== 'number')) {
+          throw new Error(`Entry at index ${i} is missing required fields or has invalid types.`);
         }
       }
 
@@ -151,6 +151,10 @@ export const EntryManager: FC<EntryManagerProps> = ({ entries, onSave, onDelete,
       {isEditing && (
         <form onSubmit={handleSubmit} className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-6 border border-gray-200 dark:border-gray-700">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="start_position" className="block text-sm font-medium">Start Position</label>
+              <input type="number" id="start_position" name="start_position" value={editingEntry.start_position ?? ''} onChange={handleChange} className="mt-1 block w-full rounded-md border border-input bg-background text-foreground shadow-sm focus:border-primary focus:ring-primary sm:text-sm" placeholder="Leave empty for unassigned" />
+            </div>
             <div>
               <label htmlFor="country" className="block text-sm font-medium">Country</label>
               <input type="text" id="country" name="country" value={editingEntry.country} onChange={handleChange} required className="mt-1 block w-full rounded-md border border-input bg-background text-foreground shadow-sm focus:border-primary focus:ring-primary sm:text-sm" />

@@ -70,7 +70,7 @@ export type Database = {
           country: string
           id: string
           song_title: string
-          start_position: number
+          start_position: number | null
           starting_contest: string
           year_id: string
           youtube_id: string | null
@@ -80,7 +80,7 @@ export type Database = {
           country: string
           id?: string
           song_title: string
-          start_position: number
+          start_position?: number | null
           starting_contest: string
           year_id: string
           youtube_id?: string | null
@@ -90,7 +90,7 @@ export type Database = {
           country?: string
           id?: string
           song_title?: string
-          start_position?: number
+          start_position?: number | null
           starting_contest?: string
           year_id?: string
           youtube_id?: string | null
