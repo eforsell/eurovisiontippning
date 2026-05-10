@@ -31,11 +31,9 @@ export function SortableItem(props: SortableItemProps) {
     WebkitTouchCallout: "none",
   };
 
-  const wrapperClasses = `p-4 mb-2 bg-card text-card-foreground border rounded shadow-sm flex items-center gap-4 transition-colors select-none ${
-    isDragging ? "opacity-50 border-primary relative z-50" : ""
-  } ${
-    props.isLocked ? "cursor-default" : "hover:bg-muted/50 cursor-grab active:cursor-grabbing"
-  }`;
+  const wrapperClasses = `p-4 mb-2 bg-card text-card-foreground border rounded shadow-sm flex items-center gap-4 transition-colors select-none ${isDragging ? "opacity-50 border-primary relative z-50" : ""
+    } ${props.isLocked ? "cursor-default" : "hover:bg-muted/50 cursor-grab active:cursor-grabbing"
+    }`;
 
   return (
     <div
@@ -50,8 +48,8 @@ export function SortableItem(props: SortableItemProps) {
           {props.rank}
         </div>
         {props.startPosition !== undefined && (
-          <div className="text-[10px] text-muted-foreground uppercase font-bold mt-1">
-            Start {props.startPosition ?? '-'}
+          <div className="text-[10px] text-muted-foreground uppercase justify-center font-bold mt-1">
+            Start&nbsp;{props.startPosition ?? '-'}
           </div>
         )}
       </div>
@@ -62,7 +60,7 @@ export function SortableItem(props: SortableItemProps) {
           {props.artist} - {props.song_title}
         </div>
       </div>
-      
+
       {props.finalRank !== undefined && props.points !== undefined && (
         <div className="flex items-center gap-3 shrink-0">
           <div className="flex flex-col items-end">

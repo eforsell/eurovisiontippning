@@ -1,5 +1,23 @@
 import { FC, useState, useEffect, useRef } from 'react';
 import { Database } from '../../types/database.types';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { restrictToVerticalAxis, restrictToWindowEdges } from "@dnd-kit/modifiers";
+import { SortableItem } from "../Ranking/SortableItem";
 
 type Entry = Database['public']['Tables']['entries']['Row'];
 
@@ -16,7 +34,8 @@ export const FinalRankingManager: FC<FinalRankingManagerProps> = ({
   semi2ProgressedIds, 
   onSave 
 }) => {
-  const [rankedEntries, setRankedEntries] = useState<Entry[]>([]);
+  const [items, setItems] = useState<string[]>([]);
+  const [finalists, setFinalists] = useState<Entry[]>([]);
   const hasInitialized = useRef(false);
 
   useEffect(() => {
@@ -24,70 +43,91 @@ export const FinalRankingManager: FC<FinalRankingManagerProps> = ({
     const finalEntries = entries.filter(e => e.starting_contest === 'final');
     
     // 2. Get entries that progressed from semi1
-    const semi1Entries = entries.filter(e => semi1ProgressedIds.includes(e.id));
+    const semi1Qualifiers = entries.filter(e => e.starting_contest === 'semi1' && semi1ProgressedIds.includes(e.id));
     
     // 3. Get entries that progressed from semi2
-    const semi2Entries = entries.filter(e => semi2ProgressedIds.includes(e.id));
+    const semi2Qualifiers = entries.filter(e => e.starting_contest === 'semi2' && semi2ProgressedIds.includes(e.id));
     
-    // 4. Combine them
-    const combined = [...finalEntries, ...semi1Entries, ...semi2Entries];
+    // Combine all
+    const allFinalists = [...finalEntries, ...semi1Qualifiers, ...semi2Qualifiers];
     
-    // Defer state update slightly to avoid synchronous cascade warnings during render cycle
-    const timeoutId = setTimeout(() => {
-      if (!hasInitialized.current) {
-         setRankedEntries(combined);
-         hasInitialized.current = true;
-      } else {
-         // Graceful drop: Remove entries that are no longer in the combined list
-         setRankedEntries(current => {
-           const validCurrent = current.filter(re => combined.some(ce => ce.id === re.id));
-           // Add any new entries that aren't in the current ranking
-           const newEntries = combined.filter(ce => !validCurrent.some(re => re.id === ce.id));
-           
-           // Only update if there's actually a change to avoid loops
-           if (validCurrent.length !== current.length || newEntries.length > 0) {
-              return [...validCurrent, ...newEntries];
-           }
-           return current;
-         });
-      }
-    }, 0);
+    // Sort them initially:
+    // If they have a final_start_position, use that.
+    // Otherwise, append to the end.
+    const sorted = allFinalists.sort((a, b) => {
+      if (a.final_start_position === null && b.final_start_position === null) return 0;
+      if (a.final_start_position === null) return 1;
+      if (b.final_start_position === null) return -1;
+      return a.final_start_position - b.final_start_position;
+    });
+
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setFinalists(sorted);
     
-    return () => clearTimeout(timeoutId);
+    if (!hasInitialized.current) {
+      setItems(sorted.map(e => e.id));
+      hasInitialized.current = true;
+    } else {
+      // Graceful drop: Remove entries that are no longer in the combined list
+      setItems(current => {
+        const validCurrent = current.filter(id => sorted.some(ce => ce.id === id));
+        // Add any new entries that aren't in the current ranking
+        const newEntries = sorted.filter(ce => !validCurrent.includes(ce.id)).map(e => e.id);
+        
+        if (validCurrent.length !== current.length || newEntries.length > 0) {
+           return [...validCurrent, ...newEntries];
+        }
+        return current;
+      });
+    }
   }, [entries, semi1ProgressedIds, semi2ProgressedIds]);
 
-  const moveEntryUp = (index: number) => {
-    if (index === 0) return;
-    const newRanking = [...rankedEntries];
-    const temp = newRanking[index - 1];
-    newRanking[index - 1] = newRanking[index];
-    newRanking[index] = temp;
-    setRankedEntries(newRanking);
-  };
+  const sensors = useSensors(
+    useSensor(MouseSensor, {
+      activationConstraint: {
+        distance: 5,
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 150,
+        tolerance: 10,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
+  );
 
-  const moveEntryDown = (index: number) => {
-    if (index === rankedEntries.length - 1) return;
-    const newRanking = [...rankedEntries];
-    const temp = newRanking[index + 1];
-    newRanking[index + 1] = newRanking[index];
-    newRanking[index] = temp;
-    setRankedEntries(newRanking);
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (over && active.id !== over.id) {
+      const oldIndex = items.indexOf(active.id as string);
+      const newIndex = items.indexOf(over.id as string);
+
+      setItems(arrayMove(items, oldIndex, newIndex));
+    }
   };
 
   const handleSave = () => {
-    const rankingData = rankedEntries.map((entry, index) => ({
-      entryId: entry.id,
+    const rankingData = items.map((id, index) => ({
+      entryId: id,
       rank: index + 1
     }));
     onSave(rankingData);
   };
+
+  if (items.length === 0) {
+    return <div className="text-gray-500">No finalists available. Mark semi-finals as progressed first.</div>;
+  }
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
         <div>
           <span className="text-sm text-gray-500 dark:text-gray-400">Total Finalists: </span>
-          <span className="font-bold text-lg">{rankedEntries.length}</span>
+          <span className="font-bold text-lg">{items.length}</span>
         </div>
         
         <button
@@ -98,47 +138,35 @@ export const FinalRankingManager: FC<FinalRankingManagerProps> = ({
         </button>
       </div>
 
-      <div>
-        <h3 className="text-lg font-medium mb-3">Ranking Order (Top is 1st)</h3>
-        {/* Simplified ranking UI for MVP without full dnd-kit yet */}
-        <ul className="space-y-2">
-          {rankedEntries.map((entry, index) => (
-            <li 
-              key={entry.id}
-              className="p-3 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg flex justify-between items-center"
-            >
-              <div className="flex items-center space-x-4">
-                <span className="font-bold text-xl text-gray-400 w-8 text-center">{index + 1}</span>
-                <div>
-                  <span className="font-bold text-gray-400 dark:text-gray-500 mr-3 w-4 inline-block text-center">{entry.start_position !== null ? entry.start_position : '-'}</span>
-                  <span className="font-bold">{entry.country}</span>
-                  <span className="text-sm text-gray-500 ml-2">{entry.artist}</span>
-                  <span className="text-xs ml-2 px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400">
-                    {entry.starting_contest === 'final' ? 'Auto-Qualifier' : entry.starting_contest === 'semi1' ? 'Semi 1' : 'Semi 2'}
-                  </span>
-                </div>
-              </div>
-              <div className="flex flex-col space-y-1">
-                <button 
-                  onClick={() => moveEntryUp(index)}
-                  disabled={index === 0}
-                  className="px-2 py-1 text-sm bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 rounded disabled:opacity-50"
-                  aria-label="Move up"
-                >
-                  ▲
-                </button>
-                <button 
-                  onClick={() => moveEntryDown(index)}
-                  disabled={index === rankedEntries.length - 1}
-                  className="px-2 py-1 text-sm bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 rounded disabled:opacity-50"
-                  aria-label="Move down"
-                >
-                  ▼
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
+      <div className="bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden p-4">
+        <h3 className="text-lg font-medium mb-4 ml-1 text-gray-700 dark:text-gray-300">Ranking Order (Top is 1st)</h3>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+          modifiers={[restrictToVerticalAxis, restrictToWindowEdges]}
+        >
+          <SortableContext items={items} strategy={verticalListSortingStrategy}>
+            <div className="flex flex-col">
+              {items.map((id, index) => {
+                const entry = finalists.find(e => e.id === id);
+                if (!entry) return null;
+                
+                return (
+                  <SortableItem
+                    key={id}
+                    id={id}
+                    rank={index + 1}
+                    country={entry.country}
+                    artist={entry.artist}
+                    song_title={entry.song_title}
+                    startPosition={entry.final_start_position ?? 'TBD'}
+                  />
+                );
+              })}
+            </div>
+          </SortableContext>
+        </DndContext>
       </div>
     </div>
   );
