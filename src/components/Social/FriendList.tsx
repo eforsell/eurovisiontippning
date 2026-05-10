@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useFriends } from "../../hooks/useFriends";
 import { supabase } from "../../lib/supabase";
 
 export const FriendList: React.FC = () => {
-  const { friends, loading, sendRequest, acceptRequest, removeFriend, userId } = useFriends();
+  const { friends, loading, sendRequest, acceptRequest, removeFriend, userId, isPrivate } = useFriends();
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState<{ id: string; name?: string; email?: string }[]>([]);
   const [searching, setSearching] = useState(false);
@@ -27,6 +28,24 @@ export const FriendList: React.FC = () => {
   }, [searchInput]);
 
   if (loading) return <div>Loading friends...</div>;
+
+  if (isPrivate) {
+    return (
+      <div className="p-8 border rounded bg-card text-card-foreground shadow-sm flex flex-col items-center text-center">
+        <div className="text-4xl mb-4">🔒</div>
+        <h3 className="text-xl font-bold mb-2">Private Account</h3>
+        <p className="text-muted-foreground mb-4 max-w-md">
+          Your account is set to Private, so you can't add friends or receive friend requests.
+        </p>
+        <Link 
+          to="/account" 
+          className="text-primary hover:underline font-medium"
+        >
+          Change this on your Account page
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="p-4 border rounded bg-card text-card-foreground shadow-sm">

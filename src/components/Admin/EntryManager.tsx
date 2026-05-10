@@ -11,6 +11,11 @@ interface EntryManagerProps {
   onImport: (jsonData: Record<string, unknown>[]) => Promise<void>;
 }
 
+const SortIcon = ({ field, sortField, sortDirection }: { field: SortField, sortField: SortField, sortDirection: 'asc' | 'desc' }) => {
+  if (sortField !== field) return <span className="ml-1 opacity-20">↕</span>;
+  return <span className="ml-1">{sortDirection === 'asc' ? '↑' : '↓'}</span>;
+};
+
 export const EntryManager: FC<EntryManagerProps> = ({ entries, onSave, onDelete, onImport }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [showImport, setShowImport] = useState(false);

@@ -213,7 +213,7 @@ export const AdminView = () => {
                 entries={entries}
                 targetCount={yearData.semi1_progression_target}
                 initialProgressedIds={semi1Progressed}
-                contestStartTime={yearData.semi1_date}
+                contestStartTime={yearData.semi1_start}
                 onSave={handleSemi1ProgressionSave}
               />
             </div>
@@ -227,7 +227,7 @@ export const AdminView = () => {
                 entries={entries}
                 targetCount={yearData.semi2_progression_target}
                 initialProgressedIds={semi2Progressed}
-                contestStartTime={yearData.semi2_date}
+                contestStartTime={yearData.semi2_start}
                 onSave={handleSemi2ProgressionSave}
               />
             </div>

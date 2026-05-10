@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { Database } from "../types/database.types";
+// @ts-expect-error No type definitions available
 import hexToHsl from "hex-to-hsl";
 import { supabase } from "../lib/supabase";
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ThemeProvider } from "./store/ThemeContext";
 import { LandingPage } from "./pages/LandingPage";
 import { SemifinalView } from "./pages/SemifinalView";

@@ -68,6 +68,7 @@ export type Database = {
         Row: {
           artist: string
           country: string
+          final_start_position: number | null
           id: string
           song_title: string
           start_position: number | null
@@ -78,6 +79,7 @@ export type Database = {
         Insert: {
           artist: string
           country: string
+          final_start_position?: number | null
           id?: string
           song_title: string
           start_position?: number | null
@@ -88,6 +90,7 @@ export type Database = {
         Update: {
           artist?: string
           country?: string
+          final_start_position?: number | null
           id?: string
           song_title?: string
           start_position?: number | null
@@ -315,13 +318,14 @@ export type Database = {
       }
       delete_user_account: { Args: never; Returns: undefined }
       get_friend_leaderboard: {
-        Args: { user_uid: string }
+        Args: { p_year_id: string; user_uid: string }
         Returns: {
           email: string
           id: string
           name: string
           rank: number
           score: number
+          score_breakdown: Json
         }[]
       }
       get_leaderboard: {

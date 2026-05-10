@@ -11,6 +11,7 @@ export function useFriends() {
   const [friends, setFriends] = useState<Friend[]>([]);
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState<string | null>(null);
+  const [isPrivate, setIsPrivate] = useState<boolean>(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -21,6 +22,17 @@ export function useFriends() {
   const fetchFriends = async () => {
     if (!userId) return;
     setLoading(true);
+
+    const { data: profileData } = await supabase
+      .from("profiles")
+      .select("is_private")
+      .eq("id", userId)
+      .single();
+
+    if (profileData) {
+      setIsPrivate(profileData.is_private);
+    }
+
     const { data, error } = await supabase
       .from("friends")
       .select("*")
@@ -87,5 +99,5 @@ export function useFriends() {
     if (!error) fetchFriends();
   };
 
-  return { friends, loading, sendRequest, acceptRequest, removeFriend, userId };
+  return { friends, loading, sendRequest, acceptRequest, removeFriend, userId, isPrivate };
 }

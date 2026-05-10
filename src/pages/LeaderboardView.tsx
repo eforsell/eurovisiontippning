@@ -35,22 +35,22 @@ export const LeaderboardView: React.FC = () => {
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
-      if (!userId) return;
+      if (!userId || !activeYear) return;
 
       const { data: rpcData, error: rpcError } = await supabase.rpc(
         "get_friend_leaderboard",
-        { user_uid: userId, p_year_id: activeYear?.id },
+        { user_uid: userId, p_year_id: activeYear.id },
       );
 
       if (rpcData && !rpcError) {
         setLeaderboard(
-          rpcData.map((row: { id: string; email: string; name: string; score: number; rank: number; score_breakdown: ScoreBreakdown }) => ({
+          (rpcData as any[]).map((row) => ({
             userId: row.id,
             email: row.email,
             name: row.name,
             totalPoints: row.score,
             rank: row.rank,
-            scoreBreakdown: row.score_breakdown,
+            scoreBreakdown: row.score_breakdown as ScoreBreakdown,
           })),
         );
       }
@@ -157,7 +157,7 @@ export const LeaderboardView: React.FC = () => {
   );
 
   const renderContest = () => {
-    const displayEntries = [...entries].sort((a, b) => a.start_position - b.start_position);
+    const displayEntries = [...entries].sort((a, b) => (a.start_position || 999) - (b.start_position || 999));
 
     return (
       <div className="space-y-2 pb-12">

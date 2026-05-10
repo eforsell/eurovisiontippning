@@ -27,7 +27,9 @@ export const FinalView: React.FC = () => {
   const { activeYear } = useTheme();
   const deadline = activeYear?.final_start;
   const isLocked = deadline ? new Date(deadline).getTime() <= new Date().getTime() : false;
-  const isCompleted = activeYear?.final_completed ?? false;
+  // We don't have a final_completed flag right now, so we assume it's completed if deadline has passed AND we have results
+  // For safety, let's just use whether we actually have results mapped as the decider below
+  const isCompleted = false;
 
   const { entries, loading: entriesLoading } = useEntries("final");
   const { results, loading: resultsLoading } = useResults();
@@ -56,15 +58,14 @@ export const FinalView: React.FC = () => {
     if (entries.length > 0 && predictions && (!initialized || isCompleted)) {
       const rankedMap = new Map(predictions.map((p) => [p.entry_id, p.rank]));
       const resultMap = new Map(results.map((r) => [r.entry_id, r.final_rank]));
+      const hasFinalResults = results.some(r => r.final_rank !== null);
 
       const sorted = [...entries].sort((a, b) => {
         // If final is completed and we have results, sort by actual final_rank
-        if (isCompleted) {
-          const finalRankA = resultMap.get(a.id);
-          const finalRankB = resultMap.get(b.id);
-          if (finalRankA !== undefined && finalRankB !== undefined) {
-            return finalRankA - finalRankB;
-          }
+        if (hasFinalResults) {
+          const finalRankA = resultMap.get(a.id) ?? 999;
+          const finalRankB = resultMap.get(b.id) ?? 999;
+          return finalRankA - finalRankB;
         }
 
         // Otherwise sort by user prediction or final_start_position
@@ -73,10 +74,10 @@ export const FinalView: React.FC = () => {
         if (rankA !== rankB) return rankA - rankB;
         
         // Use final_start_position, placing nulls at the end
-        if (a.final_start_position === null && b.final_start_position === null) return 0;
-        if (a.final_start_position === null) return 1;
-        if (b.final_start_position === null) return -1;
-        return a.final_start_position - b.final_start_position;
+        if ((a as any).final_start_position == null && (b as any).final_start_position == null) return 0;
+        if ((a as any).final_start_position == null) return 1;
+        if ((b as any).final_start_position == null) return -1;
+        return ((a as any).final_start_position as number) - ((b as any).final_start_position as number);
       });
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setItems(sorted.map((e) => e.id));
@@ -141,6 +142,8 @@ export const FinalView: React.FC = () => {
     );
   }
 
+  const hasFinalResults = results.some(r => r.final_rank !== null);
+
   return (
     <div className="flex flex-col max-w-3xl mx-auto gap-6 p-4">
       <div className="flex justify-between items-start sm:items-center sticky top-0 bg-background/95 backdrop-blur py-4 z-20 border-b gap-4">
@@ -169,11 +172,11 @@ export const FinalView: React.FC = () => {
               let points: number | undefined;
               let finalRank: number | undefined;
 
-              if (isCompleted) {
+              if (hasFinalResults) {
                 const result = results.find(r => r.entry_id === entry.id);
                 const prediction = predictions.find(p => p.entry_id === entry.id);
                 
-                if (result?.final_rank !== undefined && result?.final_rank !== null && prediction) {
+                if (result?.final_rank != null && prediction?.rank != null) {
                   finalRank = result.final_rank;
                   points = scoringService.calculateFinalPoints(prediction.rank, result.final_rank);
                 }
@@ -187,10 +190,10 @@ export const FinalView: React.FC = () => {
                   country={entry.country}
                   artist={entry.artist}
                   song_title={entry.song_title}
-                  isLocked={isLocked || isCompleted}
+                  isLocked={isLocked || hasFinalResults}
                   points={points}
                   finalRank={finalRank}
-                  startPosition={entry.final_start_position ?? 'TBD'}
+                  startPosition={(entry as any).final_start_position ?? 'TBD'}
                 />
               );
             })}
