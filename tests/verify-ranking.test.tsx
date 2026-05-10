@@ -40,7 +40,11 @@ vi.mock("../src/hooks/useResults", () => ({
 
 vi.mock("../src/store/ThemeContext", () => ({
   useTheme: vi.fn(() => ({
-    activeYear: { betting_started: true },
+    activeYear: { 
+      betting_started: true,
+      semi1_progression_target: 0,
+      semi2_progression_target: 0
+    },
   })),
 }));
 

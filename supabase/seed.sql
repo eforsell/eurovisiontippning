@@ -1,6 +1,6 @@
 -- Seed mock 2026 Eurovision data
 WITH new_year AS (
-  INSERT INTO public.years (id, year, semi1_start, semi2_start, final_start, primary_color, secondary_color, logo_url, location, semi1_progression_target, semi2_progression_target, semi1_completed, semi2_completed)
+  INSERT INTO public.years (id, year, semi1_start, semi2_start, final_start, primary_color, secondary_color, logo_url, location, semi1_progression_target, semi2_progression_target)
   VALUES (
     '00000000-0000-0000-0000-000000002026', 
     2026, 
@@ -12,9 +12,7 @@ WITH new_year AS (
     '/logo.png',
     'TBD',
     10,
-    10,
-    false,
-    false
+    10
   )
   RETURNING id
 )

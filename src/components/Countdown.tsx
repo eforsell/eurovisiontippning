@@ -42,7 +42,7 @@ export const Countdown: React.FC<CountdownProps> = ({ targetDateIso }) => {
   if (!timeLeft) return <div>Loading timer...</div>;
 
   if (timeLeft.isClosed) {
-    return <div className="text-destructive font-bold">Voting is closed!</div>;
+    return <div />;
   }
 
   return (

@@ -20,7 +20,9 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
     loading: predictionsLoading,
   } = usePredictions(predictionType);
 
-  const isCompleted = semiFinal === 1 ? activeYear?.semi1_completed : activeYear?.semi2_completed;
+  const progressedCount = results.filter(r => semiFinal === 1 ? r.is_semi1_qualifier : r.is_semi2_qualifier).length;
+  const targetCount = semiFinal === 1 ? activeYear?.semi1_progression_target : activeYear?.semi2_progression_target;
+  const isCompleted = activeYear && progressedCount === targetCount;
 
   const selectedCount = useMemo(() => {
     return predictions.filter((p) => p.is_qualifier).length;

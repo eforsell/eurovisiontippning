@@ -265,10 +265,8 @@ export type Database = {
           logo_url: string | null
           primary_color: string
           secondary_color: string
-          semi1_completed: boolean
           semi1_progression_target: number
           semi1_start: string
-          semi2_completed: boolean
           semi2_progression_target: number
           semi2_start: string
           year: number
@@ -281,10 +279,8 @@ export type Database = {
           logo_url?: string | null
           primary_color: string
           secondary_color: string
-          semi1_completed?: boolean
           semi1_progression_target?: number
           semi1_start: string
-          semi2_completed?: boolean
           semi2_progression_target?: number
           semi2_start: string
           year: number
@@ -297,10 +293,8 @@ export type Database = {
           logo_url?: string | null
           primary_color?: string
           secondary_color?: string
-          semi1_completed?: boolean
           semi1_progression_target?: number
           semi1_start?: string
-          semi2_completed?: boolean
           semi2_progression_target?: number
           semi2_start?: string
           year?: number

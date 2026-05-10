@@ -13,8 +13,6 @@ describe('MetadataForm', () => {
     final_start: '2026-05-16T19:00:00Z',
     semi1_progression_target: 10,
     semi2_progression_target: 10,
-    semi1_completed: false,
-    semi2_completed: false,
     primary_color: '#000000',
     secondary_color: '#ffffff',
     logo_url: '/logo.png'

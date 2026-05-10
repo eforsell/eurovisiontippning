@@ -117,9 +117,6 @@ export const AdminView = () => {
   const handleSemi1ProgressionSave = async (progressedIds: string[]) => {
     if (!yearData) return;
     setSemi1Progressed(progressedIds);
-    setYearData(prev => prev ? { ...prev, semi1_completed: true } : null);
-    
-    await supabase.from('years').update({ semi1_completed: true }).eq('id', yearData.id);
     
     // Reset all semi1 entries first
     const semi1Entries = entries.filter(e => e.starting_contest === 'semi1').map(e => e.id);
@@ -133,9 +130,6 @@ export const AdminView = () => {
   const handleSemi2ProgressionSave = async (progressedIds: string[]) => {
     if (!yearData) return;
     setSemi2Progressed(progressedIds);
-    setYearData(prev => prev ? { ...prev, semi2_completed: true } : null);
-    
-    await supabase.from('years').update({ semi2_completed: true }).eq('id', yearData.id);
     
     // Reset all semi2 entries first
     const semi2Entries = entries.filter(e => e.starting_contest === 'semi2').map(e => e.id);

@@ -39,20 +39,17 @@ export const FinalView: React.FC = () => {
     loading: predictionsLoading,
   } = usePredictions("final");
 
-  // In a real app we'd fetch the semis prediction states from the database. 
-  // We'll mock the check for T028 to satisfy the requirement until backend is fully hooked up.
-  const [semisComplete, setSemisComplete] = useState(false);
+  // Determine if both semifinals are complete by checking if the required number of entries have progressed
+  const semi1ProgressedCount = results.filter(r => r.is_semi1_qualifier).length;
+  const semi2ProgressedCount = results.filter(r => r.is_semi2_qualifier).length;
+  
+  const semisComplete = 
+    activeYear &&
+    semi1ProgressedCount === activeYear.semi1_progression_target && 
+    semi2ProgressedCount === activeYear.semi2_progression_target;
 
   const [items, setItems] = useState<string[]>([]);
   const [initialized, setInitialized] = useState(false);
-
-  useEffect(() => {
-    // Mocking check: assume if we have 26 entries the final is ready
-    if (entries.length >= 26) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setSemisComplete(true);
-    }
-  }, [entries]);
 
   useEffect(() => {
     if (entries.length > 0 && predictions && (!initialized || isCompleted)) {
@@ -143,6 +140,7 @@ export const FinalView: React.FC = () => {
   }
 
   const hasFinalResults = results.some(r => r.final_rank !== null);
+  const hasStartOrder = entries.some(e => e.final_start_position !== null);
 
   return (
     <div className="flex flex-col max-w-3xl mx-auto gap-6 p-4">
@@ -151,7 +149,11 @@ export const FinalView: React.FC = () => {
           <h2 className="text-2xl font-bold">Grand Final</h2>
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 mt-2">
             <p className="text-muted-foreground text-sm sm:text-base">
-              {isLocked ? "Betting is closed. Results will appear below." : "Drag and drop to rank your favorites"}
+              {isLocked 
+                ? "Betting is closed. Results will appear below." 
+                : hasStartOrder 
+                  ? "Drag and drop to rank your favorites"
+                  : "Waiting for official start order. You can drag and drop to rank your favorites now."}
             </p>
             {deadline && <Countdown targetDateIso={deadline} />}
           </div>
