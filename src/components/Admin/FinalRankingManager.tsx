@@ -25,13 +25,15 @@ interface FinalRankingManagerProps {
   entries: Entry[];
   semi1ProgressedIds: string[];
   semi2ProgressedIds: string[];
+  finalRanks?: Record<string, number>;
   onSave: (ranking: { entryId: string; rank: number }[]) => void;
 }
 
 export const FinalRankingManager: FC<FinalRankingManagerProps> = ({ 
   entries, 
   semi1ProgressedIds, 
-  semi2ProgressedIds, 
+  semi2ProgressedIds,
+  finalRanks = {},
   onSave 
 }) => {
   const [items, setItems] = useState<string[]>([]);
@@ -52,9 +54,17 @@ export const FinalRankingManager: FC<FinalRankingManagerProps> = ({
     const allFinalists = [...finalEntries, ...semi1Qualifiers, ...semi2Qualifiers];
     
     // Sort them initially:
-    // If they have a final_start_position, use that.
+    // If they have a finalRank, use that.
+    // Otherwise, if they have a final_start_position, use that.
     // Otherwise, append to the end.
     const sorted = allFinalists.sort((a, b) => {
+      const rankA = finalRanks[a.id];
+      const rankB = finalRanks[b.id];
+      
+      if (rankA !== undefined && rankB !== undefined) return rankA - rankB;
+      if (rankA !== undefined) return -1;
+      if (rankB !== undefined) return 1;
+
       if (a.final_start_position === null && b.final_start_position === null) return 0;
       if (a.final_start_position === null) return 1;
       if (b.final_start_position === null) return -1;
@@ -80,7 +90,7 @@ export const FinalRankingManager: FC<FinalRankingManagerProps> = ({
         return current;
       });
     }
-  }, [entries, semi1ProgressedIds, semi2ProgressedIds]);
+  }, [entries, semi1ProgressedIds, semi2ProgressedIds, finalRanks]);
 
   const sensors = useSensors(
     useSensor(MouseSensor, {

@@ -19,6 +19,7 @@ export const AdminView = () => {
   const [entries, setEntries] = useState<Entry[]>([]);
   const [semi1Progressed, setSemi1Progressed] = useState<string[]>([]);
   const [semi2Progressed, setSemi2Progressed] = useState<string[]>([]);
+  const [finalRanks, setFinalRanks] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -36,6 +37,14 @@ export const AdminView = () => {
         if (resultsRes) {
           setSemi1Progressed(resultsRes.filter(r => r.is_semi1_qualifier).map(r => r.entry_id));
           setSemi2Progressed(resultsRes.filter(r => r.is_semi2_qualifier).map(r => r.entry_id));
+          
+          const ranks: Record<string, number> = {};
+          resultsRes.forEach(r => {
+            if (r.final_rank !== null) {
+              ranks[r.entry_id] = r.final_rank;
+            }
+          });
+          setFinalRanks(ranks);
         }
       }
       setLoading(false);
@@ -154,6 +163,13 @@ export const AdminView = () => {
      for (const r of ranking) {
        await supabase.from('results').upsert({ year_id: yearData.id, entry_id: r.entryId, final_rank: r.rank }, { onConflict: 'year_id, entry_id' });
      }
+     
+     const newRanks: Record<string, number> = {};
+     ranking.forEach(r => {
+       newRanks[r.entryId] = r.rank;
+     });
+     setFinalRanks(newRanks);
+     
      alert('Final ranking saved!');
   };
 
@@ -264,6 +280,7 @@ export const AdminView = () => {
                 entries={entries}
                 semi1ProgressedIds={semi1Progressed}
                 semi2ProgressedIds={semi2Progressed}
+                finalRanks={finalRanks}
                 onSave={handleFinalRankingSave}
               />
             </div>

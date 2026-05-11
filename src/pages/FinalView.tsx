@@ -59,14 +59,7 @@ export const FinalView: React.FC = () => {
       const hasFinalResults = results.some(r => r.final_rank !== null);
 
       const sorted = [...entries].sort((a, b) => {
-        // If final is completed and we have results, sort by actual final_rank
-        if (hasFinalResults) {
-          const finalRankA = resultMap.get(a.id) ?? 999;
-          const finalRankB = resultMap.get(b.id) ?? 999;
-          return finalRankA - finalRankB;
-        }
-
-        // Otherwise sort by user prediction or final_start_position
+        // Sort by user prediction or final_start_position
         const rankA = rankedMap.get(a.id) || 999;
         const rankB = rankedMap.get(b.id) || 999;
         if (rankA !== rankB) return rankA - rankB;
@@ -144,13 +137,15 @@ export const FinalView: React.FC = () => {
   const hasStartOrder = entries.some(e => e.final_start_position !== null);
 
   const totalScore = hasFinalResults 
-    ? items.reduce((acc, id, index) => {
+    ? items.reduce((acc, id) => {
         const entry = entries.find((e) => e.id === id);
         if (!entry) return acc;
         const result = results.find(r => r.entry_id === entry.id);
+        const prediction = predictions.find(p => p.entry_id === entry.id);
         const finalRank = result?.final_rank ?? undefined;
-        if (finalRank !== undefined) {
-          const predictedRank = index + 1;
+        const predictedRank = prediction?.rank ?? undefined;
+        
+        if (finalRank !== undefined && predictedRank !== undefined) {
           const distance = Math.abs(predictedRank - finalRank);
           return acc + Math.max(0, 26 - distance);
         }
@@ -202,9 +197,13 @@ export const FinalView: React.FC = () => {
                 const result = results.find(r => r.entry_id === entry.id);
                 const prediction = predictions.find(p => p.entry_id === entry.id);
                 
-                if (result?.final_rank != null && prediction?.rank != null) {
+                if (result?.final_rank != null) {
                   finalRank = result.final_rank;
-                  points = scoringService.calculateFinalPoints(prediction.rank, result.final_rank);
+                  if (prediction?.rank != null) {
+                    points = scoringService.calculateFinalPoints(prediction.rank, result.final_rank);
+                  } else {
+                    points = 0;
+                  }
                 }
               }
 

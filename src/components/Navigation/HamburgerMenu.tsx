@@ -66,7 +66,7 @@ export function HamburgerMenu({ isAdmin, onLogout }: HamburgerMenuProps) {
         <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-900 rounded-md shadow-lg py-1 z-50 border border-gray-200 dark:border-gray-700">
           {navItem("/", "Home")}
           {navItem("/tippning", "Tippning")}
-          {navItem("/sharing", "Sharing")}
+          {navItem("/sharing", "Sharing & points")}
           {navItem("/account", "Account")}
           {isAdmin && navItem("/admin", "Admin")}
           <hr className="my-1 border-gray-200 dark:border-gray-700" />

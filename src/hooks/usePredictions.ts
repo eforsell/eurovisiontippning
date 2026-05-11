@@ -70,7 +70,7 @@ export function usePredictions(type: PredictionType) {
         is_qualifier: isQualifier,
         type,
       },
-      { onConflict: "user_id, entry_id" },
+      { onConflict: "user_id, entry_id, type" },
     );
 
     if (error) {
@@ -119,7 +119,7 @@ export function usePredictions(type: PredictionType) {
 
     const { error } = await supabase
       .from("predictions")
-      .upsert(updates, { onConflict: "user_id, entry_id" });
+      .upsert(updates, { onConflict: "user_id, entry_id, type" });
 
     if (error) {
       console.error("Error updating ranks:", error);

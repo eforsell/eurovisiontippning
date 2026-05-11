@@ -54,9 +54,9 @@ export function SortableItem(props: SortableItemProps) {
         )}
       </div>
 
-      <div className="flex-1 min-w-0">
-        <div className="font-bold truncate">{props.country}</div>
-        <div className="text-sm text-muted-foreground truncate">
+      <div className="flex-1 min-w-0 text-center">
+        <div className="font-bold text-lg truncate">{props.country}</div>
+        <div className="text-muted-foreground truncate">
           {props.artist} - {props.song_title}
         </div>
       </div>

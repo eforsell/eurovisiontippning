@@ -157,13 +157,25 @@ export const LeaderboardView: React.FC = () => {
   );
 
   const renderContest = () => {
-    const displayEntries = [...entries].sort((a, b) => (a.start_position || 999) - (b.start_position || 999));
+    const displayEntries = [...entries].sort((a, b) => {
+      if (activeTab === 'final') {
+        return (a.final_start_position || 999) - (b.final_start_position || 999);
+      }
+      return (a.start_position || 999) - (b.start_position || 999);
+    });
 
     return (
       <div className="space-y-2 pb-12">
         {displayEntries.map(entry => {
           const isExpanded = expandedEntry === entry.id;
-          const entryPredictions = predictions.filter(p => p.entry_id === entry.id);
+          const entryPredictions = predictions.filter(p => {
+            if (p.entry_id !== entry.id) return false;
+            if (activeTab === 'semi1' || activeTab === 'semi2') {
+              return p.is_qualifier === true;
+            }
+            return true;
+          });
+          const startPos = activeTab === 'final' ? entry.final_start_position : entry.start_position;
 
           return (
             <div key={entry.id} className="border rounded bg-card text-card-foreground overflow-hidden">
@@ -172,7 +184,7 @@ export const LeaderboardView: React.FC = () => {
                 onClick={() => setExpandedEntry(isExpanded ? null : entry.id)}
               >
                 <div>
-                  <span className="font-bold mr-3 text-muted-foreground">{entry.start_position}</span>
+                  <span className="font-bold mr-3 text-muted-foreground">{startPos ?? '-'}</span>
                   <span className="font-semibold">{entry.country}</span>
                   <span className="text-sm text-muted-foreground ml-2 hidden sm:inline">({entry.artist})</span>
                 </div>
@@ -193,7 +205,7 @@ export const LeaderboardView: React.FC = () => {
                           <li key={p.id} className="flex justify-between text-sm">
                             <span>{displayName}</span>
                             <span className="font-semibold">
-                              {activeTab === 'final' ? `Rank ${p.rank}` : (p.is_qualifier ? 'Qualifies' : 'Does not qualify')}
+                              {activeTab === 'final' ? `Rank ${p.rank}` : 'Qualifies'}
                             </span>
                           </li>
                         );
