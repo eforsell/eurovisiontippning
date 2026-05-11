@@ -101,8 +101,8 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
       <div
         key={entry.id}
         className={`relative p-4 border rounded flex flex-col items-center justify-center transition-all text-center ${entryStyling} ${isLocked
-            ? "pointer-events-none cursor-default"
-            : `cursor-pointer`
+          ? "pointer-events-none cursor-default"
+          : `cursor-pointer`
           } ${shakeEntryId === entry.id ? "animate-shake" : ""}`}
         onClick={() => handleToggle(entry.id, isSelected)}
       >
@@ -149,7 +149,7 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 mt-2">
             <p className="text-muted-foreground text-sm sm:text-base">
               {isLocked
-                ? (isCompleted ? "Betting is closed" : "Betting is closed. Waiting for results.")
+                ? (isCompleted ? "Betting is closed." : "Betting is closed. Waiting for results.")
                 : "Select your 10 qualifiers"}
             </p>
             {deadline && <Countdown targetDateIso={deadline} />}
@@ -174,14 +174,14 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
       {isCompleted ? (
         <>
           <div>
-            <h3 className="text-xl font-semibold mb-3 text-center sm:text-left">Progressed</h3>
+            <h3 className="text-xl font-semibold mb-3 text-center sm:text-left">Qualified</h3>
             <div className="grid gap-3">
               {progressedEntries.map(renderEntry)}
             </div>
           </div>
           <hr className="my-2 border-border" />
           <div>
-            <h3 className="text-xl font-semibold mb-3 text-center sm:text-left">Not Progressed</h3>
+            <h3 className="text-xl font-semibold mb-3 text-center sm:text-left">Did not qualify</h3>
             <div className="grid gap-3">
               {notProgressedEntries.map(renderEntry)}
             </div>

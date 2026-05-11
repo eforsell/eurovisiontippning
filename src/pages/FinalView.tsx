@@ -43,10 +43,10 @@ export const FinalView: React.FC = () => {
   // Determine if both semifinals are complete by checking if the required number of entries have progressed
   const semi1ProgressedCount = results.filter(r => r.is_semi1_qualifier).length;
   const semi2ProgressedCount = results.filter(r => r.is_semi2_qualifier).length;
-  
-  const semisComplete = 
+
+  const semisComplete =
     activeYear &&
-    semi1ProgressedCount === activeYear.semi1_progression_target && 
+    semi1ProgressedCount === activeYear.semi1_progression_target &&
     semi2ProgressedCount === activeYear.semi2_progression_target;
 
   const [items, setItems] = useState<string[]>([]);
@@ -61,7 +61,7 @@ export const FinalView: React.FC = () => {
       const rankA = rankedMap.get(a.id) || 999;
       const rankB = rankedMap.get(b.id) || 999;
       if (rankA !== rankB) return rankA - rankB;
-      
+
       if (a.final_start_position == null && b.final_start_position == null) return 0;
       if (a.final_start_position == null) return 1;
       if (b.final_start_position == null) return -1;
@@ -144,20 +144,20 @@ export const FinalView: React.FC = () => {
     );
   }
 
-  const totalScore = hasFinalResults 
+  const totalScore = hasFinalResults
     ? items.reduce((acc, id) => {
-        const entry = entries.find((e) => e.id === id);
-        if (!entry) return acc;
-        const result = results.find(r => r.entry_id === entry.id);
-        const prediction = predictions.find(p => p.entry_id === entry.id);
-        const finalRank = result?.final_rank ?? undefined;
-        const predictedRank = prediction?.rank ?? undefined;
-        
-        if (finalRank !== undefined && predictedRank !== undefined) {
-          return acc + scoringService.calculateFinalPoints(predictedRank, finalRank, items.length);
-        }
-        return acc;
-      }, 0)
+      const entry = entries.find((e) => e.id === id);
+      if (!entry) return acc;
+      const result = results.find(r => r.entry_id === entry.id);
+      const prediction = predictions.find(p => p.entry_id === entry.id);
+      const finalRank = result?.final_rank ?? undefined;
+      const predictedRank = prediction?.rank ?? undefined;
+
+      if (finalRank !== undefined && predictedRank !== undefined) {
+        return acc + scoringService.calculateFinalPoints(predictedRank, finalRank, items.length);
+      }
+      return acc;
+    }, 0)
     : null;
 
   return (
@@ -167,9 +167,9 @@ export const FinalView: React.FC = () => {
           <h2 className="text-2xl font-bold">Grand Final</h2>
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 mt-2">
             <p className="text-muted-foreground text-sm sm:text-base">
-              {isLocked 
-                ? (hasFinalResults ? "Betting is closed" : "Betting is closed. Waiting for results.") 
-                : hasStartOrder 
+              {isLocked
+                ? (hasFinalResults ? "Betting is closed." : "Betting is closed. Waiting for results.")
+                : hasStartOrder
                   ? "Drag and drop to rank your favorites"
                   : "Waiting for official start order. You can drag and drop to rank your favorites now."}
             </p>
@@ -196,7 +196,7 @@ export const FinalView: React.FC = () => {
             {items.map((id, index) => {
               const entry = entries.find((e) => e.id === id);
               if (!entry) return null;
-              
+
               let points: number | undefined;
               let finalRank: number | undefined;
               let calculationInfo: string | undefined;
@@ -205,7 +205,7 @@ export const FinalView: React.FC = () => {
               if (hasFinalResults) {
                 const result = results.find(r => r.entry_id === entry.id);
                 const prediction = predictions.find(p => p.entry_id === entry.id);
-                
+
                 if (result?.final_rank != null) {
                   finalRank = result.final_rank;
                   if (prediction?.rank != null) {
