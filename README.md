@@ -15,8 +15,8 @@ A web app to bet on the outcome of the Eurovision Song Contest.
 
 2. Set up environment variables. Create a `.env.local` file in the root of your project:
    ```env
-   VITE_SUPABASE_URL=your_supabase_project_url
-   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   SUPABASE_URL=your_supabase_project_url
+   SUPABASE_ANON_KEY=your_supabase_anon_key
    ```
    *You can find these values in your Supabase project dashboard under Settings -> API.*
 
