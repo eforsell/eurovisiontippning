@@ -73,6 +73,66 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
 
   const isValid = selectedCount === 10;
 
+  const renderEntry = (entry: typeof entries[0]) => {
+    const isSelected =
+      predictions.find((p) => p.entry_id === entry.id)?.is_qualifier ??
+      false;
+
+    const result = results.find((r) => r.entry_id === entry.id);
+    const hasProgressed = semiFinal === 1 ? result?.is_semi1_qualifier : result?.is_semi2_qualifier;
+
+    let scoreText = null;
+    let entryStyling = "hover:bg-muted/50 text-foreground bg-card border-border";
+
+    if (isCompleted) {
+      if (isSelected) {
+        entryStyling = "border-primary bg-primary/10 text-foreground shadow-sm";
+        if (hasProgressed) {
+          scoreText = "+3";
+        } else {
+          scoreText = "+0";
+        }
+      }
+    } else if (isSelected) {
+      entryStyling = "border-primary bg-primary/10 text-foreground shadow-sm";
+    }
+
+    return (
+      <div
+        key={entry.id}
+        className={`relative p-4 border rounded flex flex-col items-center justify-center transition-all text-center ${entryStyling} ${
+          isLocked
+            ? "pointer-events-none cursor-default"
+            : `cursor-pointer`
+        } ${shakeEntryId === entry.id ? "animate-shake" : ""}`}
+        onClick={() => handleToggle(entry.id, isSelected)}
+      >
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm bg-muted text-foreground">
+          {entry.start_position}
+        </div>
+        <div className="font-bold text-lg">{entry.country}</div>
+        <div className="text-muted-foreground">
+          {entry.artist} - {entry.song_title}
+        </div>
+        {scoreText && (
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 font-bold text-primary">
+            {scoreText}
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const progressedEntries = entries.filter((entry) => {
+    const result = results.find((r) => r.entry_id === entry.id);
+    return semiFinal === 1 ? result?.is_semi1_qualifier : result?.is_semi2_qualifier;
+  });
+
+  const notProgressedEntries = entries.filter((entry) => {
+    const result = results.find((r) => r.entry_id === entry.id);
+    return !(semiFinal === 1 ? result?.is_semi1_qualifier : result?.is_semi2_qualifier);
+  });
+
   return (
     <div className="flex flex-col max-w-3xl mx-auto gap-6 p-4">
       <div className="flex justify-between items-start sm:items-center sticky top-0 bg-background/95 backdrop-blur py-4 z-10 border-b gap-4">
@@ -92,64 +152,27 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
         )}
       </div>
 
-      <div className="grid gap-3">
-        {entries.map((entry) => {
-          const isSelected =
-            predictions.find((p) => p.entry_id === entry.id)?.is_qualifier ??
-            false;
-
-          const result = results.find((r) => r.entry_id === entry.id);
-          const hasProgressed = semiFinal === 1 ? result?.is_semi1_qualifier : result?.is_semi2_qualifier;
-          
-          let scoreText = null;
-          let entryStyling = "hover:bg-muted/50 text-foreground bg-card border-border";
-
-          if (isCompleted) {
-            if (hasProgressed && isSelected) {
-              // Bet & Progress: solid green
-              scoreText = "+3";
-              entryStyling = "border-green-600 bg-green-600 text-white shadow-sm";
-            } else if (hasProgressed && !isSelected) {
-              // No bet & Progress: see-through green
-              scoreText = "+0";
-              entryStyling = "border-green-500 bg-green-500/20 text-foreground shadow-sm";
-            } else if (!hasProgressed && isSelected) {
-              // Bet & No progress: see-through red
-              entryStyling = "border-red-500 bg-red-500/20 text-foreground shadow-sm";
-            } else {
-              // No bet & No progress: gray
-              entryStyling = "opacity-50 border-dashed border-gray-400 dark:border-gray-600 bg-muted/30 text-foreground";
-            }
-          } else if (isSelected) {
-            entryStyling = "border-primary bg-primary/10 text-foreground shadow-sm";
-          }
-
-          return (
-            <div
-              key={entry.id}
-              className={`relative p-4 border rounded flex flex-col items-center justify-center transition-all text-center ${entryStyling} ${
-                isLocked 
-                  ? "pointer-events-none cursor-default" 
-                  : `cursor-pointer`
-              } ${shakeEntryId === entry.id ? "animate-shake" : ""}`}
-              onClick={() => handleToggle(entry.id, isSelected)}
-            >
-              <div className={`absolute left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${isCompleted && hasProgressed && isSelected ? 'bg-green-700 text-white' : 'bg-muted text-foreground'}`}>
-                {entry.start_position}
-              </div>
-              <div className="font-bold text-lg">{entry.country}</div>
-              <div className={isCompleted && hasProgressed && isSelected ? "text-green-100" : "text-muted-foreground"}>
-                {entry.artist} - {entry.song_title}
-              </div>
-              {scoreText && (
-                <div className={`absolute right-4 top-1/2 -translate-y-1/2 font-bold ${isCompleted && hasProgressed && isSelected ? 'text-white' : 'text-green-600 dark:text-green-400'}`}>
-                  {scoreText}
-                </div>
-              )}
+      {isCompleted ? (
+        <>
+          <div>
+            <h3 className="text-xl font-semibold mb-3 text-center sm:text-left">Progressed</h3>
+            <div className="grid gap-3">
+              {progressedEntries.map(renderEntry)}
             </div>
-          );
-        })}
-      </div>
+          </div>
+          <hr className="my-2 border-border" />
+          <div>
+            <h3 className="text-xl font-semibold mb-3 text-center sm:text-left">Not Progressed</h3>
+            <div className="grid gap-3">
+              {notProgressedEntries.map(renderEntry)}
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className="grid gap-3">
+          {entries.map(renderEntry)}
+        </div>
+      )}
     </div>
   );
 };
