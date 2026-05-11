@@ -100,24 +100,32 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
     return (
       <div
         key={entry.id}
-        className={`relative p-4 border rounded flex flex-col items-center justify-center transition-all text-center ${entryStyling} ${isLocked
+        className={`p-3 sm:p-4 mb-2 border rounded flex items-center gap-2 sm:gap-4 transition-all select-none ${entryStyling} ${isLocked
           ? "pointer-events-none cursor-default"
           : `cursor-pointer`
           } ${shakeEntryId === entry.id ? "animate-shake" : ""}`}
         onClick={() => handleToggle(entry.id, isSelected)}
       >
-        <div className="absolute left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm bg-muted text-foreground">
-          {entry.start_position}
-        </div>
-        <div className="font-bold text-lg">{entry.country}</div>
-        <div className="text-muted-foreground">
-          {entry.artist} - {entry.song_title}
-        </div>
-        {scoreText && (
-          <div className="absolute right-4 top-1/2 -translate-y-1/2 font-bold text-primary">
-            {scoreText}
+        <div className="flex flex-col items-center justify-center w-20 sm:w-24 shrink-0">
+          <div className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm bg-muted text-foreground">
+            {entry.start_position}
           </div>
-        )}
+        </div>
+
+        <div className="flex-1 min-w-0 text-center px-1">
+          <div className="font-bold text-base sm:text-lg truncate">{entry.country}</div>
+          <div className="text-xs sm:text-sm text-muted-foreground truncate">
+            {entry.artist} - {entry.song_title}
+          </div>
+        </div>
+
+        <div className="w-20 sm:w-24 shrink-0 flex justify-end">
+          {scoreText && (
+            <div className="flex items-center">
+              <span className="font-bold text-xs sm:text-base text-primary">{scoreText}</span>
+            </div>
+          )}
+        </div>
       </div>
     );
   };
@@ -175,20 +183,20 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
         <>
           <div>
             <h3 className="text-xl font-semibold mb-3 text-center sm:text-left">Qualified</h3>
-            <div className="grid gap-3">
+            <div className="flex flex-col">
               {progressedEntries.map(renderEntry)}
             </div>
           </div>
           <hr className="my-2 border-border" />
           <div>
             <h3 className="text-xl font-semibold mb-3 text-center sm:text-left">Did not qualify</h3>
-            <div className="grid gap-3">
+            <div className="flex flex-col">
               {notProgressedEntries.map(renderEntry)}
             </div>
           </div>
         </>
       ) : (
-        <div className="grid gap-3">
+        <div className="flex flex-col">
           {entries.map(renderEntry)}
         </div>
       )}
