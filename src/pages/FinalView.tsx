@@ -143,6 +143,21 @@ export const FinalView: React.FC = () => {
   const hasFinalResults = results.some(r => r.final_rank !== null);
   const hasStartOrder = entries.some(e => e.final_start_position !== null);
 
+  const totalScore = hasFinalResults 
+    ? items.reduce((acc, id, index) => {
+        const entry = entries.find((e) => e.id === id);
+        if (!entry) return acc;
+        const result = results.find(r => r.entry_id === entry.id);
+        const finalRank = result?.final_rank ?? undefined;
+        if (finalRank !== undefined) {
+          const predictedRank = index + 1;
+          const distance = Math.abs(predictedRank - finalRank);
+          return acc + Math.max(0, 26 - distance);
+        }
+        return acc;
+      }, 0)
+    : null;
+
   return (
     <div className="flex flex-col max-w-3xl mx-auto gap-6 p-4">
       <div className="flex justify-between items-start sm:items-center sticky top-0 bg-background/95 backdrop-blur py-4 z-20 border-b gap-4">
@@ -151,7 +166,7 @@ export const FinalView: React.FC = () => {
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 mt-2">
             <p className="text-muted-foreground text-sm sm:text-base">
               {isLocked 
-                ? "Betting is closed. Results will appear below." 
+                ? (hasFinalResults ? "Betting is closed" : "Betting is closed. Waiting for results.") 
                 : hasStartOrder 
                   ? "Drag and drop to rank your favorites"
                   : "Waiting for official start order. You can drag and drop to rank your favorites now."}
@@ -160,6 +175,13 @@ export const FinalView: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {hasFinalResults && totalScore !== null && (
+        <div className="flex items-center justify-center p-4 bg-yellow-100 border border-yellow-200 text-yellow-800 dark:bg-yellow-900/30 dark:border-yellow-700/50 dark:text-yellow-200 rounded-lg">
+          <span className="text-lg">Your score:</span>
+          <span className="text-3xl font-bold ml-2">{totalScore} pts</span>
+        </div>
+      )}
 
       <DndContext
         sensors={sensors}

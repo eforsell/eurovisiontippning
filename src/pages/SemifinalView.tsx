@@ -133,13 +133,26 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
     return !(semiFinal === 1 ? result?.is_semi1_qualifier : result?.is_semi2_qualifier);
   });
 
+  const totalScore = isCompleted 
+    ? entries.reduce((acc, entry) => {
+        const isSelected = predictions.find((p) => p.entry_id === entry.id)?.is_qualifier ?? false;
+        const result = results.find((r) => r.entry_id === entry.id);
+        const hasProgressed = semiFinal === 1 ? result?.is_semi1_qualifier : result?.is_semi2_qualifier;
+        return acc + (isSelected && hasProgressed ? 3 : 0);
+      }, 0)
+    : null;
+
   return (
     <div className="flex flex-col max-w-3xl mx-auto gap-6 p-4">
       <div className="flex justify-between items-start sm:items-center sticky top-0 bg-background/95 backdrop-blur py-4 z-10 border-b gap-4">
         <div>
           <h2 className="text-2xl font-bold">Semifinal {semiFinal}</h2>
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 mt-2">
-            <p className="text-muted-foreground text-sm sm:text-base">{isLocked ? "Betting is closed" : "Select your 10 qualifiers"}</p>
+            <p className="text-muted-foreground text-sm sm:text-base">
+              {isLocked 
+                ? (isCompleted ? "Betting is closed" : "Betting is closed. Waiting for results.") 
+                : "Select your 10 qualifiers"}
+            </p>
             {deadline && <Countdown targetDateIso={deadline} />}
           </div>
         </div>
@@ -151,6 +164,13 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
           </div>
         )}
       </div>
+
+      {isCompleted && totalScore !== null && (
+        <div className="flex items-center justify-center p-4 bg-yellow-100 border border-yellow-200 text-yellow-800 dark:bg-yellow-900/30 dark:border-yellow-700/50 dark:text-yellow-200 rounded-lg">
+          <span className="text-lg">Your score:</span>
+          <span className="text-3xl font-bold ml-2">{totalScore} pts</span>
+        </div>
+      )}
 
       {isCompleted ? (
         <>
