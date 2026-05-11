@@ -79,6 +79,7 @@ export const FinalView: React.FC = () => {
           const finalRankB = resultMap.get(b.id) ?? 999;
           return finalRankA - finalRankB;
         });
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setItems(sorted.map((e) => e.id));
       } else {
         setItems(predictedOrder);
@@ -127,7 +128,7 @@ export const FinalView: React.FC = () => {
       <div className="flex flex-col items-center justify-center p-8 mt-12 bg-card border rounded shadow-sm max-w-2xl mx-auto text-center">
         <h2 className="text-2xl font-bold mb-4">Coming Soon</h2>
         <p className="text-muted-foreground">
-          The betting window has not opened yet. Please check back later!
+          The tippning window has not opened yet. Please check back later!
         </p>
       </div>
     );
@@ -168,7 +169,7 @@ export const FinalView: React.FC = () => {
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 mt-2">
             <p className="text-muted-foreground text-sm sm:text-base">
               {isLocked
-                ? (hasFinalResults ? "Betting is closed." : "Betting is closed. Waiting for results.")
+                ? (hasFinalResults ? "Tippning is closed." : "Tippning is closed. Waiting for results.")
                 : hasStartOrder
                   ? "Drag and drop to rank your favorites"
                   : "Waiting for official start order. You can drag and drop to rank your favorites now."}

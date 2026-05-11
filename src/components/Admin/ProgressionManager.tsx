@@ -24,8 +24,8 @@ export const ProgressionManager: FC<ProgressionManagerProps> = ({ contest, entri
 
   const handleToggle = (id: string) => {
     if (!hasStarted) return;
-    setProgressedIds(prev => 
-      prev.includes(id) 
+    setProgressedIds(prev =>
+      prev.includes(id)
         ? prev.filter(pid => pid !== id)
         : [...prev, id]
     );
@@ -43,7 +43,7 @@ export const ProgressionManager: FC<ProgressionManagerProps> = ({ contest, entri
     <div className="space-y-6">
       {!hasStarted && (
         <div className="p-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-400" role="alert">
-          Progression is locked because betting for this contest has not closed yet. (Starts: {new Date(contestStartTime).toLocaleString()})
+          Progression is locked because tippning for this contest has not closed yet. (Starts: {new Date(contestStartTime).toLocaleString()})
         </div>
       )}
 
@@ -54,15 +54,14 @@ export const ProgressionManager: FC<ProgressionManagerProps> = ({ contest, entri
             {progressedIds.length} / {targetCount}
           </span>
         </div>
-        
+
         <button
           onClick={handleSave}
           disabled={!validation.isValid || !hasStarted}
-          className={`px-4 py-2 rounded-lg font-medium text-white ${
-            (validation.isValid && hasStarted)
-              ? 'bg-primary hover:bg-primary-dark' 
+          className={`px-4 py-2 rounded-lg font-medium text-white ${(validation.isValid && hasStarted)
+              ? 'bg-primary hover:bg-primary-dark'
               : 'bg-gray-400 cursor-not-allowed'
-          }`}
+            }`}
         >
           Save Progression
         </button>
@@ -81,13 +80,12 @@ export const ProgressionManager: FC<ProgressionManagerProps> = ({ contest, entri
             {contestEntries.map(entry => {
               const isProgressed = progressedIds.includes(entry.id);
               return (
-                <li 
+                <li
                   key={entry.id}
-                  className={`p-3 border rounded-lg flex justify-between items-center cursor-pointer transition-colors ${
-                    isProgressed 
-                      ? 'border-primary bg-primary/5 dark:bg-primary/10' 
+                  className={`p-3 border rounded-lg flex justify-between items-center cursor-pointer transition-colors ${isProgressed
+                      ? 'border-primary bg-primary/5 dark:bg-primary/10'
                       : 'border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800'
-                  }`}
+                    }`}
                   onClick={() => handleToggle(entry.id)}
                 >
                   <div>
@@ -101,7 +99,7 @@ export const ProgressionManager: FC<ProgressionManagerProps> = ({ contest, entri
             })}
           </ul>
         </div>
-        
+
         <div>
           <h3 className="text-lg font-medium mb-3">Progressed ({progressedIds.length})</h3>
           <ul className="space-y-2">

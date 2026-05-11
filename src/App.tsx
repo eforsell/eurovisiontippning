@@ -121,13 +121,6 @@ function MainContent() {
       // Skip INITIAL_SESSION if we already handled it via getSession
       if (event === 'INITIAL_SESSION') return;
       initializeSession(newSession);
-      
-      // Navigate on login only if we're on the landing page
-      if (event === 'SIGNED_IN') {
-        if (window.location.pathname === '/') {
-          navigate('/tippning/semi1');
-        }
-      }
     });
 
     return () => {

@@ -41,7 +41,7 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
       return; // Silently ignore clicks if betting window has closed
     }
     if (!activeYear?.betting_started) {
-      alert("Betting has not started yet. Please wait for the administrator to open the betting window.");
+      alert("Tippning has not started yet. Please wait for the administrator to open the tippning window.");
       return;
     }
     if (!currentStatus && selectedCount >= 10) {
@@ -67,7 +67,7 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
       <div className="flex flex-col items-center justify-center p-8 mt-12 bg-card border rounded shadow-sm max-w-2xl mx-auto text-center">
         <h2 className="text-2xl font-bold mb-4">Coming Soon</h2>
         <p className="text-muted-foreground">
-          The betting window has not opened yet. Please check back later!
+          The tippning window has not opened yet. Please check back later!
         </p>
       </div>
     );
@@ -159,7 +159,7 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 mt-2">
             <p className="text-muted-foreground text-sm sm:text-base">
               {isLocked
-                ? (isCompleted ? "Betting is closed." : "Betting is closed. Waiting for results.")
+                ? (isCompleted ? "Tippning is closed." : "Tippning is closed. Waiting for results.")
                 : "Select your 10 qualifiers"}
             </p>
             {deadline && <Countdown targetDateIso={deadline} />}

@@ -69,7 +69,7 @@ export const LeaderboardView: React.FC = () => {
         .select('*')
         .in('user_id', userIds)
         .eq('type', activeTab);
-      
+
       if (data && !error) {
         setPredictions(data);
       }
@@ -85,7 +85,7 @@ export const LeaderboardView: React.FC = () => {
       <div className="flex flex-col items-center justify-center p-8 mt-12 bg-card border rounded shadow-sm max-w-2xl mx-auto text-center">
         <h2 className="text-2xl font-bold mb-4">Coming Soon</h2>
         <p className="text-muted-foreground">
-          The betting window has not opened yet. Please check back later!
+          The tippning window has not opened yet. Please check back later!
         </p>
       </div>
     );
@@ -111,7 +111,7 @@ export const LeaderboardView: React.FC = () => {
                 key={entry.userId}
                 className="border rounded flex flex-col bg-card text-card-foreground overflow-hidden"
               >
-                <div 
+                <div
                   className="p-4 flex justify-between items-center cursor-pointer hover:bg-muted/50 transition-colors"
                   onClick={() => setExpandedOverallEntry(isExpanded ? null : entry.userId)}
                 >
@@ -179,7 +179,7 @@ export const LeaderboardView: React.FC = () => {
 
           return (
             <div key={entry.id} className="border rounded bg-card text-card-foreground overflow-hidden">
-              <div 
+              <div
                 className="p-4 flex justify-between items-center cursor-pointer hover:bg-muted/50"
                 onClick={() => setExpandedEntry(isExpanded ? null : entry.id)}
               >
@@ -224,7 +224,7 @@ export const LeaderboardView: React.FC = () => {
   return (
     <div className="max-w-2xl mx-auto p-4 flex flex-col gap-4">
       <h2 className="text-2xl font-bold">Friend Leaderboard</h2>
-      
+
       <div className="flex border-b overflow-x-auto">
         <button
           className={`px-4 py-2 font-semibold whitespace-nowrap border-b-2 transition-colors ${activeTab === "overall" ? "border-primary text-primary" : "border-transparent text-muted-foreground"}`}

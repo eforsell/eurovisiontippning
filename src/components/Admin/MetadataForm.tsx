@@ -34,7 +34,7 @@ export const MetadataForm: FC<MetadataFormProps> = ({ initialData, currentProgre
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = e.target;
-    
+
     if (type === 'datetime-local') {
       setFormData(prev => ({
         ...prev,
@@ -84,7 +84,7 @@ export const MetadataForm: FC<MetadataFormProps> = ({ initialData, currentProgre
               className="w-5 h-5 text-primary bg-background border-input rounded focus:ring-primary focus:ring-2"
             />
             <span className="text-sm font-medium text-gray-900 dark:text-white">
-              Betting Started (Allow users to save predictions)
+              Tippning started (Allow users to save predictions)
             </span>
           </label>
         </div>
