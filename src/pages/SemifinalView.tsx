@@ -61,14 +61,14 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
   }
 
   if (!activeYear?.betting_started) {
-      return (
-        <div className="flex flex-col items-center justify-center p-8 mt-12 bg-card border rounded shadow-sm max-w-2xl mx-auto text-center">
-          <h2 className="text-2xl font-bold mb-4">Coming Soon</h2>
-          <p className="text-muted-foreground">
-            The betting window has not opened yet. Please check back later!
-          </p>
-        </div>
-      );
+    return (
+      <div className="flex flex-col items-center justify-center p-8 mt-12 bg-card border rounded shadow-sm max-w-2xl mx-auto text-center">
+        <h2 className="text-2xl font-bold mb-4">Coming Soon</h2>
+        <p className="text-muted-foreground">
+          The betting window has not opened yet. Please check back later!
+        </p>
+      </div>
+    );
   }
 
   const isValid = selectedCount === 10;
@@ -88,9 +88,9 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
       if (isSelected) {
         entryStyling = "border-primary bg-primary/10 text-foreground shadow-sm";
         if (hasProgressed) {
-          scoreText = "+3";
+          scoreText = "+3 pts";
         } else {
-          scoreText = "+0";
+          scoreText = "+0 pts";
         }
       }
     } else if (isSelected) {
@@ -100,11 +100,10 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
     return (
       <div
         key={entry.id}
-        className={`relative p-4 border rounded flex flex-col items-center justify-center transition-all text-center ${entryStyling} ${
-          isLocked
+        className={`relative p-4 border rounded flex flex-col items-center justify-center transition-all text-center ${entryStyling} ${isLocked
             ? "pointer-events-none cursor-default"
             : `cursor-pointer`
-        } ${shakeEntryId === entry.id ? "animate-shake" : ""}`}
+          } ${shakeEntryId === entry.id ? "animate-shake" : ""}`}
         onClick={() => handleToggle(entry.id, isSelected)}
       >
         <div className="absolute left-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm bg-muted text-foreground">
@@ -133,13 +132,13 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
     return !(semiFinal === 1 ? result?.is_semi1_qualifier : result?.is_semi2_qualifier);
   });
 
-  const totalScore = isCompleted 
+  const totalScore = isCompleted
     ? entries.reduce((acc, entry) => {
-        const isSelected = predictions.find((p) => p.entry_id === entry.id)?.is_qualifier ?? false;
-        const result = results.find((r) => r.entry_id === entry.id);
-        const hasProgressed = semiFinal === 1 ? result?.is_semi1_qualifier : result?.is_semi2_qualifier;
-        return acc + (isSelected && hasProgressed ? 3 : 0);
-      }, 0)
+      const isSelected = predictions.find((p) => p.entry_id === entry.id)?.is_qualifier ?? false;
+      const result = results.find((r) => r.entry_id === entry.id);
+      const hasProgressed = semiFinal === 1 ? result?.is_semi1_qualifier : result?.is_semi2_qualifier;
+      return acc + (isSelected && hasProgressed ? 3 : 0);
+    }, 0)
     : null;
 
   return (
@@ -149,8 +148,8 @@ export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
           <h2 className="text-2xl font-bold">Semifinal {semiFinal}</h2>
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 mt-2">
             <p className="text-muted-foreground text-sm sm:text-base">
-              {isLocked 
-                ? (isCompleted ? "Betting is closed" : "Betting is closed. Waiting for results.") 
+              {isLocked
+                ? (isCompleted ? "Betting is closed" : "Betting is closed. Waiting for results.")
                 : "Select your 10 qualifiers"}
             </p>
             {deadline && <Countdown targetDateIso={deadline} />}

@@ -15,11 +15,26 @@ export const scoringService = {
     return points;
   },
 
-  // weighted rank distance formula (26 - |pred - actual|)
-  calculateFinalPoints(predictedRank: number, actualRank: number): number {
-    const maxPoints = 26;
-    const distance = Math.abs(predictedRank - actualRank);
-    return Math.max(0, maxPoints - distance);
+  getRankPoints(actualRank: number, totalEntries: number = 26): number {
+    if (actualRank === 1) return 100;
+    if (actualRank === 2) return 65;
+    if (actualRank === 3) return 45;
+    if (actualRank === 4) return 33;
+    if (actualRank === 5) return 25;
+    if (actualRank === 6) return 20;
+    if (actualRank === 7) return 15;
+    if (actualRank === 8) return 12;
+    if (actualRank === 9) return 9;
+    if (actualRank === 10) return 7;
+    if (actualRank === 11) return 6;
+    if (actualRank === totalEntries) return 30;
+    return 5;
+  },
+
+  calculateFinalPoints(predictedRank: number, actualRank: number, totalEntries: number = 26): number {
+    const rankPoints = this.getRankPoints(actualRank, totalEntries);
+    const weight = 1 / (Math.abs(actualRank - predictedRank) + 1);
+    return rankPoints * weight;
   },
 
   calculateTotalFinalPoints(
@@ -28,11 +43,12 @@ export const scoringService = {
   ): number {
     let total = 0;
     const resultMap = new Map(results.map((r) => [r.entry_id, r.final_rank]));
+    const totalEntries = results.length;
 
     for (const p of predictions) {
       const actual = resultMap.get(p.entry_id);
       if (actual !== undefined) {
-        total += this.calculateFinalPoints(p.rank, actual);
+        total += this.calculateFinalPoints(p.rank, actual, totalEntries);
       }
     }
 

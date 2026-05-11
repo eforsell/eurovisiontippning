@@ -52,29 +52,40 @@ export const FinalView: React.FC = () => {
   const [items, setItems] = useState<string[]>([]);
   const [initialized, setInitialized] = useState(false);
 
+  const hasFinalResults = results.some(r => r.final_rank !== null);
+  const hasStartOrder = entries.some(e => e.final_start_position !== null);
+
+  const predictedOrder = React.useMemo(() => {
+    const rankedMap = new Map(predictions.map((p) => [p.entry_id, p.rank]));
+    const sorted = [...entries].sort((a, b) => {
+      const rankA = rankedMap.get(a.id) || 999;
+      const rankB = rankedMap.get(b.id) || 999;
+      if (rankA !== rankB) return rankA - rankB;
+      
+      if (a.final_start_position == null && b.final_start_position == null) return 0;
+      if (a.final_start_position == null) return 1;
+      if (b.final_start_position == null) return -1;
+      return (a.final_start_position as number) - (b.final_start_position as number);
+    });
+    return sorted.map(e => e.id);
+  }, [entries, predictions]);
+
   useEffect(() => {
     if (entries.length > 0 && predictions && (!initialized || isCompleted)) {
-      const rankedMap = new Map(predictions.map((p) => [p.entry_id, p.rank]));
-      const resultMap = new Map(results.map((r) => [r.entry_id, r.final_rank]));
-      const hasFinalResults = results.some(r => r.final_rank !== null);
-
-      const sorted = [...entries].sort((a, b) => {
-        // Sort by user prediction or final_start_position
-        const rankA = rankedMap.get(a.id) || 999;
-        const rankB = rankedMap.get(b.id) || 999;
-        if (rankA !== rankB) return rankA - rankB;
-        
-        // Use final_start_position, placing nulls at the end
-        if (a.final_start_position == null && b.final_start_position == null) return 0;
-        if (a.final_start_position == null) return 1;
-        if (b.final_start_position == null) return -1;
-        return (a.final_start_position as number) - (b.final_start_position as number);
-      });
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setItems(sorted.map((e) => e.id));
+      if (hasFinalResults) {
+        const resultMap = new Map(results.map((r) => [r.entry_id, r.final_rank]));
+        const sorted = [...entries].sort((a, b) => {
+          const finalRankA = resultMap.get(a.id) ?? 999;
+          const finalRankB = resultMap.get(b.id) ?? 999;
+          return finalRankA - finalRankB;
+        });
+        setItems(sorted.map((e) => e.id));
+      } else {
+        setItems(predictedOrder);
+      }
       setInitialized(true);
     }
-  }, [entries, predictions, initialized, isCompleted, results]);
+  }, [entries, predictions, initialized, isCompleted, results, hasFinalResults, predictedOrder]);
 
   const sensors = useSensors(
     useSensor(MouseSensor, {
@@ -133,9 +144,6 @@ export const FinalView: React.FC = () => {
     );
   }
 
-  const hasFinalResults = results.some(r => r.final_rank !== null);
-  const hasStartOrder = entries.some(e => e.final_start_position !== null);
-
   const totalScore = hasFinalResults 
     ? items.reduce((acc, id) => {
         const entry = entries.find((e) => e.id === id);
@@ -146,8 +154,7 @@ export const FinalView: React.FC = () => {
         const predictedRank = prediction?.rank ?? undefined;
         
         if (finalRank !== undefined && predictedRank !== undefined) {
-          const distance = Math.abs(predictedRank - finalRank);
-          return acc + Math.max(0, 26 - distance);
+          return acc + scoringService.calculateFinalPoints(predictedRank, finalRank, items.length);
         }
         return acc;
       }, 0)
@@ -174,7 +181,7 @@ export const FinalView: React.FC = () => {
       {hasFinalResults && totalScore !== null && (
         <div className="flex items-center justify-center p-4 bg-yellow-100 border border-yellow-200 text-yellow-800 dark:bg-yellow-900/30 dark:border-yellow-700/50 dark:text-yellow-200 rounded-lg">
           <span className="text-lg">Your score:</span>
-          <span className="text-3xl font-bold ml-2">{totalScore} pts</span>
+          <span className="text-3xl font-bold ml-2">{totalScore.toFixed(1)} pts</span>
         </div>
       )}
 
@@ -192,6 +199,8 @@ export const FinalView: React.FC = () => {
               
               let points: number | undefined;
               let finalRank: number | undefined;
+              let calculationInfo: string | undefined;
+              const predictedRank = predictedOrder.indexOf(id) + 1;
 
               if (hasFinalResults) {
                 const result = results.find(r => r.entry_id === entry.id);
@@ -200,7 +209,9 @@ export const FinalView: React.FC = () => {
                 if (result?.final_rank != null) {
                   finalRank = result.final_rank;
                   if (prediction?.rank != null) {
-                    points = scoringService.calculateFinalPoints(prediction.rank, result.final_rank);
+                    points = scoringService.calculateFinalPoints(prediction.rank, result.final_rank, items.length);
+                    const rankPoints = scoringService.getRankPoints(result.final_rank, items.length);
+                    calculationInfo = `${rankPoints} pts / (1 + |${result.final_rank} - ${prediction.rank}|) = ${points.toFixed(1)} pts`;
                   } else {
                     points = 0;
                   }
@@ -211,7 +222,7 @@ export const FinalView: React.FC = () => {
                 <SortableItem
                   key={id}
                   id={id}
-                  rank={index + 1}
+                  rank={hasFinalResults ? predictedRank : index + 1}
                   country={entry.country}
                   artist={entry.artist}
                   song_title={entry.song_title}
@@ -219,6 +230,7 @@ export const FinalView: React.FC = () => {
                   points={points}
                   finalRank={finalRank}
                   startPosition={entry.final_start_position ?? 'TBD'}
+                  calculationInfo={calculationInfo}
                 />
               );
             })}

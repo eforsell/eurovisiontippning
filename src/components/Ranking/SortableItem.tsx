@@ -11,6 +11,7 @@ interface SortableItemProps {
   points?: number;
   finalRank?: number;
   startPosition?: number | null | string;
+  calculationInfo?: string;
 }
 
 export function SortableItem(props: SortableItemProps) {
@@ -62,10 +63,10 @@ export function SortableItem(props: SortableItemProps) {
       </div>
 
       {props.finalRank !== undefined && props.points !== undefined && (
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-3 shrink-0" title={props.calculationInfo}>
           <div className="flex flex-col items-end">
             <span className="text-sm text-muted-foreground font-medium">Rank {props.finalRank}</span>
-            <span className="font-bold text-green-600 dark:text-green-400">+{props.points} pts</span>
+            <span className="font-bold text-green-600 dark:text-green-400">+{props.points.toFixed(1)} pts</span>
           </div>
         </div>
       )}
