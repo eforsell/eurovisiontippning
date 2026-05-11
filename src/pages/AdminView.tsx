@@ -8,6 +8,7 @@ import { FinalRankingManager } from '../components/Admin/FinalRankingManager';
 import { Database } from '../types/database.types';
 import { supabase } from '../lib/supabase';
 import { adminService } from '../services/adminService';
+import { useModal } from '../components/ui/ModalProvider';
 
 type Year = Database['public']['Tables']['years']['Row'];
 type Entry = Database['public']['Tables']['entries']['Row'];
@@ -21,6 +22,7 @@ export const AdminView = () => {
   const [semi2Progressed, setSemi2Progressed] = useState<string[]>([]);
   const [finalRanks, setFinalRanks] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(true);
+  const { alert } = useModal();
 
   useEffect(() => {
     const fetchData = async () => {

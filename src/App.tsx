@@ -193,10 +193,14 @@ function MainContent() {
   );
 }
 
+import { ModalProvider } from "./components/ui/ModalProvider";
+
 function App() {
   return (
     <ThemeProvider>
-      <MainContent />
+      <ModalProvider>
+        <MainContent />
+      </ModalProvider>
     </ThemeProvider>
   );
 }

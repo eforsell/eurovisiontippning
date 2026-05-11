@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { SemifinalView } from "../src/pages/SemifinalView";
+import { ModalProvider } from "../src/components/ui/ModalProvider";
 
 // Mock the hooks
 const mockToggleQualifier = vi.fn();
@@ -47,24 +48,22 @@ vi.mock("../src/store/ThemeContext", () => ({
 describe("SemifinalView", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    window.alert = vi.fn();
   });
 
   it("allows selecting a 10th qualifier", () => {
-    render(<SemifinalView semiFinal={1} />);
+    render(<ModalProvider><SemifinalView semiFinal={1} /></ModalProvider>);
 
     const unselectedEntry = screen.getByText("Country 10");
     fireEvent.click(unselectedEntry);
 
     expect(mockToggleQualifier).toHaveBeenCalledWith("entry-10", true);
-    expect(window.alert).not.toHaveBeenCalled();
   });
 
   it("prevents selecting an 11th qualifier", () => {
     // Modify mock to have 10 selected
     mockPredictions.push({ entry_id: "entry-9", is_qualifier: true });
 
-    render(<SemifinalView semiFinal={1} />);
+    render(<ModalProvider><SemifinalView semiFinal={1} /></ModalProvider>);
 
     const unselectedEntry = screen.getByText("Country 10");
     fireEvent.click(unselectedEntry);

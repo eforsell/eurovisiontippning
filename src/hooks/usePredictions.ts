@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { Database } from "../types/database.types";
+import { useModal } from "../components/ui/ModalProvider";
 
 type Prediction = Database["public"]["Tables"]["predictions"]["Row"];
 type PredictionType = Database["public"]["Enums"]["prediction_type"];
@@ -9,6 +10,7 @@ export function usePredictions(type: PredictionType) {
   const [predictions, setPredictions] = useState<Prediction[]>([]);
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState<string | null>(null);
+  const { alert } = useModal();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {

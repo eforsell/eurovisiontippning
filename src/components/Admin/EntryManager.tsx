@@ -1,5 +1,6 @@
 import { FC, useState, useRef, useMemo } from 'react';
 import { Database } from '../../types/database.types';
+import { useModal } from '../ui/ModalProvider';
 
 type Entry = Database['public']['Tables']['entries']['Row'];
 type SortField = 'start_position' | 'final_start_position' | 'country' | 'artist' | 'song_title' | 'starting_contest';
@@ -22,6 +23,7 @@ export const EntryManager: FC<EntryManagerProps> = ({ entries, onSave, onDelete,
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [importing, setImporting] = useState(false);
   const [importError, setImportError] = useState('');
+  const { confirm } = useModal();
 
   const [sortField, setSortField] = useState<SortField>('country');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
@@ -111,7 +113,8 @@ export const EntryManager: FC<EntryManagerProps> = ({ entries, onSave, onDelete,
         }
       }
 
-      if (window.confirm("WARNING: Importing from JSON will replace ALL existing entries and delete all user bets. This is destructive and cannot be undone. Are you sure?")) {
+      const isConfirmed = await confirm("WARNING: Importing from JSON will replace ALL existing entries and delete all user bets. This is destructive and cannot be undone. Are you sure?", "Confirm Import", "Import");
+      if (isConfirmed) {
         setImporting(true);
         await onImport(json);
         setImporting(false);

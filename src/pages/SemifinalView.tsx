@@ -4,6 +4,7 @@ import { usePredictions } from "../hooks/usePredictions";
 import { useResults } from "../hooks/useResults";
 import { Countdown } from "../components/Countdown";
 import { useTheme } from "../store/ThemeContext";
+import { useModal } from "../components/ui/ModalProvider";
 
 interface SemifinalViewProps {
   semiFinal: 1 | 2;
@@ -11,6 +12,7 @@ interface SemifinalViewProps {
 
 export const SemifinalView: React.FC<SemifinalViewProps> = ({ semiFinal }) => {
   const { activeYear } = useTheme();
+  const { alert } = useModal();
   const predictionType = `semi${semiFinal}` as const;
   const { entries, loading: entriesLoading } = useEntries(predictionType);
   const { results, loading: resultsLoading } = useResults();

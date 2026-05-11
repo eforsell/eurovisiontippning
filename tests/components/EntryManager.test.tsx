@@ -2,6 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { EntryManager } from '../../src/components/Admin/EntryManager';
 import { describe, it, expect, vi } from 'vitest';
 import { Database } from '../../src/types/database.types';
+import { ModalProvider } from '../../src/components/ui/ModalProvider';
 
 type Entry = Database['public']['Tables']['entries']['Row'];
 
@@ -16,20 +17,20 @@ describe('EntryManager', () => {
   ];
 
   it('renders a list of entries', () => {
-    render(<EntryManager entries={mockEntries} onSave={mockSave} onDelete={mockDelete} onImport={mockImport} />);
+    render(<ModalProvider><EntryManager entries={mockEntries} onSave={mockSave} onDelete={mockDelete} onImport={mockImport} /></ModalProvider>);
     expect(screen.getByText('Country A')).toBeInTheDocument();
     expect(screen.getByText('Country B')).toBeInTheDocument();
   });
 
   it('displays the starting contest correctly', () => {
-    render(<EntryManager entries={mockEntries} onSave={mockSave} onDelete={mockDelete} onImport={mockImport} />);
+    render(<ModalProvider><EntryManager entries={mockEntries} onSave={mockSave} onDelete={mockDelete} onImport={mockImport} /></ModalProvider>);
     // Testing the display text of the dropdowns or badges
     expect(screen.getAllByText('Semi-final 1').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Final').length).toBeGreaterThan(0);
   });
 
   it('calls onSave when adding a new entry', () => {
-    render(<EntryManager entries={mockEntries} onSave={mockSave} onDelete={mockDelete} onImport={mockImport} />);
+    render(<ModalProvider><EntryManager entries={mockEntries} onSave={mockSave} onDelete={mockDelete} onImport={mockImport} /></ModalProvider>);
     
     // Open add modal/form
     fireEvent.click(screen.getByRole('button', { name: /add entry/i }));
